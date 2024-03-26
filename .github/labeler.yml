@@ -6,5 +6,11 @@ docs:
   - changed-files:
     - any-glob-to-any-files: "**/*.md"
 
+feature:
+  - head-branch: 'feat/*'
+
+hotfix:
+  - head-branch: 'fix/*'
+
 release:
   - base-branch: 'main'
