@@ -1,0 +1,4 @@
+# Ignore files and documents for prettier not to check
+.github
+build
+coverage
