@@ -1,1 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'PlusJakartaSans';
+  src:
+    local('PlusJakartaSans'),
+    url('assets/ttf/PlusJakartaSans-Regular-1.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'PlusJakartaSans-Bold';
+  src:
+    local('PlusJakartaSans-Bold'),
+    url('assets/ttf/PlusJakartaSans-Bold-1.ttf') format('truetype');
+  font-weight: bold;
+}
+@font-face {
+  font-family: 'PlusJakartaSans-SemiBold';
+  src:
+    local('PlusJakartaSans-SemiBold'),
+    url('assets/ttf/PlusJakartaSans-SemiBold-1.ttf') format('truetype');
+  font-weight: 600;
+}
+
+:root {
+  --blue: rgb(0,56,121);
+  --light-blue: rgb(94,142,190);
+  --red: rgb(219,0,51);
+  --light-red: rgb(240,146,111);
+}
+
+* {
+  font-family: 'PlusJakartaSans', serif;
+}
