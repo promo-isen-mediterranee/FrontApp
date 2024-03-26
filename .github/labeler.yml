@@ -1,0 +1,10 @@
+style:
+  - changed-files:
+    -any-glob-to-any-files: "**/*.css"
+
+docs:
+  - changed-files:
+    - any-glob-to-any-files: "**/*.md"
+
+release:
+  - base-branch: 'main'
