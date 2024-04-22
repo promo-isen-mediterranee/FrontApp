@@ -25,8 +25,80 @@
   --light-blue: rgb(94,142,190);
   --red: rgb(219,0,51);
   --light-red: rgb(240,146,111);
+  --white: rgb(255,255,255);
+  --black: #111;
 }
 
 * {
-  font-family: 'PlusJakartaSans', serif;
+  font-family: 'PlusJakartaSans', Sans-serif;
+}
+
+h1 {
+  font-size: 50px;
+  font-weight: 700;
+  line-height: 58px;
+}
+
+h2 {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 42px;
+}
+
+p {
+  margin-block-start: 0;
+  margin-block-end: .9rem;
+}
+
+p > a {
+  box-shadow: none;
+  text-decoration: none;
+  color: var(--red);
+}
+
+.color-blue {
+  color: var(--blue);
+}
+
+.color-red {
+  color: var(--red);
+}
+
+.color-white {
+  color: var(--white);
+}
+
+table {
+  font-size: .9em;
+  margin-block-end: 15px;
+  width: 100%;
+  table-layout: auto;
+  margin: 0 auto 1rem;
+  clear: both;
+  border-spacing: 0;
+  border-collapse: collapse;
+  border: none;
+}
+
+thead {
+  word-break: normal;
+}
+
+tr {
+  font-weight: 500;
+}
+
+td {
+  background-color: transparent;
+  color: var(--black)
+}
+
+input {
+  border:solid 0 0 1px var(--blue);
+  border-radius: 3px;
+  text-align: center;
+  line-height: 1.5;
+  color: var(--blue);
+  padding: 15px;
+  font-weight: 400;
 }
