@@ -1,8 +1,8 @@
 .btn {
   font-family: "PlusJakartaSans", Sans-serif;
   font-weight: 600;
-  text-shadow: 0 0 10px rgb(0,0,0,0.3);
-  background-color: #FFFFFF00;
+  text-shadow: 0 0 10px rgb(0, 0, 0, 0.3);
+  background-color: #ffffff00;
   color: var(--white);
   fill: var(--white);
   border: 1px solid var(--white);
@@ -12,7 +12,7 @@
   line-height: 1;
   font-size: 14px;
   text-align: center;
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
 .btn:hover {
@@ -31,7 +31,7 @@
 .btn-primary:hover {
   background-color: var(--white);
   border-color: var(--white);
-  color: var(--blue)
+  color: var(--blue);
 }
 
 .btn-secondary {
@@ -43,7 +43,7 @@
 .btn-secondary:hover {
   background-color: var(--white);
   border-color: var(--white);
-  color: var(--red)
+  color: var(--red);
 }
 
 .btn-tertiary {
@@ -55,5 +55,5 @@
 .btn-tertiary:hover {
   background-color: var(--blue);
   border-color: var(--blue);
-  color: var(--white)
+  color: var(--white);
 }

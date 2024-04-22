@@ -1,36 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
 @font-face {
-  font-family: 'PlusJakartaSans';
+  font-family: "PlusJakartaSans";
   src:
-    local('PlusJakartaSans'),
-    url('assets/ttf/PlusJakartaSans-Regular-1.ttf') format('truetype');
+    local("PlusJakartaSans"),
+    url("assets/ttf/PlusJakartaSans-Regular-1.ttf") format("truetype");
 }
 @font-face {
-  font-family: 'PlusJakartaSans-Bold';
+  font-family: "PlusJakartaSans-Bold";
   src:
-    local('PlusJakartaSans-Bold'),
-    url('assets/ttf/PlusJakartaSans-Bold-1.ttf') format('truetype');
+    local("PlusJakartaSans-Bold"),
+    url("assets/ttf/PlusJakartaSans-Bold-1.ttf") format("truetype");
   font-weight: bold;
 }
 @font-face {
-  font-family: 'PlusJakartaSans-SemiBold';
+  font-family: "PlusJakartaSans-SemiBold";
   src:
-    local('PlusJakartaSans-SemiBold'),
-    url('assets/ttf/PlusJakartaSans-SemiBold-1.ttf') format('truetype');
+    local("PlusJakartaSans-SemiBold"),
+    url("assets/ttf/PlusJakartaSans-SemiBold-1.ttf") format("truetype");
   font-weight: 600;
 }
 
 :root {
-  --blue: rgb(0,56,121);
-  --light-blue: rgb(94,142,190);
-  --red: rgb(219,0,51);
-  --light-red: rgb(240,146,111);
-  --white: rgb(255,255,255);
+  --blue: rgb(0, 56, 121);
+  --light-blue: rgb(94, 142, 190);
+  --red: rgb(219, 0, 51);
+  --light-red: rgb(240, 146, 111);
+  --white: rgb(255, 255, 255);
   --black: #111;
 }
 
 * {
-  font-family: 'PlusJakartaSans', Sans-serif;
+  font-family: "PlusJakartaSans", Sans-serif;
 }
 
 h1 {
@@ -47,7 +47,7 @@ h2 {
 
 p {
   margin-block-start: 0;
-  margin-block-end: .9rem;
+  margin-block-end: 0.9rem;
 }
 
 p > a {
@@ -69,7 +69,7 @@ p > a {
 }
 
 table {
-  font-size: .9em;
+  font-size: 0.9em;
   margin-block-end: 15px;
   width: 100%;
   table-layout: auto;
@@ -90,11 +90,11 @@ tr {
 
 td {
   background-color: transparent;
-  color: var(--black)
+  color: var(--black);
 }
 
 input {
-  border:solid 0 0 1px var(--blue);
+  border: solid 0 0 1px var(--blue);
   border-radius: 3px;
   text-align: center;
   line-height: 1.5;
