@@ -7,7 +7,7 @@
   fill: var(--white);
   border: 1px solid var(--white);
   border-radius: 35px;
-  padding: 10px 25px 12px 25px;
+  padding: 20px 30px 22px 30px;
   display: inline-block;
   line-height: 1;
   font-size: 14px;
@@ -22,10 +22,8 @@
 }
 
 .btn-primary {
-  font-size: 15px;
   background-color: var(--blue);
   border: 1px solid var(--blue);
-  padding: 20px 30px 22px 30px;
 }
 
 .btn-primary:hover {
@@ -56,4 +54,9 @@
   background-color: var(--blue);
   border-color: var(--blue);
   color: var(--white);
+}
+
+.btn-solid {
+  border-radius: 10px;
+  width: 100%;
 }

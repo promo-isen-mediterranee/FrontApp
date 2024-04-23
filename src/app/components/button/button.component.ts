@@ -10,10 +10,16 @@ import { NgClass } from '@angular/common';
 })
 export class ButtonComponent {
   @Input()
-  label = 'Button';
+  label: string = 'Button';
 
   @Input()
   type: 'normal' | 'primary' | 'secondary' | 'tertiary' = 'normal';
+
+  @Input()
+  solid: boolean = false;
+
+  @Input()
+  css: string = ''
 
   public get classes(): string[] {
     const mode =
@@ -25,6 +31,6 @@ export class ButtonComponent {
             ? 'btn-tertiary'
             : '';
 
-    return ['btn', mode];
+    return ['btn', mode, this.solid ? 'btn-solid' : '', this.css];
   }
 }
