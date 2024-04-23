@@ -33,6 +33,10 @@
   font-family: "PlusJakartaSans", Sans-serif;
 }
 
+/**
+ * Text
+ */
+
 h1 {
   font-size: 50px;
   font-weight: 700;
@@ -68,6 +72,9 @@ p > a {
   color: var(--white);
 }
 
+/**
+ * Table
+ */
 table {
   font-size: 0.9em;
   margin-block-end: 15px;
@@ -93,6 +100,10 @@ td {
   color: var(--black);
 }
 
+/**
+ * Inputs
+ */
+
 input {
   border: solid 0 0 1px var(--blue);
   border-radius: 3px;
@@ -101,4 +112,22 @@ input {
   color: var(--blue);
   padding: 15px;
   font-weight: 400;
+}
+
+/**
+ * Container
+ */
+.container {
+  margin: auto !important;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+/**
+ * Margins
+ */
+.m-4 {
+  margin: 32px;
 }
