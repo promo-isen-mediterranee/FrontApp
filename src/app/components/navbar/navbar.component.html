@@ -1,25 +1,25 @@
-<nav [className]="'w-100'">
+<nav [className]="classes">
   <ul>
     <li>
-      <a href="/" [className]="'active'">
+      <a [routerLink]="['/home']" [routerLinkActive]="'active'">
         <i class="fa-solid fa-house"></i>
         Accueil
       </a>
     </li>
     <li>
-      <a href="/">
+      <a [routerLink]="['/stock']" [routerLinkActive]="'active'">
         <i class="fa-solid fa-dolly"></i>
         Stock
       </a>
     </li>
     <li>
-      <a href="/">
+      <a [routerLink]="['/events']" [routerLinkActive]="'active'">
         <i class="fa-regular fa-calendar"></i>
         Evénements
       </a>
     </li>
     <li>
-      <a href="/">
+      <a [routerLink]="['/profile']" [routerLinkActive]="'active'">
         <i class="fa-solid fa-user"></i>
         Profil
       </a>

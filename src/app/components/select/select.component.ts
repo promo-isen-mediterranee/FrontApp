@@ -17,4 +17,6 @@ export interface SelectOptions {
 export class SelectComponent {
   @Input() options: SelectOptions[] = [];
   @Input() label: string = '';
+  @Input() name: string = '';
+  @Input() id: string = '';
 }

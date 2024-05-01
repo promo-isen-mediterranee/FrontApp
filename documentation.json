@@ -3,12 +3,12 @@
     "interfaces": [
         {
             "name": "SelectOptions",
-            "id": "interface-SelectOptions-24b4531ba5b02774e968fe7f1183fc220726553101b0742152745d4d88e5c219ecfd7b7cca3095f1278644993465490df67ccba5c2626a230ba70a996045961f",
+            "id": "interface-SelectOptions-699760a51e62f75de7aeb8e8d34e0d58abca82636f7f85c73813d65d12e934a90ca423bfa06e5d3dc401f4e48e00f4e9ca7d4bed44b7bd25aeffc501e7cd63de",
             "file": "src/app/components/select/select.component.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { NgForOf } from '@angular/common';\r\nimport { ReactiveFormsModule } from '@angular/forms';\r\n\r\nexport interface SelectOptions {\r\n  value: string;\r\n  label: string;\r\n}\r\n\r\n@Component({\r\n  selector: 'app-select',\r\n  standalone: true,\r\n  imports: [NgForOf, ReactiveFormsModule],\r\n  templateUrl: './select.component.html',\r\n  styleUrl: './select.component.css',\r\n})\r\nexport class SelectComponent {\r\n  @Input() options: SelectOptions[] = [];\r\n  @Input() label: string = '';\r\n}\r\n",
+            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { NgForOf } from '@angular/common';\r\nimport { ReactiveFormsModule } from '@angular/forms';\r\n\r\nexport interface SelectOptions {\r\n  value: string;\r\n  label: string;\r\n}\r\n\r\n@Component({\r\n  selector: 'app-select',\r\n  standalone: true,\r\n  imports: [NgForOf, ReactiveFormsModule],\r\n  templateUrl: './select.component.html',\r\n  styleUrl: './select.component.css',\r\n})\r\nexport class SelectComponent {\r\n  @Input() options: SelectOptions[] = [];\r\n  @Input() label: string = '';\r\n  @Input() name: string = '';\r\n  @Input() id: string = '';\r\n}\r\n",
             "properties": [
                 {
                     "name": "label",
@@ -115,11 +115,11 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<app-imslist-page></app-imslist-page>\r\n"
+            "templateData": "<router-outlet></router-outlet>\r\n"
         },
         {
             "name": "ButtonComponent",
-            "id": "component-ButtonComponent-12b1278618720b3883ddd462ce1820ab659467335b6cb0db0faecc1b191e1661943d696dd8a95f48445165acd6a5a4a8a817903d78182487d541890434c39211",
+            "id": "component-ButtonComponent-4cb79f9f91783d7d622aa0efb1120c802f5b0b787ae20e01284778bf578d8ce6e2cce5d55a9d8777f348f208a4ded8d826b527f3581cb7f971bee149ac01ee76",
             "file": "src/app/components/button/button.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -154,6 +154,15 @@
                     "decorators": []
                 },
                 {
+                    "name": "link",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 25,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
                     "name": "solid",
                     "defaultValue": "false",
                     "deprecated": false,
@@ -174,7 +183,21 @@
             ],
             "outputsClass": [],
             "propertiesClass": [],
-            "methodsClass": [],
+            "methodsClass": [
+                {
+                    "name": "clickFunction",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 40,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        125
+                    ]
+                }
+            ],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -188,7 +211,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { NgClass } from '@angular/common';\r\n\r\n@Component({\r\n  selector: 'app-button',\r\n  standalone: true,\r\n  imports: [NgClass],\r\n  templateUrl: './button.component.html',\r\n  styleUrl: './button.component.css',\r\n})\r\nexport class ButtonComponent {\r\n  @Input()\r\n  label: string = 'Button';\r\n\r\n  @Input()\r\n  type: 'normal' | 'primary' | 'secondary' | 'tertiary' = 'normal';\r\n\r\n  @Input()\r\n  solid: boolean = false;\r\n\r\n  @Input()\r\n  css: string = ''\r\n\r\n  public get classes(): string[] {\r\n    const mode =\r\n      this.type == 'primary'\r\n        ? 'btn-primary'\r\n        : this.type == 'secondary'\r\n          ? 'btn-secondary'\r\n          : this.type == 'tertiary'\r\n            ? 'btn-tertiary'\r\n            : '';\r\n\r\n    return ['btn', mode, this.solid ? 'btn-solid' : '', this.css];\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { NgClass } from '@angular/common';\r\n\r\n@Component({\r\n  selector: 'app-button',\r\n  standalone: true,\r\n  imports: [NgClass],\r\n  templateUrl: './button.component.html',\r\n  styleUrl: './button.component.css',\r\n})\r\nexport class ButtonComponent {\r\n  @Input()\r\n  label: string = 'Button';\r\n\r\n  @Input()\r\n  type: 'normal' | 'primary' | 'secondary' | 'tertiary' = 'normal';\r\n\r\n  @Input()\r\n  solid: boolean = false;\r\n\r\n  @Input()\r\n  css: string = '';\r\n\r\n  @Input()\r\n  link: string = '';\r\n\r\n  public get classes(): string[] {\r\n    const mode =\r\n      this.type == 'primary'\r\n        ? 'btn-primary'\r\n        : this.type == 'secondary'\r\n          ? 'btn-secondary'\r\n          : this.type == 'tertiary'\r\n            ? 'btn-tertiary'\r\n            : '';\r\n\r\n    return ['btn', mode, this.solid ? 'btn-solid' : '', this.css];\r\n  }\r\n\r\n  public clickFunction() {\r\n    if (this.link != '') {\r\n      document.location.href = this.link;\r\n    }\r\n  }\r\n}\r\n",
             "styleUrl": "./button.component.css",
             "assetsDirs": [],
             "styleUrlsData": "",
@@ -201,11 +224,11 @@
                         "name": "classes",
                         "type": "[]",
                         "returnType": "string[]",
-                        "line": 24
+                        "line": 27
                     }
                 }
             },
-            "templateData": "<button [ngClass]=\"classes\">{{ label }}</button>\r\n"
+            "templateData": "<button [ngClass]=\"classes\" (click)=\"clickFunction()\">{{ label }}</button>\r\n"
         },
         {
             "name": "HeaderComponent",
@@ -375,6 +398,53 @@
             "templateData": "<div [className]=\"'header'\">\r\n  <a href=\"/\" [className]=\"['w-100', 'left-align']\">\r\n    <i class=\"fa-solid fa-arrow-left\"></i>\r\n  </a>\r\n  <div [className]=\"'header-container'\">\r\n    <h2>Gestion du stock</h2>\r\n  </div>\r\n\r\n</div>\r\n"
         },
         {
+            "name": "InventoryFormPageComponent",
+            "id": "component-InventoryFormPageComponent-6290cfe92824223c5ed86328c94403ce6d264b020e1e222708dd23be7cd7df3fa65135aaf70c24d6d2ab018f430d6e83275d2944985b0c92d780f22740ca3ebb",
+            "file": "src/app/pages/InventoryFormPage/InventoryFormPage.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-inventory-form-page",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./InventoryFormPage.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "SelectComponent",
+                    "type": "component"
+                },
+                {
+                    "name": "ButtonComponent",
+                    "type": "component"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\r\nimport { SelectComponent } from \"../../components/select/select.component\";\r\nimport { ButtonComponent } from \"../../components/button/button.component\";\r\n\r\n@Component({\r\n  selector: 'app-inventory-form-page',\r\n  standalone: true,\r\n  imports: [\r\n    SelectComponent,\r\n    ButtonComponent\r\n  ],\r\n  templateUrl: './InventoryFormPage.component.html',\r\n  styleUrl: './InventoryFormPage.component.css'\r\n})\r\nexport class InventoryFormPageComponent {\r\n\r\n}\r\n",
+            "styleUrl": "./InventoryFormPage.component.css",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<div [className]=\"'header'\">\r\n  <a href=\"/\" [className]=\"['w-100', 'left-align']\">\r\n    <i class=\"fa-solid fa-arrow-left\"></i>\r\n  </a>\r\n  <div [className]=\"'header-container'\">\r\n    <h2>Formulaire d'inventaire</h2>\r\n  </div>\r\n\r\n  <form method=\"post\">\r\n    <div [className]=\"'form-group'\">\r\n      <label for=\"material_select\">Matériel</label>\r\n      <app-select id=\"material_select\" name=\"material\"/>\r\n    </div>\r\n\r\n    <div [className]=\"'form-group'\">\r\n      <label for=\"room_select\">Salle</label>\r\n      <app-select id=\"room_select\" name=\"room\" />\r\n    </div>\r\n\r\n    <div [className]=\"'form-group'\">\r\n      <label for=\"quantity_input\">Quantité</label>\r\n      <input type=\"number\" id=\"quantity_input\" name=\"quantity\"/>\r\n    </div>\r\n\r\n    <app-button [solid]=\"true\" [type]=\"'primary'\" label=\"Mettre à jour\" [css]=\"'sticky-bottom'\"/>\r\n</form>\r\n\r\n</div>\r\n"
+        },
+        {
             "name": "LogInPageComponent",
             "id": "component-LogInPageComponent-0d154f669ba53a1419572aa8e3339d4299fddb5c9194216ff91f52a44d20e42f31c3d45cb57fea0d2867714aac97247faf21d830742cc1249b281434feb8c1ea",
             "file": "src/app/pages/LogInPage/LogInPage.component.ts",
@@ -455,7 +525,7 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<nav [className]=\"'w-100'\">\r\n  <ul>\r\n    <li>\r\n      <a href=\"/\">\r\n        <i class=\"fa-solid fa-house\"></i>\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a href=\"/\">\r\n        <i class=\"fa-solid fa-user\"></i>\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a href=\"/\">\r\n        <i class=\"fa-regular fa-calendar\"></i>\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a href=\"/\">\r\n        <i class=\"fa-solid fa-user\"></i>\r\n      </a>\r\n    </li>\r\n  </ul>\r\n</nav>\r\n"
+            "templateData": "<nav [className]=\"'w-100'\">\r\n  <ul>\r\n    <li>\r\n      <a href=\"/\" [className]=\"'active'\">\r\n        <i class=\"fa-solid fa-house\"></i>\r\n        Accueil\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a href=\"/\">\r\n        <i class=\"fa-solid fa-dolly\"></i>\r\n        Stock\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a href=\"/\">\r\n        <i class=\"fa-regular fa-calendar\"></i>\r\n        Evénements\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a href=\"/\">\r\n        <i class=\"fa-solid fa-user\"></i>\r\n        Profil\r\n      </a>\r\n    </li>\r\n  </ul>\r\n</nav>\r\n"
         },
         {
             "name": "PageComponent",
@@ -552,7 +622,7 @@
         },
         {
             "name": "SelectComponent",
-            "id": "component-SelectComponent-24b4531ba5b02774e968fe7f1183fc220726553101b0742152745d4d88e5c219ecfd7b7cca3095f1278644993465490df67ccba5c2626a230ba70a996045961f",
+            "id": "component-SelectComponent-699760a51e62f75de7aeb8e8d34e0d58abca82636f7f85c73813d65d12e934a90ca423bfa06e5d3dc401f4e48e00f4e9ca7d4bed44b7bd25aeffc501e7cd63de",
             "file": "src/app/components/select/select.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -569,11 +639,29 @@
             "hostDirectives": [],
             "inputsClass": [
                 {
+                    "name": "id",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 21,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
                     "name": "label",
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "line": 19,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "name",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 20,
                     "type": "string",
                     "decorators": []
                 },
@@ -607,18 +695,18 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { NgForOf } from '@angular/common';\r\nimport { ReactiveFormsModule } from '@angular/forms';\r\n\r\nexport interface SelectOptions {\r\n  value: string;\r\n  label: string;\r\n}\r\n\r\n@Component({\r\n  selector: 'app-select',\r\n  standalone: true,\r\n  imports: [NgForOf, ReactiveFormsModule],\r\n  templateUrl: './select.component.html',\r\n  styleUrl: './select.component.css',\r\n})\r\nexport class SelectComponent {\r\n  @Input() options: SelectOptions[] = [];\r\n  @Input() label: string = '';\r\n}\r\n",
+            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { NgForOf } from '@angular/common';\r\nimport { ReactiveFormsModule } from '@angular/forms';\r\n\r\nexport interface SelectOptions {\r\n  value: string;\r\n  label: string;\r\n}\r\n\r\n@Component({\r\n  selector: 'app-select',\r\n  standalone: true,\r\n  imports: [NgForOf, ReactiveFormsModule],\r\n  templateUrl: './select.component.html',\r\n  styleUrl: './select.component.css',\r\n})\r\nexport class SelectComponent {\r\n  @Input() options: SelectOptions[] = [];\r\n  @Input() label: string = '';\r\n  @Input() name: string = '';\r\n  @Input() id: string = '';\r\n}\r\n",
             "styleUrl": "./select.component.css",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<select>\r\n  <option *ngFor=\"let option of options\" [value]=\"option.value\">\r\n    {{ option.label }}\r\n  </option>\r\n</select>\r\n"
+            "templateData": "<select [id]=\"id\" [name]=\"name\">\r\n  <option *ngFor=\"let option of options\" [value]=\"option.value\">\r\n    {{ option.label }}\r\n  </option>\r\n</select>\r\n"
         },
         {
             "name": "StockItemComponent",
             "id": "component-StockItemComponent-45184911a214b03965c48f921ec8a439afced2f47790221d56afe401a96b8d79ea83b7a5f38b0be5cf76046877422ac297b5379e9e9788fb0996a5b83a381925",
-            "file": "src/app/components/stock-item/stock-item.component.ts",
+            "file": "src/app/components/stockItem/stock-item.component.ts",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
@@ -689,6 +777,59 @@
             "stylesData": "",
             "extends": [],
             "templateData": "<div>\r\n  <div>\r\n    <img src=\"{{image}}\" alt=\"{{title}}\" />\r\n  </div>\r\n  <div>\r\n    <h5>{{title}}</h5>\r\n    <p>Salle: {{room}}</p>\r\n    <p>Quantité: {{quantity}}</p>\r\n  </div>\r\n</div>\r\n"
+        },
+        {
+            "name": "SuccessPageComponent",
+            "id": "component-SuccessPageComponent-cd975e567378af3875f1c7340a12b17b0893128bd02ef62e56d22fbb2decf7ef19eca8d3905d4d1f27ca1d2f1e8de3452382f9579303762fc1077ac0182ecd7d",
+            "file": "src/app/pages/SucessPage/SuccessPage.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-success-page",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./SuccessPage.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "text",
+                    "defaultValue": "\"Successful\"",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 15,
+                    "type": "string",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "ButtonComponent",
+                    "type": "component"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, Input } from \"@angular/core\";\r\nimport { ButtonComponent } from \"../../components/button/button.component\";\r\n\r\n@Component({\r\n  selector: 'app-success-page',\r\n  standalone: true,\r\n  imports: [\r\n    ButtonComponent\r\n  ],\r\n  templateUrl: './SuccessPage.component.html',\r\n  styleUrl: './SuccessPage.component.css'\r\n})\r\nexport class SuccessPageComponent {\r\n  @Input()\r\n  text: string = \"Successful\";\r\n}\r\n",
+            "styleUrl": "./SuccessPage.component.css",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<div [className]=\"'container h-100'\">\r\n    <img src=\"assets/img/icons/ISEN-bulles.png\" alt=\"ISEN bulles\">\r\n    <b [className]=\"'mb-25'\">{{text}}</b>\r\n\r\n  <div [className]=\"'w-100'\">\r\n    <app-button [label]=\"'Retour'\" [type]=\"'primary'\" [solid]=\"true\" [link]=\"'/home'\"/>\r\n  </div>\r\n</div>\r\n"
         }
     ],
     "modules": [],
@@ -703,6 +844,26 @@
                 "deprecationMessage": "",
                 "type": "ApplicationConfig",
                 "defaultValue": "{\r\n  providers: [provideRouter(routes)],\r\n}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.development.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{}"
             }
         ],
         "functions": [],
@@ -719,6 +880,30 @@
                     "deprecationMessage": "",
                     "type": "ApplicationConfig",
                     "defaultValue": "{\r\n  providers: [provideRouter(routes)],\r\n}"
+                }
+            ],
+            "src/environments/environment.development.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.development.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{}"
+                }
+            ],
+            "src/environments/environment.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{}"
                 }
             ]
         },
@@ -756,7 +941,7 @@
                 "linktype": "component",
                 "name": "ButtonComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/5",
+                "coverageCount": "0/7",
                 "status": "low"
             },
             {
@@ -774,7 +959,7 @@
                 "linktype": "component",
                 "name": "SelectComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/3",
+                "coverageCount": "0/5",
                 "status": "low"
             },
             {
@@ -787,7 +972,7 @@
                 "status": "low"
             },
             {
-                "filePath": "src/app/components/stock-item/stock-item.component.ts",
+                "filePath": "src/app/components/stockItem/stock-item.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "StockItemComponent",
@@ -814,10 +999,48 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/pages/InventoryFormPage/InventoryFormPage.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "InventoryFormPageComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/pages/LogInPage/LogInPage.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "LogInPageComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/pages/SucessPage/SuccessPage.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "SuccessPageComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/environments/environment.development.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/environments/environment.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

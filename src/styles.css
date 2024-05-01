@@ -33,6 +33,14 @@
   font-family: "PlusJakartaSans", Sans-serif;
 }
 
+html, body, app-root, app-success-page {
+  height: 100vh!important;
+}
+
+app-root, app-success-page {
+  display: block;
+}
+
 /**
  * Text
  */
@@ -101,12 +109,12 @@ td {
 }
 
 /**
- * Inputs
+ * Forms & Inputs
  */
 
 input {
-  border: solid 0 0 1px var(--blue);
-  border-radius: 3px;
+  border: solid 1px var(--blue);
+  border-radius: 5px;
   text-align: center;
   line-height: 1.5;
   color: var(--blue);
@@ -136,6 +144,10 @@ input {
   margin-bottom: 32px;
 }
 
+.mb-25 {
+  margin-bottom: 25%;
+}
+
 .mt-2 {
   margin-top: 16px;
 }
@@ -148,11 +160,22 @@ input {
   margin-top: 64px;
 }
 
+.mt-25 {
+  margin-top: 25%;
+}
+
 /**
  * Width
  */
 .w-100 {
   width: 100%;
+}
+
+/**
+ * Height
+ */
+.h-100 {
+  height: 100%;
 }
 
 /*
@@ -172,4 +195,33 @@ input {
  */
 .left-align {
   text-align: left;
+}
+
+.j-between {
+  justify-content: space-between;
+}
+
+.d-none {
+  display: none;
+}
+
+/*
+ * Position
+ */
+.sticky-bottom {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
+
+.sticky-top {
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.sticky-left {
+  position: fixed;
+  left: 0;
+  height: 100%!important;
 }

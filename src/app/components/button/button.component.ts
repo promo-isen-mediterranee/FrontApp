@@ -10,7 +10,10 @@ import { NgClass } from '@angular/common';
 })
 export class ButtonComponent {
   @Input()
-  label: string = 'Button';
+  label: string = '';
+
+  @Input()
+  icon: string = '';
 
   @Input()
   type: 'normal' | 'primary' | 'secondary' | 'tertiary' = 'normal';
@@ -19,7 +22,10 @@ export class ButtonComponent {
   solid: boolean = false;
 
   @Input()
-  css: string = ''
+  css: string = '';
+
+  @Input()
+  link: string = '';
 
   public get classes(): string[] {
     const mode =
@@ -32,5 +38,11 @@ export class ButtonComponent {
             : '';
 
     return ['btn', mode, this.solid ? 'btn-solid' : '', this.css];
+  }
+
+  public clickFunction() {
+    if (this.link != '') {
+      document.location.href = this.link;
+    }
   }
 }
