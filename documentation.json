@@ -1,14 +1,132 @@
 {
-    "pipes": [],
+    "pipes": [
+        {
+            "name": "RemoveSpecialCharactersPipe",
+            "id": "pipe-RemoveSpecialCharactersPipe-401f6982c7b41064b6c532343864665ad154cc2ec23932dd8899433cba8615cf5e13da40ab9dcf21ec121a858e7190db43791f4db6a4406aaf1038d505a189ce",
+            "file": "src/app/pipes/removeSpecialCharacters.pipe.ts",
+            "type": "pipe",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "description": "",
+            "rawdescription": "\n",
+            "properties": [
+                {
+                    "name": "specialCharacters",
+                    "defaultValue": "{\r\n    \"à\": \"a\",\r\n    \"ç\": \"c\",\r\n    \"ê\": \"e\",\r\n    \"é\": \"e\",\r\n    \"è\": \"e\",\r\n    \"ï\": \"i\",\r\n    \"ô\": \"o\",\r\n    \" \": \"-\"\r\n  }",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "SpecialCharactersMap",
+                    "optional": false,
+                    "description": "",
+                    "line": 13,
+                    "modifierKind": [
+                        123
+                    ]
+                }
+            ],
+            "methods": [
+                {
+                    "name": "transform",
+                    "args": [
+                        {
+                            "name": "value",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "args",
+                            "type": "[]",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "dotDotDotToken": true
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "string",
+                    "typeParameters": [],
+                    "line": 24,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "value",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "args",
+                            "type": "[]",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "dotDotDotToken": true,
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "standalone": true,
+            "ngname": "removeSpecialCharacters",
+            "sourceCode": "import { Pipe, PipeTransform } from '@angular/core';\r\n\r\nexport interface SpecialCharactersMap {\r\n  [accented: string]: string;\r\n}\r\n\r\n@Pipe({\r\n  name: 'removeSpecialCharacters',\r\n  standalone: true\r\n})\r\nexport class RemoveSpecialCharactersPipe implements PipeTransform {\r\n\r\n  private specialCharacters: SpecialCharactersMap = {\r\n    \"à\": \"a\",\r\n    \"ç\": \"c\",\r\n    \"ê\": \"e\",\r\n    \"é\": \"e\",\r\n    \"è\": \"e\",\r\n    \"ï\": \"i\",\r\n    \"ô\": \"o\",\r\n    \" \": \"-\"\r\n  }\r\n\r\n  transform(value: string, ...args: unknown[]): string {\r\n   return value.replace(new RegExp(Object.keys(this.specialCharacters).join(\"|\"), \"g\"),\r\n     (match) => this.specialCharacters[match]\r\n   )\r\n  }\r\n\r\n}\r\n"
+        }
+    ],
     "interfaces": [
         {
+            "name": "ChecklistItem",
+            "id": "interface-ChecklistItem-20308eb68c69da17130799774b4e1522f5065dab35820fbae3cd0bb5f5141777ae8881b5deb1306a2c9e28da0c1af99bb8c848cf0a8db02349ad62577b0f84a1",
+            "file": "src/app/components/ChecklistItem/ChecklistItem.component.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { Component, Input } from \"@angular/core\";\r\nimport { LowerCasePipe, NgForOf, NgIf } from \"@angular/common\";\r\nimport { RemoveSpecialCharactersPipe } from \"../../pipes/removeSpecialCharacters.pipe\";\r\n\r\nexport interface ChecklistItem {\r\n  name: string,\r\n  quantity: number,\r\n  checked: boolean,\r\n}\r\n\r\n@Component({\r\n  selector: 'app-checklist-item',\r\n  standalone: true,\r\n  imports: [\r\n    NgForOf,\r\n    RemoveSpecialCharactersPipe,\r\n    LowerCasePipe\r\n  ],\r\n  templateUrl: './ChecklistItem.component.html',\r\n  styleUrl: './ChecklistItem.component.css'\r\n})\r\nexport class ChecklistItemComponent {\r\n  @Input()\r\n  items: ChecklistItem[] = [];\r\n\r\n  public setVisible(item: ChecklistItem) {\r\n    item.checked = !item.checked;\r\n    document.getElementById(new RemoveSpecialCharactersPipe().transform(item.name).toLowerCase() + \"_div\")?.children[0].setAttribute(\"checked\", item.checked.toString());\r\n  }\r\n}\r\n",
+            "properties": [
+                {
+                    "name": "checked",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 8
+                },
+                {
+                    "name": "name",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 6
+                },
+                {
+                    "name": "quantity",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 7
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 171,
+            "methods": [],
+            "extends": []
+        },
+        {
             "name": "SelectOptions",
-            "id": "interface-SelectOptions-699760a51e62f75de7aeb8e8d34e0d58abca82636f7f85c73813d65d12e934a90ca423bfa06e5d3dc401f4e48e00f4e9ca7d4bed44b7bd25aeffc501e7cd63de",
+            "id": "interface-SelectOptions-5bbc76215a4f90e2e8fa45e5f33dc906c2ec2ccc6ce5a14b96dbec8541b7a820d71b87e64155433301ee23ed9321d599fca59537ce2377fe0360ff51c0f05f06",
             "file": "src/app/components/select/select.component.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { NgForOf } from '@angular/common';\r\nimport { ReactiveFormsModule } from '@angular/forms';\r\n\r\nexport interface SelectOptions {\r\n  value: string;\r\n  label: string;\r\n}\r\n\r\n@Component({\r\n  selector: 'app-select',\r\n  standalone: true,\r\n  imports: [NgForOf, ReactiveFormsModule],\r\n  templateUrl: './select.component.html',\r\n  styleUrl: './select.component.css',\r\n})\r\nexport class SelectComponent {\r\n  @Input() options: SelectOptions[] = [];\r\n  @Input() label: string = '';\r\n  @Input() name: string = '';\r\n  @Input() id: string = '';\r\n}\r\n",
+            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { NgForOf } from '@angular/common';\r\nimport { ReactiveFormsModule } from '@angular/forms';\r\n\r\nexport interface SelectOptions {\r\n  value: string;\r\n  label: string;\r\n}\r\n\r\n@Component({\r\n  selector: 'app-select',\r\n  standalone: true,\r\n  imports: [NgForOf, ReactiveFormsModule],\r\n  templateUrl: './select.component.html',\r\n  styleUrl: './select.component.css',\r\n})\r\nexport class SelectComponent {\r\n  @Input()\r\n  options: SelectOptions[] = [];\r\n\r\n  @Input()\r\n  label: string = '';\r\n\r\n  @Input()\r\n  name: string = '';\r\n\r\n  @Input()\r\n  id: string = '';\r\n\r\n  @Input()\r\n  css: string = '';\r\n}\r\n",
             "properties": [
                 {
                     "name": "label",
@@ -31,6 +149,36 @@
             ],
             "indexSignatures": [],
             "kind": 171,
+            "methods": [],
+            "extends": []
+        },
+        {
+            "name": "SpecialCharactersMap",
+            "id": "interface-SpecialCharactersMap-401f6982c7b41064b6c532343864665ad154cc2ec23932dd8899433cba8615cf5e13da40ab9dcf21ec121a858e7190db43791f4db6a4406aaf1038d505a189ce",
+            "file": "src/app/pipes/removeSpecialCharacters.pipe.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { Pipe, PipeTransform } from '@angular/core';\r\n\r\nexport interface SpecialCharactersMap {\r\n  [accented: string]: string;\r\n}\r\n\r\n@Pipe({\r\n  name: 'removeSpecialCharacters',\r\n  standalone: true\r\n})\r\nexport class RemoveSpecialCharactersPipe implements PipeTransform {\r\n\r\n  private specialCharacters: SpecialCharactersMap = {\r\n    \"à\": \"a\",\r\n    \"ç\": \"c\",\r\n    \"ê\": \"e\",\r\n    \"é\": \"e\",\r\n    \"è\": \"e\",\r\n    \"ï\": \"i\",\r\n    \"ô\": \"o\",\r\n    \" \": \"-\"\r\n  }\r\n\r\n  transform(value: string, ...args: unknown[]): string {\r\n   return value.replace(new RegExp(Object.keys(this.specialCharacters).join(\"|\"), \"g\"),\r\n     (match) => this.specialCharacters[match]\r\n   )\r\n  }\r\n\r\n}\r\n",
+            "properties": [],
+            "indexSignatures": [
+                {
+                    "id": "index-declaration-401f6982c7b41064b6c532343864665ad154cc2ec23932dd8899433cba8615cf5e13da40ab9dcf21ec121a858e7190db43791f4db6a4406aaf1038d505a189ce",
+                    "args": [
+                        {
+                            "name": "accented",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "returnType": "string",
+                    "line": 3,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "kind": 181,
             "methods": [],
             "extends": []
         },
@@ -67,7 +215,7 @@
     "components": [
         {
             "name": "AppComponent",
-            "id": "component-AppComponent-e6f6e58112d6d951ce80fb9cc7246d34fe0ce56674b604b168e1af4b01d6614ace0056e7171af5cd358eb057a11bd8c185e2f7625b75b95d31534cc018cf9392",
+            "id": "component-AppComponent-4634ab42e28d440cc80d76b42fdadeb763c20d5a61b0817fae50cf19191753ebca9b2e343fba58d789bec529e99354cf79e877684e2dab869a7029f9d6be599b",
             "file": "src/app/app.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -84,7 +232,18 @@
             "hostDirectives": [],
             "inputsClass": [],
             "outputsClass": [],
-            "propertiesClass": [],
+            "propertiesClass": [
+                {
+                    "name": "url",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
+                }
+            ],
             "methodsClass": [],
             "deprecated": false,
             "deprecationMessage": "",
@@ -96,30 +255,61 @@
                     "name": "RouterOutlet"
                 },
                 {
-                    "name": "NgOptimizedImage"
-                },
-                {
-                    "name": "NgClass"
-                },
-                {
-                    "name": "IMSListPageComponent",
+                    "name": "NavbarComponent",
                     "type": "component"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\nimport { RouterOutlet } from '@angular/router';\r\nimport { NgClass, NgOptimizedImage } from \"@angular/common\";\r\nimport { IMSListPageComponent } from \"./pages/IMSListPage/IMSListPage.component\";\r\n\r\n@Component({\r\n  selector: 'app-root',\r\n  standalone: true,\r\n  imports: [RouterOutlet, NgOptimizedImage, NgClass, IMSListPageComponent],\r\n  templateUrl: './app.component.html',\r\n  styleUrl: './app.component.css',\r\n})\r\nexport class AppComponent {\r\n}\r\n",
+            "sourceCode": "import { Component } from '@angular/core';\r\nimport { RouterOutlet } from '@angular/router';\r\nimport { NavbarComponent } from \"./components/navbar/navbar.component\";\r\nimport { Location } from \"@angular/common\";\r\n\r\n@Component({\r\n  selector: 'app-root',\r\n  standalone: true,\r\n  imports: [RouterOutlet, NavbarComponent],\r\n  templateUrl: './app.component.html',\r\n  styleUrl: './app.component.css',\r\n})\r\nexport class AppComponent {\r\n  url :string = '';\r\n\r\n  constructor(location: Location) {\r\n    this.url = location.path(true);\r\n  }\r\n  public get navbar() :string {\r\n    const routesWithoutNavbar = ['/', '/home', '/login', '/register'];\r\n    return routesWithoutNavbar.includes(this.url) ? 'd-none' : '';\r\n  }\r\n}\r\n",
             "styleUrl": "./app.component.css",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "location",
+                        "type": "Location",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 14,
+                "jsdoctags": [
+                    {
+                        "name": "location",
+                        "type": "Location",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
             "extends": [],
-            "templateData": "<router-outlet></router-outlet>\r\n"
+            "accessors": {
+                "navbar": {
+                    "name": "navbar",
+                    "getSignature": {
+                        "name": "navbar",
+                        "type": "string",
+                        "returnType": "string",
+                        "line": 19
+                    }
+                }
+            },
+            "templateData": "<app-navbar [css]=\"navbar\"/>\r\n<router-outlet/>\r\n"
         },
         {
             "name": "ButtonComponent",
-            "id": "component-ButtonComponent-4cb79f9f91783d7d622aa0efb1120c802f5b0b787ae20e01284778bf578d8ce6e2cce5d55a9d8777f348f208a4ded8d826b527f3581cb7f971bee149ac01ee76",
+            "id": "component-ButtonComponent-d8b356615c8d5d164ca55eca8ff332d3b90b0aabb23e4b428e94b41c0f7263a7ed97742dcba943e0733355e6776abf2979d817ef1c447c98bdbce477bfb29a97",
             "file": "src/app/components/button/button.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -140,13 +330,22 @@
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 22,
+                    "line": 25,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "icon",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 16,
                     "type": "string",
                     "decorators": []
                 },
                 {
                     "name": "label",
-                    "defaultValue": "'Button'",
+                    "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "line": 13,
@@ -154,11 +353,11 @@
                     "decorators": []
                 },
                 {
-                    "name": "link",
+                    "name": "onClickLink",
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 25,
+                    "line": 28,
                     "type": "string",
                     "decorators": []
                 },
@@ -167,7 +366,7 @@
                     "defaultValue": "false",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 19,
+                    "line": 22,
                     "type": "boolean",
                     "decorators": []
                 },
@@ -176,7 +375,7 @@
                     "defaultValue": "'normal'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 16,
+                    "line": 19,
                     "type": "\"normal\" | \"primary\" | \"secondary\" | \"tertiary\"",
                     "decorators": []
                 }
@@ -190,7 +389,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 40,
+                    "line": 43,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -211,7 +410,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { NgClass } from '@angular/common';\r\n\r\n@Component({\r\n  selector: 'app-button',\r\n  standalone: true,\r\n  imports: [NgClass],\r\n  templateUrl: './button.component.html',\r\n  styleUrl: './button.component.css',\r\n})\r\nexport class ButtonComponent {\r\n  @Input()\r\n  label: string = 'Button';\r\n\r\n  @Input()\r\n  type: 'normal' | 'primary' | 'secondary' | 'tertiary' = 'normal';\r\n\r\n  @Input()\r\n  solid: boolean = false;\r\n\r\n  @Input()\r\n  css: string = '';\r\n\r\n  @Input()\r\n  link: string = '';\r\n\r\n  public get classes(): string[] {\r\n    const mode =\r\n      this.type == 'primary'\r\n        ? 'btn-primary'\r\n        : this.type == 'secondary'\r\n          ? 'btn-secondary'\r\n          : this.type == 'tertiary'\r\n            ? 'btn-tertiary'\r\n            : '';\r\n\r\n    return ['btn', mode, this.solid ? 'btn-solid' : '', this.css];\r\n  }\r\n\r\n  public clickFunction() {\r\n    if (this.link != '') {\r\n      document.location.href = this.link;\r\n    }\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { NgClass } from '@angular/common';\r\n\r\n@Component({\r\n  selector: 'app-button',\r\n  standalone: true,\r\n  imports: [NgClass],\r\n  templateUrl: './button.component.html',\r\n  styleUrl: './button.component.css',\r\n})\r\nexport class ButtonComponent {\r\n  @Input()\r\n  label: string = '';\r\n\r\n  @Input()\r\n  icon: string = '';\r\n\r\n  @Input()\r\n  type: 'normal' | 'primary' | 'secondary' | 'tertiary' = 'normal';\r\n\r\n  @Input()\r\n  solid: boolean = false;\r\n\r\n  @Input()\r\n  css: string = '';\r\n\r\n  @Input()\r\n  onClickLink: string = '';\r\n\r\n  public get classes(): string[] {\r\n    const mode =\r\n      this.type == 'primary'\r\n        ? 'btn-primary'\r\n        : this.type == 'secondary'\r\n          ? 'btn-secondary'\r\n          : this.type == 'tertiary'\r\n            ? 'btn-tertiary'\r\n            : '';\r\n\r\n    return ['btn', mode, this.solid ? 'btn-solid' : '', this.css];\r\n  }\r\n\r\n  public clickFunction() {\r\n    if (this.onClickLink != '') {\r\n      document.location.href = this.onClickLink;\r\n    }\r\n  }\r\n}\r\n",
             "styleUrl": "./button.component.css",
             "assetsDirs": [],
             "styleUrlsData": "",
@@ -224,11 +423,297 @@
                         "name": "classes",
                         "type": "[]",
                         "returnType": "string[]",
-                        "line": 27
+                        "line": 30
                     }
                 }
             },
-            "templateData": "<button [ngClass]=\"classes\" (click)=\"clickFunction()\">{{ label }}</button>\r\n"
+            "templateData": "<button [ngClass]=\"classes\" (click)=\"clickFunction()\">\r\n  <i [className]=\"icon\"></i>\r\n  {{ label }}\r\n</button>\r\n"
+        },
+        {
+            "name": "CalendarComponent",
+            "id": "component-CalendarComponent-9b5eebbd682e9dc1df907dad1d3542f6da89d73a3f3996715334a07d5888fdf3bb6ecfa0b2f38f462fe1d4275bf6b1c7a03929a8f85472e82f4a4cffa390f98a",
+            "file": "src/app/components/calendar/calendar.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-calendar",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./calendar.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "calendarComponent",
+                    "defaultValue": "new FullCalendarComponent({} as ElementRef, {} as ChangeDetectorRef)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "FullCalendarComponent",
+                    "optional": false,
+                    "description": "",
+                    "line": 19,
+                    "decorators": [
+                        {
+                            "name": "ViewChild",
+                            "stringifiedArguments": "'calendar'"
+                        }
+                    ],
+                    "modifierKind": [
+                        170
+                    ]
+                },
+                {
+                    "name": "calendarOptions",
+                    "defaultValue": "{\r\n    timeZone: 'Europe/Paris',\r\n    contentHeight: 'auto',\r\n    plugins: [dayGridPlugin, listPlugin],\r\n    locale: frLocale,\r\n    headerToolbar: {\r\n      start: 'title',\r\n      center: '',\r\n      end: 'today prev,next'\r\n    },\r\n    events: [\r\n      { title: 'event 1', date: '2024-05-07' },\r\n      { title: 'event 2', date: '2024-05-08' }\r\n    ],\r\n    handleWindowResize: false,\r\n  }",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "CalendarOptions",
+                    "optional": false,
+                    "description": "",
+                    "line": 41
+                },
+                {
+                    "name": "calendarView",
+                    "defaultValue": "'dayGridMonth'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 20,
+                    "modifierKind": [
+                        123
+                    ]
+                },
+                {
+                    "name": "screenHeight",
+                    "defaultValue": "0",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 21,
+                    "modifierKind": [
+                        123
+                    ]
+                },
+                {
+                    "name": "screenWidth",
+                    "defaultValue": "0",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 22,
+                    "modifierKind": [
+                        123
+                    ]
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "onResize",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 24,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "decorators": [
+                        {
+                            "name": "HostListener",
+                            "stringifiedArguments": "'window:resize', ['$event']"
+                        }
+                    ],
+                    "modifierKind": [
+                        170
+                    ]
+                },
+                {
+                    "name": "view",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 29,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        123
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [
+                {
+                    "name": "window:resize",
+                    "args": [],
+                    "argsDecorator": [
+                        "$event"
+                    ],
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 24
+                }
+            ],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "FullCalendarModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { ChangeDetectorRef, Component, ElementRef, HostListener, ViewChild } from \"@angular/core\";\r\nimport { FullCalendarComponent, FullCalendarModule } from \"@fullcalendar/angular\";\r\nimport { CalendarOptions } from \"@fullcalendar/core\";\r\nimport dayGridPlugin from '@fullcalendar/daygrid';\r\nimport listPlugin from '@fullcalendar/list';\r\nimport frLocale from '@fullcalendar/core/locales/fr';\r\n\r\n@Component({\r\n  selector: 'app-calendar',\r\n  standalone: true,\r\n  imports: [\r\n    FullCalendarModule\r\n  ],\r\n  templateUrl: './calendar.component.html',\r\n  styleUrl: './calendar.component.css'\r\n})\r\nexport class CalendarComponent {\r\n  @ViewChild(\"calendar\")\r\n  calendarComponent: FullCalendarComponent = new FullCalendarComponent({} as ElementRef, {} as ChangeDetectorRef);\r\n  private calendarView: string = 'dayGridMonth'\r\n  private screenHeight : number = 0;\r\n  private screenWidth : number = 0;\r\n\r\n  @HostListener('window:resize', ['$event']) onResize() {\r\n    this.screenHeight = window.innerHeight;\r\n    this.screenWidth = window.innerWidth;\r\n  }\r\n\r\n  private view() {\r\n    this.onResize()\r\n    if(this.screenWidth <= 425) {\r\n      this.calendarView = 'listWeek';\r\n    } else {\r\n      this.calendarView = 'dayGridMonth';\r\n    }\r\n    this.calendarOptions.initialView = this.calendarView;\r\n    console.log(this.calendarOptions.initialView);\r\n    this.calendarComponent.getApi().updateSize();\r\n  }\r\n\r\n  calendarOptions: CalendarOptions = {\r\n    timeZone: 'Europe/Paris',\r\n    contentHeight: 'auto',\r\n    plugins: [dayGridPlugin, listPlugin],\r\n    locale: frLocale,\r\n    headerToolbar: {\r\n      start: 'title',\r\n      center: '',\r\n      end: 'today prev,next'\r\n    },\r\n    events: [\r\n      { title: 'event 1', date: '2024-05-07' },\r\n      { title: 'event 2', date: '2024-05-08' }\r\n    ],\r\n    handleWindowResize: false,\r\n  };\r\n}\r\n",
+            "styleUrl": "./calendar.component.css",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<full-calendar #calendar [options]=\"calendarOptions\"></full-calendar>\r\n"
+        },
+        {
+            "name": "ChecklistItemComponent",
+            "id": "component-ChecklistItemComponent-20308eb68c69da17130799774b4e1522f5065dab35820fbae3cd0bb5f5141777ae8881b5deb1306a2c9e28da0c1af99bb8c848cf0a8db02349ad62577b0f84a1",
+            "file": "src/app/components/ChecklistItem/ChecklistItem.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-checklist-item",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./ChecklistItem.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "items",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 24,
+                    "type": "ChecklistItem[]",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "setVisible",
+                    "args": [
+                        {
+                            "name": "item",
+                            "type": "ChecklistItem",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 26,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        125
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "item",
+                            "type": "ChecklistItem",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "NgForOf"
+                },
+                {
+                    "name": "RemoveSpecialCharactersPipe",
+                    "type": "pipe"
+                },
+                {
+                    "name": "LowerCasePipe",
+                    "type": "pipe"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, Input } from \"@angular/core\";\r\nimport { LowerCasePipe, NgForOf, NgIf } from \"@angular/common\";\r\nimport { RemoveSpecialCharactersPipe } from \"../../pipes/removeSpecialCharacters.pipe\";\r\n\r\nexport interface ChecklistItem {\r\n  name: string,\r\n  quantity: number,\r\n  checked: boolean,\r\n}\r\n\r\n@Component({\r\n  selector: 'app-checklist-item',\r\n  standalone: true,\r\n  imports: [\r\n    NgForOf,\r\n    RemoveSpecialCharactersPipe,\r\n    LowerCasePipe\r\n  ],\r\n  templateUrl: './ChecklistItem.component.html',\r\n  styleUrl: './ChecklistItem.component.css'\r\n})\r\nexport class ChecklistItemComponent {\r\n  @Input()\r\n  items: ChecklistItem[] = [];\r\n\r\n  public setVisible(item: ChecklistItem) {\r\n    item.checked = !item.checked;\r\n    document.getElementById(new RemoveSpecialCharactersPipe().transform(item.name).toLowerCase() + \"_div\")?.children[0].setAttribute(\"checked\", item.checked.toString());\r\n  }\r\n}\r\n",
+            "styleUrl": "./ChecklistItem.component.css",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<div *ngFor=\"let item of items\" [className]=\"'item'\" (click)=\"setVisible(item)\" [id]=\"(item.name | lowercase |\r\nremoveSpecialCharacters) + '_div'\">\r\n  <div [className]=\"'item_checkbox'\" checked=\"{{item.checked}}\">\r\n    <i class=\"fa-solid fa-check\"></i>\r\n  </div>\r\n  <div [className]=\"'item_info'\">\r\n    <p>{{item.quantity}} {{item.name}}</p>\r\n  </div>\r\n</div>\r\n"
+        },
+        {
+            "name": "EventListPageComponent",
+            "id": "component-EventListPageComponent-9d54951c52f454cb71543c47abc20ae92f98f571d21872d6a80b60ed979bf782c61d4fcfebfbb6daef5854bf1e6888e155c8f948ad1fe970408ecd7b03a63411",
+            "file": "src/app/pages/EventListPage/EventListPage.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-event-list-page",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./EventListPage.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-event-list-page',\r\n  standalone: true,\r\n  imports: [],\r\n  templateUrl: './EventListPage.component.html',\r\n  styleUrl: './EventListPage.component.css'\r\n})\r\nexport class EventListPageComponent {\r\n\r\n}\r\n",
+            "styleUrl": "./EventListPage.component.css",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<div [className]=\"'header'\">\r\n  <a href=\"/\" [className]=\"['w-100', 'left-align']\">\r\n    <i class=\"fa-solid fa-arrow-left\"></i>\r\n  </a>\r\n  <div [className]=\"'header-container'\">\r\n    <h2>Evénements</h2>\r\n  </div>\r\n\r\n  <!-- Faire un planner like -->\r\n</div>\r\n"
         },
         {
             "name": "HeaderComponent",
@@ -357,7 +842,7 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"container\">\r\n  <img src=\"assets/img/logos/logo-ISEN-vertical.png\" alt=\"Logo ISEN Méditerranée\" class=\"mt-4\">\r\n\r\n  <img src=\"assets/img/icons/ISEN-bulles.png\" alt=\"Bulles ISEN\" class=\"'m-4'\">\r\n\r\n  <p class=\"mb-4\">Bonjour <b>username</b>👋</p>\r\n\r\n  <div id=\"actionButtons\">\r\n    <app-button type=\"primary\" label=\"Gestion des événements\" [solid]=\"true\"/>\r\n    <app-button type=\"primary\" label=\"Logistique d'un événement\" [solid]=\"true\" css=\"mt-2\"/>\r\n    <app-button type=\"primary\" label=\"Gestion du stock\" [solid]=\"true\" css=\"mt-2\"/>\r\n    <app-button type=\"secondary\" label=\"Se déconnecter\" [solid]=\"true\" css=\"mt-8\"/>\r\n  </div>\r\n\r\n</div>\r\n"
+            "templateData": "<div class=\"container\">\r\n  <img src=\"assets/img/logos/logo-ISEN-vertical.png\" alt=\"Logo ISEN Méditerranée\" class=\"mt-4\">\r\n\r\n  <img src=\"assets/img/icons/ISEN-bulles.png\" alt=\"Bulles ISEN\" class=\"'m-4'\">\r\n\r\n  <p class=\"mb-4\">Bonjour <b>username</b>👋</p>\r\n\r\n  <div id=\"actionButtons\">\r\n    <app-button type=\"primary\" label=\"Evénements\" [solid]=\"true\" onClickLink=\"/event/list\"/>\r\n    <app-button type=\"primary\" label=\"Gestion du stock\" [solid]=\"true\" css=\"mt-2\" onClickLink=\"/stock\"/>\r\n    <app-button type=\"secondary\" label=\"Se déconnecter\" [solid]=\"true\" css=\"mt-8\"/>\r\n  </div>\r\n\r\n</div>\r\n"
         },
         {
             "name": "IMSListPageComponent",
@@ -442,7 +927,7 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div [className]=\"'header'\">\r\n  <a href=\"/\" [className]=\"['w-100', 'left-align']\">\r\n    <i class=\"fa-solid fa-arrow-left\"></i>\r\n  </a>\r\n  <div [className]=\"'header-container'\">\r\n    <h2>Formulaire d'inventaire</h2>\r\n  </div>\r\n\r\n  <form method=\"post\">\r\n    <div [className]=\"'form-group'\">\r\n      <label for=\"material_select\">Matériel</label>\r\n      <app-select id=\"material_select\" name=\"material\"/>\r\n    </div>\r\n\r\n    <div [className]=\"'form-group'\">\r\n      <label for=\"room_select\">Salle</label>\r\n      <app-select id=\"room_select\" name=\"room\" />\r\n    </div>\r\n\r\n    <div [className]=\"'form-group'\">\r\n      <label for=\"quantity_input\">Quantité</label>\r\n      <input type=\"number\" id=\"quantity_input\" name=\"quantity\"/>\r\n    </div>\r\n\r\n    <app-button [solid]=\"true\" [type]=\"'primary'\" label=\"Mettre à jour\" [css]=\"'sticky-bottom'\"/>\r\n</form>\r\n\r\n</div>\r\n"
+            "templateData": "<div [className]=\"'header'\">\r\n  <a href=\"/\" [className]=\"['w-100', 'left-align']\">\r\n    <i class=\"fa-solid fa-arrow-left\"></i>\r\n  </a>\r\n  <div [className]=\"'header-container'\">\r\n    <h2>Formulaire d'inventaire</h2>\r\n  </div>\r\n\r\n  <form method=\"post\">\r\n    <div [className]=\"'form-group'\">\r\n      <label for=\"material_select\">Matériel</label>\r\n      <app-select id=\"material_select\" name=\"material\"\r\n                  [options]=\"[{value: 'none', label: '--- Choisir un matériel --'}]\"/>\r\n    </div>\r\n\r\n    <div [className]=\"'form-group'\">\r\n      <label for=\"room_select\">Salle</label>\r\n      <app-select id=\"room_select\" name=\"room\" [options]=\"[{value: 'none', label: '--- Choisir une salle --'}]\"/>\r\n    </div>\r\n\r\n    <div [className]=\"'form-group'\">\r\n      <label for=\"quantity_input\">Quantité</label>\r\n      <input type=\"number\" id=\"quantity_input\" name=\"quantity\" placeholder=\"Nouvelle quantité disponible\"/>\r\n    </div>\r\n\r\n    <app-button [solid]=\"true\" [type]=\"'primary'\" label=\"Mettre à jour\" id=\"submit\"/>\r\n  </form>\r\n\r\n</div>\r\n"
         },
         {
             "name": "LogInPageComponent",
@@ -491,7 +976,7 @@
         },
         {
             "name": "NavbarComponent",
-            "id": "component-NavbarComponent-8ce4f7597a7d14160dc87d76cc3021374e62b1c34d5ebda88d66389c09d28cb360fa2b024e6fe61d1ba5eba72a04c654c9e0bf201b954ec41c4ccbea3cf7db77",
+            "id": "component-NavbarComponent-1a4da868d0e827c632f18407035c8d2e1cdfd4deda2f35094e1b1f19e3bf3ae134a8875fa35cac891e0524c54069f352f09a9b06b4147336acb78b2717e41c75",
             "file": "src/app/components/navbar/navbar.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -506,26 +991,124 @@
             ],
             "viewProviders": [],
             "hostDirectives": [],
-            "inputsClass": [],
+            "inputsClass": [
+                {
+                    "name": "css",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 21,
+                    "type": "string",
+                    "decorators": []
+                }
+            ],
             "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "screenHeight",
+                    "defaultValue": "0",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 17,
+                    "modifierKind": [
+                        123
+                    ]
+                },
+                {
+                    "name": "screenWidth",
+                    "defaultValue": "0",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 18,
+                    "modifierKind": [
+                        123
+                    ]
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "onResize",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 27,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "decorators": [
+                        {
+                            "name": "HostListener",
+                            "stringifiedArguments": "'window:resize', ['$event']"
+                        }
+                    ],
+                    "modifierKind": [
+                        170
+                    ]
+                }
+            ],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
-            "hostListeners": [],
+            "hostListeners": [
+                {
+                    "name": "window:resize",
+                    "args": [],
+                    "argsDecorator": [
+                        "$event"
+                    ],
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 27
+                }
+            ],
             "standalone": true,
-            "imports": [],
+            "imports": [
+                {
+                    "name": "ButtonComponent",
+                    "type": "component"
+                },
+                {
+                    "name": "RouterLinkActive"
+                },
+                {
+                    "name": "RouterLink"
+                }
+            ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-navbar',\r\n  standalone: true,\r\n  imports: [],\r\n  templateUrl: './navbar.component.html',\r\n  styleUrl: './navbar.component.css'\r\n})\r\nexport class NavbarComponent {\r\n\r\n}\r\n",
+            "sourceCode": "import { Component, HostListener, Input } from \"@angular/core\";\r\nimport { ButtonComponent } from \"../button/button.component\";\r\nimport { RouterLink, RouterLinkActive } from \"@angular/router\";\r\n\r\n@Component({\r\n  selector: 'app-navbar',\r\n  standalone: true,\r\n  imports: [\r\n    ButtonComponent,\r\n    RouterLinkActive,\r\n    RouterLink\r\n  ],\r\n  templateUrl: './navbar.component.html',\r\n  styleUrl: './navbar.component.css'\r\n})\r\nexport class NavbarComponent {\r\n  private screenHeight : number = 0;\r\n  private screenWidth : number = 0;\r\n\r\n  @Input()\r\n  public css: string = '';\r\n\r\n  constructor() {\r\n    this.onResize()\r\n  }\r\n\r\n  @HostListener('window:resize', ['$event']) onResize() {\r\n    this.screenHeight = window.innerHeight;\r\n    this.screenWidth = window.innerWidth;\r\n  }\r\n\r\n  public get classes(): string {\r\n    let cssClasses = ['w-100'];\r\n    if (this.css) {\r\n      cssClasses.push(this.css);\r\n    }\r\n    if (this.screenWidth <= 1024) {\r\n      cssClasses.push('sticky-bottom', 'navbar-mobile');\r\n    } else {\r\n      cssClasses.push('sticky-top');\r\n    }\r\n    return cssClasses.join(' ')\r\n  }\r\n}\r\n",
             "styleUrl": "./navbar.component.css",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [],
+                "line": 21
+            },
             "extends": [],
-            "templateData": "<nav [className]=\"'w-100'\">\r\n  <ul>\r\n    <li>\r\n      <a href=\"/\" [className]=\"'active'\">\r\n        <i class=\"fa-solid fa-house\"></i>\r\n        Accueil\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a href=\"/\">\r\n        <i class=\"fa-solid fa-dolly\"></i>\r\n        Stock\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a href=\"/\">\r\n        <i class=\"fa-regular fa-calendar\"></i>\r\n        Evénements\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a href=\"/\">\r\n        <i class=\"fa-solid fa-user\"></i>\r\n        Profil\r\n      </a>\r\n    </li>\r\n  </ul>\r\n</nav>\r\n"
+            "accessors": {
+                "classes": {
+                    "name": "classes",
+                    "getSignature": {
+                        "name": "classes",
+                        "type": "string",
+                        "returnType": "string",
+                        "line": 32
+                    }
+                }
+            },
+            "templateData": "<nav [className]=\"classes\">\r\n  <ul>\r\n    <li>\r\n      <a [routerLink]=\"['/home']\" [routerLinkActive]=\"'active'\">\r\n        <i class=\"fa-solid fa-house\"></i>\r\n        Accueil\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a [routerLink]=\"['/stock']\" [routerLinkActive]=\"'active'\">\r\n        <i class=\"fa-solid fa-dolly\"></i>\r\n        Stock\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a [routerLink]=\"['/event/list']\" [routerLinkActive]=\"'active'\">\r\n        <i class=\"fa-regular fa-calendar\"></i>\r\n        Evénements\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a [routerLink]=\"['/profile']\" [routerLinkActive]=\"'active'\">\r\n        <i class=\"fa-solid fa-user\"></i>\r\n        Profil\r\n      </a>\r\n    </li>\r\n  </ul>\r\n</nav>\r\n"
         },
         {
             "name": "PageComponent",
@@ -622,7 +1205,7 @@
         },
         {
             "name": "SelectComponent",
-            "id": "component-SelectComponent-699760a51e62f75de7aeb8e8d34e0d58abca82636f7f85c73813d65d12e934a90ca423bfa06e5d3dc401f4e48e00f4e9ca7d4bed44b7bd25aeffc501e7cd63de",
+            "id": "component-SelectComponent-5bbc76215a4f90e2e8fa45e5f33dc906c2ec2ccc6ce5a14b96dbec8541b7a820d71b87e64155433301ee23ed9321d599fca59537ce2377fe0360ff51c0f05f06",
             "file": "src/app/components/select/select.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -639,11 +1222,20 @@
             "hostDirectives": [],
             "inputsClass": [
                 {
+                    "name": "css",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 31,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
                     "name": "id",
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 21,
+                    "line": 28,
                     "type": "string",
                     "decorators": []
                 },
@@ -652,7 +1244,7 @@
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 19,
+                    "line": 22,
                     "type": "string",
                     "decorators": []
                 },
@@ -661,7 +1253,7 @@
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 20,
+                    "line": 25,
                     "type": "string",
                     "decorators": []
                 },
@@ -670,7 +1262,7 @@
                     "defaultValue": "[]",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 18,
+                    "line": 19,
                     "type": "SelectOptions[]",
                     "decorators": []
                 }
@@ -695,13 +1287,13 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { NgForOf } from '@angular/common';\r\nimport { ReactiveFormsModule } from '@angular/forms';\r\n\r\nexport interface SelectOptions {\r\n  value: string;\r\n  label: string;\r\n}\r\n\r\n@Component({\r\n  selector: 'app-select',\r\n  standalone: true,\r\n  imports: [NgForOf, ReactiveFormsModule],\r\n  templateUrl: './select.component.html',\r\n  styleUrl: './select.component.css',\r\n})\r\nexport class SelectComponent {\r\n  @Input() options: SelectOptions[] = [];\r\n  @Input() label: string = '';\r\n  @Input() name: string = '';\r\n  @Input() id: string = '';\r\n}\r\n",
+            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { NgForOf } from '@angular/common';\r\nimport { ReactiveFormsModule } from '@angular/forms';\r\n\r\nexport interface SelectOptions {\r\n  value: string;\r\n  label: string;\r\n}\r\n\r\n@Component({\r\n  selector: 'app-select',\r\n  standalone: true,\r\n  imports: [NgForOf, ReactiveFormsModule],\r\n  templateUrl: './select.component.html',\r\n  styleUrl: './select.component.css',\r\n})\r\nexport class SelectComponent {\r\n  @Input()\r\n  options: SelectOptions[] = [];\r\n\r\n  @Input()\r\n  label: string = '';\r\n\r\n  @Input()\r\n  name: string = '';\r\n\r\n  @Input()\r\n  id: string = '';\r\n\r\n  @Input()\r\n  css: string = '';\r\n}\r\n",
             "styleUrl": "./select.component.css",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<select [id]=\"id\" [name]=\"name\">\r\n  <option *ngFor=\"let option of options\" [value]=\"option.value\">\r\n    {{ option.label }}\r\n  </option>\r\n</select>\r\n"
+            "templateData": "<select [id]=\"id\" [name]=\"name\" [className]=\"css\">\r\n  <option *ngFor=\"let option of options\" [value]=\"option.value\">\r\n    {{ option.label }}\r\n  </option>\r\n</select>\r\n"
         },
         {
             "name": "StockItemComponent",
@@ -829,7 +1421,7 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div [className]=\"'container h-100'\">\r\n    <img src=\"assets/img/icons/ISEN-bulles.png\" alt=\"ISEN bulles\">\r\n    <b [className]=\"'mb-25'\">{{text}}</b>\r\n\r\n  <div [className]=\"'w-100'\">\r\n    <app-button [label]=\"'Retour'\" [type]=\"'primary'\" [solid]=\"true\" [link]=\"'/home'\"/>\r\n  </div>\r\n</div>\r\n"
+            "templateData": "<div [className]=\"'container h-100'\">\r\n    <img src=\"assets/img/icons/ISEN-bulles.png\" alt=\"ISEN bulles\">\r\n    <b [className]=\"'mb-25'\">{{text}}</b>\r\n\r\n  <div [className]=\"'w-100'\">\r\n    <app-button [label]=\"'Retour'\" [type]=\"'primary'\" [solid]=\"true\" [onClickLink]=\"'/home'\"/>\r\n  </div>\r\n</div>\r\n"
         }
     ],
     "modules": [],
@@ -922,7 +1514,7 @@
                 "linktype": "component",
                 "name": "AppComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/1",
+                "coverageCount": "0/3",
                 "status": "low"
             },
             {
@@ -936,12 +1528,39 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/components/ChecklistItem/ChecklistItem.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ChecklistItemComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/ChecklistItem/ChecklistItem.component.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "ChecklistItem",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/components/button/button.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "ButtonComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/7",
+                "coverageCount": "0/8",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/calendar/calendar.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "CalendarComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/9",
                 "status": "low"
             },
             {
@@ -950,7 +1569,7 @@
                 "linktype": "component",
                 "name": "NavbarComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/1",
+                "coverageCount": "0/7",
                 "status": "low"
             },
             {
@@ -959,7 +1578,7 @@
                 "linktype": "component",
                 "name": "SelectComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/5",
+                "coverageCount": "0/6",
                 "status": "low"
             },
             {
@@ -978,6 +1597,15 @@
                 "name": "StockItemComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/pages/EventListPage/EventListPage.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "EventListPageComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
@@ -1023,6 +1651,24 @@
                 "name": "SuccessPageComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/pipes/removeSpecialCharacters.pipe.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "SpecialCharactersMap",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/pipes/removeSpecialCharacters.pipe.ts",
+                "type": "pipe",
+                "linktype": "pipe",
+                "name": "RemoveSpecialCharactersPipe",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {

@@ -3,7 +3,11 @@ import { HomePageComponent } from "./pages/HomePage/HomePage.component";
 import { IMSListPageComponent } from "./pages/IMSListPage/IMSListPage.component";
 import { LogInPageComponent } from "./pages/LogInPage/LogInPage.component";
 import { SuccessPageComponent } from "./pages/SucessPage/SuccessPage.component";
-import { InventoryFormPageComponent } from "./pages/InventoryFormPage/InventoryFormPage.component";
+import { EventListPageComponent } from "./pages/EventListPage/EventListPage.component";
+import { UpdateInventoryFormPageComponent } from "./pages/UpdateInventoryFormPage/UpdateInventoryFormPage.component";
+import { AddInventoryFormPageComponent } from "./pages/AddInventoryFormPage/AddInventoryFormPage.component";
+import { AddEventFormPageComponent } from "./pages/AddEventFormPage/AddEventFormPage.component";
+import { UpdateEventFormPageComponent } from "./pages/UpdateEventFormPage/UpdateEventFormPage.component";
 
 export const routes: Routes = [
   {
@@ -28,7 +32,23 @@ export const routes: Routes = [
     component: SuccessPageComponent,
   },
   {
-    path: 'inventory/form',
-    component: InventoryFormPageComponent,
+    path: 'stock/update',
+    component: UpdateInventoryFormPageComponent,
+  },
+  {
+    path: 'stock/add',
+    component: AddInventoryFormPageComponent,
+  },
+  {
+    path: 'event/list',
+    component: EventListPageComponent
+  },
+  {
+    path: 'event/add',
+    component: AddEventFormPageComponent,
+  },
+  {
+    path: 'event/update',
+    component: UpdateEventFormPageComponent,
   }
 ];
