@@ -41,6 +41,9 @@ html, body, app-root, app-success-page {
 app-root, app-success-page {
   display: block;
 }
+body {
+  padding-top: 65px;
+}
 
 /**
  * Text

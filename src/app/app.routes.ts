@@ -8,6 +8,8 @@ import { UpdateInventoryFormPageComponent } from "./pages/UpdateInventoryFormPag
 import { AddInventoryFormPageComponent } from "./pages/AddInventoryFormPage/AddInventoryFormPage.component";
 import { AddEventFormPageComponent } from "./pages/AddEventFormPage/AddEventFormPage.component";
 import { UpdateEventFormPageComponent } from "./pages/UpdateEventFormPage/UpdateEventFormPage.component";
+import { AdminPageComponent } from "./pages/AdminPage/AdminPage.component";
+import { UserListPageComponent } from "./pages/UserListPage/UserListPage.component";
 
 export const routes: Routes = [
   {
@@ -50,5 +52,13 @@ export const routes: Routes = [
   {
     path: 'event/update',
     component: UpdateEventFormPageComponent,
+  },
+  {
+    path:'admin',
+    component:AdminPageComponent
+  },
+  {
+    path: 'userList',
+    component: UserListPageComponent
   }
 ];

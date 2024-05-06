@@ -1,0 +1,10 @@
+<div [className]="'header-container'">
+  <h2>Espace administrateur</h2>
+  <div class="container">
+    <img src="assets/img/logos/logo-admin.png" alt="logo adminstrateur" class="mt-2">
+    <div id="actionButtons">
+      <app-button type="primary" label="Gestion utilisateur" [solid]="true" css="mt-8" onClickLink="/userList"/>
+      <app-button type="secondary" label="Quitter l'espace administrateur" [solid]="true" css="mt-8" onClickLink="/home"/>
+    </div>
+  </div>
+</div>
