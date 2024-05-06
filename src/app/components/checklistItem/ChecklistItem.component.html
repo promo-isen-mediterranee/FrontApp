@@ -1,0 +1,9 @@
+<div *ngFor="let item of items" [className]="'item'" (click)="setVisible(item)" [id]="(item.name | lowercase |
+removeSpecialCharacters) + '_div'" checked="{{item.checked}}">
+  <div [className]="'item_checkbox'">
+    <i class="fa-solid fa-check"></i>
+  </div>
+  <div [className]="'item_info'">
+    <p>{{item.quantity}} {{item.name}}</p>
+  </div>
+</div>

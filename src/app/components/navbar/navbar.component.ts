@@ -1,6 +1,7 @@
 import { Component, HostListener, Input } from "@angular/core";
 import { ButtonComponent } from "../button/button.component";
 import { RouterLink, RouterLinkActive } from "@angular/router";
+import { MatIcon } from "@angular/material/icon";
 
 @Component({
   selector: 'app-navbar',
@@ -8,7 +9,8 @@ import { RouterLink, RouterLinkActive } from "@angular/router";
   imports: [
     ButtonComponent,
     RouterLinkActive,
-    RouterLink
+    RouterLink,
+    MatIcon
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'

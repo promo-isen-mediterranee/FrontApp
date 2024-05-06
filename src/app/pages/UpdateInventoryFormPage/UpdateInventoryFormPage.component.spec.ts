@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InventoryFormPageComponent } from './InventoryFormPage.component';
+import { UpdateInventoryFormPageComponent } from './UpdateInventoryFormPage.component';
 
 describe('InventoryFormPageComponent', () => {
-  let component: InventoryFormPageComponent;
-  let fixture: ComponentFixture<InventoryFormPageComponent>;
+  let component: UpdateInventoryFormPageComponent;
+  let fixture: ComponentFixture<UpdateInventoryFormPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [InventoryFormPageComponent]
+      imports: [UpdateInventoryFormPageComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(InventoryFormPageComponent);
+    fixture = TestBed.createComponent(UpdateInventoryFormPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

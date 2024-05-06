@@ -9,9 +9,9 @@ import { ButtonComponent } from "../../components/button/button.component";
     SelectComponent,
     ButtonComponent
   ],
-  templateUrl: './InventoryFormPage.component.html',
-  styleUrl: './InventoryFormPage.component.css'
+  templateUrl: './UpdateInventoryFormPage.component.html',
+  styleUrl: './UpdateInventoryFormPage.component.css'
 })
-export class InventoryFormPageComponent {
+export class UpdateInventoryFormPageComponent {
 
 }

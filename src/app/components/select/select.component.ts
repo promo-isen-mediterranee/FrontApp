@@ -15,8 +15,18 @@ export interface SelectOptions {
   styleUrl: './select.component.css',
 })
 export class SelectComponent {
-  @Input() options: SelectOptions[] = [];
-  @Input() label: string = '';
-  @Input() name: string = '';
-  @Input() id: string = '';
+  @Input()
+  options: SelectOptions[] = [];
+
+  @Input()
+  label: string = '';
+
+  @Input()
+  name: string = '';
+
+  @Input()
+  id: string = '';
+
+  @Input()
+  css: string = '';
 }

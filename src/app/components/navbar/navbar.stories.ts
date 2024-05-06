@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/angular";
-import { NavbarComponent } from "../app/components/navbar/navbar.component";
+import { NavbarComponent } from "./navbar.component";
 
 const meta: Meta<NavbarComponent> = {
   title: 'ISEN/Navbar',
@@ -8,9 +8,9 @@ const meta: Meta<NavbarComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<NavbarComponent>;
 
-export const Default: Story = {
+export const Default: StoryObj<NavbarComponent> = {
   args: {
-  },
+
+  }
 };

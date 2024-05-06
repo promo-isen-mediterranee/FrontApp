@@ -1,9 +1,8 @@
 .btn {
   font-family: "PlusJakartaSans", Sans-serif;
   font-weight: 600;
-  text-shadow: 0 0 10px rgb(0, 0, 0, 0.3);
   background-color: #ffffff00;
-  color: var(--white);
+  color: var(--blue);
   fill: var(--white);
   border: 1px solid var(--white);
   border-radius: 35px;
@@ -15,13 +14,8 @@
   transition: all 0.3s;
 }
 
-.btn:hover {
-  background-color: var(--white);
-  border-color: var(--white);
-  color: var(--blue);
-}
-
 .btn-primary {
+  color: var(--white);
   background-color: var(--blue);
   border: 1px solid var(--blue);
 }

@@ -6,9 +6,8 @@
   <p class="mb-4">Bonjour <b>username</b>👋</p>
 
   <div id="actionButtons">
-    <app-button type="primary" label="Gestion des événements" [solid]="true"/>
-    <app-button type="primary" label="Logistique d'un événement" [solid]="true" css="mt-2"/>
-    <app-button type="primary" label="Gestion du stock" [solid]="true" css="mt-2" link="/stock"/>
+    <app-button type="primary" label="Evénements" [solid]="true" onClickLink="/event/list"/>
+    <app-button type="primary" label="Gestion du stock" [solid]="true" css="mt-2" onClickLink="/stock"/>
     <app-button type="secondary" label="Se déconnecter" [solid]="true" css="mt-8"/>
   </div>
 

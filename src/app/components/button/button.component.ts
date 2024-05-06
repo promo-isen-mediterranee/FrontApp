@@ -25,7 +25,7 @@ export class ButtonComponent {
   css: string = '';
 
   @Input()
-  link: string = '';
+  onClickLink: string = '';
 
   public get classes(): string[] {
     const mode =
@@ -41,8 +41,8 @@ export class ButtonComponent {
   }
 
   public clickFunction() {
-    if (this.link != '') {
-      document.location.href = this.link;
+    if (this.onClickLink != '') {
+      document.location.href = this.onClickLink;
     }
   }
 }
