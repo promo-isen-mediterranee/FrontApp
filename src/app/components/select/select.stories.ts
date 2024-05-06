@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { SelectComponent } from '../app/components/select/select.component';
+import { SelectComponent } from './select.component';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta: Meta<SelectComponent> = {

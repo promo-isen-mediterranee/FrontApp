@@ -1,1 +1,4 @@
-<button [ngClass]="classes">{{ label }}</button>
+<button [ngClass]="classes" (click)="clickFunction()">
+  <i [className]="icon"></i>
+  {{ label }}
+</button>

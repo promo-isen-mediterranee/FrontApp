@@ -1,0 +1,22 @@
+<div [className]="'header'">
+  <a href="/" [className]="['w-100', 'left-align']">
+    <i class="fa-solid fa-arrow-left"></i>
+  </a>
+  <div [className]="'header-container'">
+    <h2>Événements</h2>
+  </div>
+
+  <div class="d-flex">
+    <app-button label="Calendrier" (click)="changeView('calendar')"/>
+    <app-button label="Status" (click)="changeView('status')"/>
+  </div>
+
+  <div id="calendarView" *ngIf="currentView == 'calendar'">
+    <app-calendar/>
+  </div>
+  <div id="statusView" *ngIf="currentView == 'status'">
+
+  </div>
+
+  <app-button label="Créer un événement" type="primary" [solid]="true" onClickLink="/event/add"/>
+</div>
