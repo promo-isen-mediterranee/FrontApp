@@ -1,7 +1,8 @@
 import { Component, HostListener, Input } from "@angular/core";
 import { ButtonComponent } from "../button/button.component";
-import { RouterLink, RouterLinkActive } from "@angular/router";
+import { Router, RouterLink, RouterLinkActive } from "@angular/router";
 import { MatIcon } from "@angular/material/icon";
+import { routes } from "../../app.routes";
 
 @Component({
   selector: 'app-navbar',
@@ -22,8 +23,11 @@ export class NavbarComponent {
   @Input()
   public css: string = '';
 
-  constructor() {
+  protected router : Router = {} as Router;
+
+  constructor(router : Router) {
     this.onResize()
+    this.router = router;
   }
 
   @HostListener('window:resize', ['$event']) onResize() {
@@ -35,6 +39,9 @@ export class NavbarComponent {
     let cssClasses = ['w-100'];
     if (this.css) {
       cssClasses.push(this.css);
+    }
+    if(["/", "/home", "/login"].includes(this.router.url)) {
+      cssClasses.push('d-none');
     }
     if (this.screenWidth <= 1024) {
       cssClasses.push('sticky-bottom', 'navbar-mobile');
