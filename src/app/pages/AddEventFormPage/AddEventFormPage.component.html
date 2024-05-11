@@ -9,13 +9,13 @@
   <form method="post">
     <mat-form-field [className]="'form-group'">
       <mat-label>Nom de l'événement</mat-label>
-      <input type="text" matInput id="event_name_input" name="event_name"/>
+      <input type="text" matInput id="event_name_input" name="event_name" required/>
       <mat-error>Le nom de l'événement ne peut pas être vide.</mat-error>
     </mat-form-field>
 
     <mat-form-field [className]="'form-group'">
         <mat-label>Choisir une date de début</mat-label>
-        <input matInput [matDatepicker]="pickerStart">
+        <input matInput [matDatepicker]="pickerStart" required>
         <mat-hint>DD/MM/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="pickerStart"></mat-datepicker-toggle>
         <mat-datepicker #pickerStart></mat-datepicker>
@@ -24,7 +24,7 @@
 
     <mat-form-field [className]="'form-group'">
         <mat-label>Choisir une date de fin</mat-label>
-        <input matInput [matDatepicker]="pickerEnd">
+        <input matInput [matDatepicker]="pickerEnd" required>
         <mat-hint>DD/MM/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="pickerEnd"></mat-datepicker-toggle>
         <mat-datepicker #pickerEnd></mat-datepicker>
@@ -34,7 +34,7 @@
     <mat-form-field [className]="'form-group'">
       <mat-label>Adresse</mat-label>
       <input type="text" placeholder="Rechercher une adresse" aria-label="Adresse" matInput
-             [matAutocomplete]="auto">
+             [matAutocomplete]="auto" required>
       <mat-autocomplete #auto="matAutocomplete">
         @for (option of options; track option) {
           <mat-option [value]="option">

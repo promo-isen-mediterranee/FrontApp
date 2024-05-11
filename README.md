@@ -8,8 +8,10 @@ Vous trouverez le lien de tous les repos concernés par ce projet ici :
 
 Afin que le site fonctionne correctement, nous avons dû rajouter quelques librairies :
 
-- [Font Awesome](https://fontawesome.com/)
+- [Material Icons](https://fonts.google.com/icons)
+- [Material Angular](https://material.angular.io/)
 - [Angular](https://angular.io/)
+- [FullCalendar](https://fullcalendar.io/) pour afficher les événements dans un calendrier
 
 Il conviendra, dans un souci d'harmonie et d'homogénéité, d'utiliser les librairies ci-dessus en priorité.
 

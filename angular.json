@@ -104,6 +104,9 @@
             "outputDir": "storybook-static"
           }
         }
+      },
+      "i18n": {
+        "sourceLocale": "fr-FR"
       }
     }
   }

@@ -1,1 +1,21 @@
 <full-calendar #calendar [options]="calendarOptions"></full-calendar>
+<dialog id="dialog">
+  <div class="dialog-header">
+    <h3>{{event.title}}</h3>
+    <span (click)="closeDialog()" class="btn-close">
+      <mat-icon fontIcon="close"></mat-icon>
+    </span>
+  </div>
+  <mat-form-field>
+    <mat-label>Début</mat-label>
+    <input matInput [matDatepicker]="picker" placeholder="Début" [(ngModel)]="event.date_start">
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Fin</mat-label>
+    <input matInput [matDatepicker]="picker_end" placeholder="Fin" [(ngModel)]="event.date_end">
+    <mat-datepicker #picker_end></mat-datepicker>
+  </mat-form-field>
+  <p>Statut: {{event.status}}</p>
+  <p>Lieu: {{event.location}}</p>
+</dialog>
