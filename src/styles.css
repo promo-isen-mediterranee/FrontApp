@@ -28,10 +28,18 @@
   --white: rgb(255, 255, 255);
   --black: #111;
   --grey: #D9D9D9;
+  --fc-button-bg-color: var(--blue);
+  --fc-button-border-color: var(--blue);
+  --fc-button-active-bg-color: var(--red);
+  --fc-button-active-border-color: var(--red);
+  --fc-button-hover-bg-color: var(--light-red);
+  --fc-button-hover-border-color: var(--light-red);
+  --fc-now-indicator-color: var(--red);
+  --fc-today-bg-color: rgba(240, 146, 111, .30);
 }
 
 * {
-  font-family: "PlusJakartaSans", Sans-serif;
+  font-family: "PlusJakartaSans", sans-serif;
 }
 
 html, body, app-root, app-success-page {
@@ -43,6 +51,10 @@ app-root, app-success-page {
 }
 body {
   padding-top: 65px;
+}
+
+body {
+  padding-top: 40px;
 }
 
 /**

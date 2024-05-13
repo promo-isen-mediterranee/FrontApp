@@ -10,7 +10,8 @@ import {
 import { MatNativeDateModule, MatOption } from "@angular/material/core";
 import { MatAutocomplete, MatAutocompleteTrigger } from "@angular/material/autocomplete";
 import { ReactiveFormsModule } from "@angular/forms";
-import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatError, MatFormFieldModule } from "@angular/material/form-field";
+import { provideAnimations } from "@angular/platform-browser/animations";
 
 @Component({
   selector: 'app-add-event-form-page',
@@ -30,14 +31,15 @@ import { MatFormFieldModule } from "@angular/material/form-field";
     MatAutocomplete,
     MatOption,
     ReactiveFormsModule,
-    MatAutocompleteTrigger
+    MatAutocompleteTrigger,
+    MatError
   ],
   providers: [
     MatDatepickerModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    provideAnimations()
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './AddEventFormPage.component.html',
   styleUrl: './AddEventFormPage.component.css'
 })

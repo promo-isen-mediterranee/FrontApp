@@ -79,12 +79,12 @@
     "interfaces": [
         {
             "name": "ChecklistItem",
-            "id": "interface-ChecklistItem-20308eb68c69da17130799774b4e1522f5065dab35820fbae3cd0bb5f5141777ae8881b5deb1306a2c9e28da0c1af99bb8c848cf0a8db02349ad62577b0f84a1",
-            "file": "src/app/components/ChecklistItem/ChecklistItem.component.ts",
+            "id": "interface-ChecklistItem-063e6a71abdb34b212b754ca70ef08cdf0921f3497993eedd6a9de665d1a2e5ac0d704f9f6333d6986eee8a0132e9d93ad5db745cf41b57de09c047461415f0c",
+            "file": "src/app/components/checklistItem/ChecklistItem.component.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { Component, Input } from \"@angular/core\";\r\nimport { LowerCasePipe, NgForOf, NgIf } from \"@angular/common\";\r\nimport { RemoveSpecialCharactersPipe } from \"../../pipes/removeSpecialCharacters.pipe\";\r\n\r\nexport interface ChecklistItem {\r\n  name: string,\r\n  quantity: number,\r\n  checked: boolean,\r\n}\r\n\r\n@Component({\r\n  selector: 'app-checklist-item',\r\n  standalone: true,\r\n  imports: [\r\n    NgForOf,\r\n    RemoveSpecialCharactersPipe,\r\n    LowerCasePipe\r\n  ],\r\n  templateUrl: './ChecklistItem.component.html',\r\n  styleUrl: './ChecklistItem.component.css'\r\n})\r\nexport class ChecklistItemComponent {\r\n  @Input()\r\n  items: ChecklistItem[] = [];\r\n\r\n  public setVisible(item: ChecklistItem) {\r\n    item.checked = !item.checked;\r\n    document.getElementById(new RemoveSpecialCharactersPipe().transform(item.name).toLowerCase() + \"_div\")?.children[0].setAttribute(\"checked\", item.checked.toString());\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, Input, NO_ERRORS_SCHEMA } from \"@angular/core\";\r\nimport { LowerCasePipe, NgForOf } from \"@angular/common\";\r\nimport { RemoveSpecialCharactersPipe } from \"../../pipes/removeSpecialCharacters.pipe\";\r\nimport { ButtonComponent } from \"../button/button.component\";\r\n\r\nexport interface ChecklistItem {\r\n  name: string,\r\n  quantity: number,\r\n  checked: boolean,\r\n}\r\n\r\n@Component({\r\n  selector: 'app-checklist-item',\r\n  standalone: true,\r\n  imports: [\r\n    NgForOf,\r\n    RemoveSpecialCharactersPipe,\r\n    LowerCasePipe,\r\n    ButtonComponent\r\n  ],\r\n  templateUrl: './ChecklistItem.component.html',\r\n  styleUrl: './ChecklistItem.component.css',\r\n  schemas: [NO_ERRORS_SCHEMA]\r\n})\r\nexport class ChecklistItemComponent {\r\n  @Input()\r\n  items: ChecklistItem[] = [];\r\n\r\n  public setVisible(item: ChecklistItem) {\r\n    item.checked = !item.checked;\r\n    document.getElementById(new RemoveSpecialCharactersPipe().transform(item.name).toLowerCase() + \"_div\")?.setAttribute(\"checked\", item.checked.toString());\r\n  }\r\n}\r\n",
             "properties": [
                 {
                     "name": "checked",
@@ -93,7 +93,7 @@
                     "type": "boolean",
                     "optional": false,
                     "description": "",
-                    "line": 8
+                    "line": 9
                 },
                 {
                     "name": "name",
@@ -102,7 +102,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 6
+                    "line": 7
                 },
                 {
                     "name": "quantity",
@@ -111,7 +111,67 @@
                     "type": "number",
                     "optional": false,
                     "description": "",
-                    "line": 7
+                    "line": 8
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 171,
+            "methods": [],
+            "extends": []
+        },
+        {
+            "name": "EventInterface",
+            "id": "interface-EventInterface-d85b3e9f7db5e89f0163fd9f4da18ae1aeac506fb12d5fd7cdea330c60189ecf3b563afbd0c4c52834518b504756abcba6bd5cbebf30fca39d029d99e419af57",
+            "file": "src/app/components/calendar/calendar.component.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { ChangeDetectorRef, Component, ElementRef, HostListener, ViewChild } from \"@angular/core\";\r\nimport { FullCalendarComponent, FullCalendarModule } from \"@fullcalendar/angular\";\r\nimport { CalendarOptions, EventClickArg, EventSourceInput } from \"@fullcalendar/core\";\r\nimport dayGridPlugin from '@fullcalendar/daygrid';\r\nimport listPlugin from '@fullcalendar/list';\r\nimport timeGridPlugin from '@fullcalendar/timegrid';\r\nimport frLocale from '@fullcalendar/core/locales/fr';\r\nimport { MatIcon } from \"@angular/material/icon\";\r\nimport { EventImpl, Identity } from \"@fullcalendar/core/internal\";\r\nimport { DatePipe } from \"@angular/common\";\r\nimport { MatFormField } from \"@angular/material/form-field\";\r\nimport { MatDatepicker, MatDatepickerInput, MatDatepickerModule } from \"@angular/material/datepicker\";\r\nimport { FormsModule } from \"@angular/forms\";\r\nimport { MatInput, MatLabel } from \"@angular/material/input\";\r\nimport { provideNativeDateAdapter } from \"@angular/material/core\";\r\n\r\nexport interface EventInterface {\r\n  title: string,\r\n  date_start: Date,\r\n  date_end: Date,\r\n  location: string,\r\n  status: string\r\n}\r\n\r\n@Component({\r\n  selector: 'app-calendar',\r\n  standalone: true,\r\n  imports: [\r\n    FullCalendarModule,\r\n    MatIcon,\r\n    DatePipe,\r\n    MatFormField,\r\n    MatDatepicker,\r\n    FormsModule,\r\n    MatDatepickerInput,\r\n    MatInput,\r\n    MatLabel\r\n  ],\r\n  providers: [\r\n    MatDatepickerModule,\r\n    provideNativeDateAdapter()\r\n  ],\r\n  templateUrl: './calendar.component.html',\r\n  styleUrl: './calendar.component.css'\r\n})\r\nexport class CalendarComponent {\r\n  @ViewChild(\"calendar\")\r\n  calendarComponent: FullCalendarComponent = new FullCalendarComponent({} as ElementRef, {} as ChangeDetectorRef);\r\n\r\n  private calendarView: string = 'dayGridMonth'\r\n\r\n  private screenHeight : number = 0;\r\n  private screenWidth : number = 0;\r\n\r\n  protected event: EventInterface = {} as EventInterface;\r\n\r\n  protected events = [\r\n    { title: 'event 1', start: new Date(2024, 5, 7), end: new Date(2024, 5, 10), location: 'Paris', status: 'confirmed' },\r\n    { title: 'event 2', start: new Date(2024, 5, 8, 9), end: new Date(2024, 5, 8, 16) }\r\n  ];\r\n\r\n  public x: number = 0;\r\n  public y: number = 0;\r\n\r\n  @HostListener('window:resize', ['$event']) onResize() {\r\n    this.screenHeight = window.innerHeight;\r\n    this.screenWidth = window.innerWidth;\r\n    this.view()\r\n  }\r\n\r\n  private view() {\r\n    if(this.screenWidth <= 425) {\r\n      this.calendarView = 'listWeek';\r\n    } else {\r\n      this.calendarView = 'dayGridMonth';\r\n    }\r\n    this.calendarComponent.getApi().changeView(this.calendarView);\r\n  }\r\n\r\n  calendarOptions: CalendarOptions = {\r\n    contentHeight: \"auto\",\r\n    eventClick: this.handleEventClick.bind(this),\r\n    events: this.events,\r\n    handleWindowResize: false,\r\n    headerToolbar: {\r\n      start: \"title\",\r\n      center: \"\",\r\n      end: \"today prev,next dayGridMonth,timeGridWeek,timeGridDay,listWeek\"\r\n    },\r\n    initialView: \"dayGridMonth\",\r\n    locale: frLocale,\r\n    plugins: [dayGridPlugin, listPlugin, timeGridPlugin],\r\n    timeZone: \"Europe/Paris\"\r\n  };\r\n\r\n  public setEvent(event: EventImpl) {\r\n    this.event = {title: event.title, date_start: event.start, date_end: event.end, location: event.extendedProps['location'], status: event.extendedProps['status']} as EventInterface;\r\n  }\r\n\r\n  public closeDialog() {\r\n    let dialog = document.getElementById(\"dialog\") as HTMLDialogElement;\r\n    dialog.close();\r\n  }\r\n\r\n  public handleEventClick(clickedEvent: EventClickArg) {\r\n    clickedEvent.jsEvent.preventDefault();\r\n    let coordinates = clickedEvent.el.getBoundingClientRect();\r\n    this.setEvent(clickedEvent.event);\r\n    let dialog = document.getElementById(\"dialog\") as HTMLDialogElement;\r\n    if(coordinates.left - 448 > 0) {\r\n      this.x = coordinates.left - 448;\r\n    } else {\r\n      this.x = coordinates.right;\r\n    }\r\n    if (this.screenHeight - coordinates.top < 220) {\r\n      this.y = coordinates.top - 220;\r\n    } else {\r\n      this.y = coordinates.top;\r\n    }\r\n    dialog.style.left = this.x + \"px\";\r\n    dialog.style.top = this.y + \"px\";\r\n    dialog.show();\r\n  }\r\n}\r\n",
+            "properties": [
+                {
+                    "name": "date_end",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Date",
+                    "optional": false,
+                    "description": "",
+                    "line": 20
+                },
+                {
+                    "name": "date_start",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Date",
+                    "optional": false,
+                    "description": "",
+                    "line": 19
+                },
+                {
+                    "name": "location",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 21
+                },
+                {
+                    "name": "status",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 22
+                },
+                {
+                    "name": "title",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 18
                 }
             ],
             "indexSignatures": [],
@@ -181,30 +241,6 @@
             "kind": 181,
             "methods": [],
             "extends": []
-        },
-        {
-            "name": "User",
-            "id": "interface-User-23c11020a2831beb3fa02ee911a75b64009c31bb46f73a01145c2560cb13b7f7e641105b678bd8fb01a5a199117001f3da4a78351d29d85d213ed7b82982091f",
-            "file": "src/stories/user.ts",
-            "deprecated": false,
-            "deprecationMessage": "",
-            "type": "interface",
-            "sourceCode": "export interface User {\r\n  name: string;\r\n}\r\n",
-            "properties": [
-                {
-                    "name": "name",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "string",
-                    "optional": false,
-                    "description": "",
-                    "line": 2
-                }
-            ],
-            "indexSignatures": [],
-            "kind": 171,
-            "methods": [],
-            "extends": []
         }
     ],
     "injectables": [],
@@ -214,8 +250,221 @@
     "directives": [],
     "components": [
         {
+            "name": "AddEventFormPageComponent",
+            "id": "component-AddEventFormPageComponent-e4444b803ead58bda090856697a15ebc3f37b625239445ac54956db1034eb521389f69e029483eb1cb1c480f9c20a74546804aeb589dcbb6e5d51ebcfc9caeed",
+            "file": "src/app/pages/AddEventFormPage/AddEventFormPage.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [
+                {
+                    "name": "MatDatepickerModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatInputModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatFormFieldModule",
+                    "type": "module"
+                },
+                {
+                    "name": "provideAnimations()"
+                }
+            ],
+            "selector": "app-add-event-form-page",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./AddEventFormPage.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "options",
+                    "defaultValue": "['option 1', 'option 2', 'option 3']",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 48,
+                    "modifierKind": [
+                        124
+                    ]
+                }
+            ],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "ButtonComponent",
+                    "type": "component"
+                },
+                {
+                    "name": "SelectComponent",
+                    "type": "component"
+                },
+                {
+                    "name": "MatInput"
+                },
+                {
+                    "name": "MatDatepickerModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatNativeDateModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatHint"
+                },
+                {
+                    "name": "MatDatepickerToggle"
+                },
+                {
+                    "name": "MatDatepicker"
+                },
+                {
+                    "name": "MatSuffix"
+                },
+                {
+                    "name": "MatLabel"
+                },
+                {
+                    "name": "MatFormField"
+                },
+                {
+                    "name": "MatAutocomplete"
+                },
+                {
+                    "name": "MatOption"
+                },
+                {
+                    "name": "ReactiveFormsModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatAutocompleteTrigger"
+                },
+                {
+                    "name": "MatError"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, CUSTOM_ELEMENTS_SCHEMA } from \"@angular/core\";\r\nimport { ButtonComponent } from \"../../components/button/button.component\";\r\nimport { SelectComponent } from \"../../components/select/select.component\";\r\nimport { MatFormField, MatHint, MatInput, MatInputModule, MatLabel, MatSuffix } from \"@angular/material/input\";\r\nimport {\r\n  MatDatepicker,\r\n  MatDatepickerModule,\r\n  MatDatepickerToggle\r\n} from \"@angular/material/datepicker\";\r\nimport { MatNativeDateModule, MatOption } from \"@angular/material/core\";\r\nimport { MatAutocomplete, MatAutocompleteTrigger } from \"@angular/material/autocomplete\";\r\nimport { ReactiveFormsModule } from \"@angular/forms\";\r\nimport { MatError, MatFormFieldModule } from \"@angular/material/form-field\";\r\nimport { provideAnimations } from \"@angular/platform-browser/animations\";\r\n\r\n@Component({\r\n  selector: 'app-add-event-form-page',\r\n  standalone: true,\r\n  imports: [\r\n    ButtonComponent,\r\n    SelectComponent,\r\n    MatInput,\r\n    MatDatepickerModule,\r\n    MatNativeDateModule,\r\n    MatHint,\r\n    MatDatepickerToggle,\r\n    MatDatepicker,\r\n    MatSuffix,\r\n    MatLabel,\r\n    MatFormField,\r\n    MatAutocomplete,\r\n    MatOption,\r\n    ReactiveFormsModule,\r\n    MatAutocompleteTrigger,\r\n    MatError\r\n  ],\r\n  providers: [\r\n    MatDatepickerModule,\r\n    MatInputModule,\r\n    MatFormFieldModule,\r\n    provideAnimations()\r\n  ],\r\n  templateUrl: './AddEventFormPage.component.html',\r\n  styleUrl: './AddEventFormPage.component.css'\r\n})\r\nexport class AddEventFormPageComponent {\r\n\r\n  protected options: string[] = ['option 1', 'option 2', 'option 3'];\r\n\r\n}\r\n",
+            "styleUrl": "./AddEventFormPage.component.css",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<div [className]=\"'header'\">\r\n  <a href=\"/\" [className]=\"['w-100', 'left-align']\">\r\n    <i class=\"fa-solid fa-arrow-left\"></i>\r\n  </a>\r\n  <div [className]=\"'header-container'\">\r\n    <h2>Créer un événement</h2>\r\n  </div>\r\n\r\n  <form method=\"post\">\r\n    <mat-form-field [className]=\"'form-group'\">\r\n      <mat-label>Nom de l'événement</mat-label>\r\n      <input type=\"text\" matInput id=\"event_name_input\" name=\"event_name\" required/>\r\n      <mat-error>Le nom de l'événement ne peut pas être vide.</mat-error>\r\n    </mat-form-field>\r\n\r\n    <mat-form-field [className]=\"'form-group'\">\r\n        <mat-label>Choisir une date de début</mat-label>\r\n        <input matInput [matDatepicker]=\"pickerStart\" required>\r\n        <mat-hint>DD/MM/YYYY</mat-hint>\r\n        <mat-datepicker-toggle matIconSuffix [for]=\"pickerStart\"></mat-datepicker-toggle>\r\n        <mat-datepicker #pickerStart></mat-datepicker>\r\n        <mat-error>La date de début ne peut être vide</mat-error>\r\n    </mat-form-field>\r\n\r\n    <mat-form-field [className]=\"'form-group'\">\r\n        <mat-label>Choisir une date de fin</mat-label>\r\n        <input matInput [matDatepicker]=\"pickerEnd\" required>\r\n        <mat-hint>DD/MM/YYYY</mat-hint>\r\n        <mat-datepicker-toggle matIconSuffix [for]=\"pickerEnd\"></mat-datepicker-toggle>\r\n        <mat-datepicker #pickerEnd></mat-datepicker>\r\n        <mat-error>La date de fin ne peut pas être vide.</mat-error>\r\n    </mat-form-field>\r\n\r\n    <mat-form-field [className]=\"'form-group'\">\r\n      <mat-label>Adresse</mat-label>\r\n      <input type=\"text\" placeholder=\"Rechercher une adresse\" aria-label=\"Adresse\" matInput\r\n             [matAutocomplete]=\"auto\" required>\r\n      <mat-autocomplete #auto=\"matAutocomplete\">\r\n        @for (option of options; track option) {\r\n          <mat-option [value]=\"option\">\r\n            {{option}}\r\n          </mat-option>\r\n        }\r\n      </mat-autocomplete>\r\n      <mat-error>L'adresse ne peut pas être vide.</mat-error>\r\n    </mat-form-field>\r\n\r\n    <app-button [solid]=\"true\" [type]=\"'primary'\" label=\"Mettre à jour\" id=\"submit\"/>\r\n  </form>\r\n\r\n</div>\r\n"
+        },
+        {
+            "name": "AddInventoryFormPageComponent",
+            "id": "component-AddInventoryFormPageComponent-24c6325b6406024593b22c55d3446550ea45d391d62e603d9356e0814045cddafcfd93f1bd7652c7e6b49ad0c1ac559a7b09d1f57cee268c86b7a16e11f23ccd",
+            "file": "src/app/pages/AddInventoryFormPage/AddInventoryFormPage.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [
+                {
+                    "name": "MatFormFieldModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatInputModule",
+                    "type": "module"
+                },
+                {
+                    "name": "provideAnimations()"
+                }
+            ],
+            "selector": "app-add-inventory-form-page",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./AddInventoryFormPage.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "options",
+                    "defaultValue": "[{value: '1', label: 'Option 1'}]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 31,
+                    "modifierKind": [
+                        125
+                    ]
+                }
+            ],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "ButtonComponent",
+                    "type": "component"
+                },
+                {
+                    "name": "SelectComponent",
+                    "type": "component"
+                },
+                {
+                    "name": "MatFormField"
+                },
+                {
+                    "name": "MatInput"
+                },
+                {
+                    "name": "MatLabel"
+                },
+                {
+                    "name": "MatError"
+                },
+                {
+                    "name": "MatSelect"
+                },
+                {
+                    "name": "MatOption"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from \"@angular/core\";\r\nimport { ButtonComponent } from \"../../components/button/button.component\";\r\nimport { SelectComponent } from \"../../components/select/select.component\";\r\nimport { MatError, MatFormField, MatFormFieldModule } from \"@angular/material/form-field\";\r\nimport { MatInput, MatInputModule, MatLabel } from \"@angular/material/input\";\r\nimport { MatOption, MatSelect } from \"@angular/material/select\";\r\nimport { provideAnimations } from \"@angular/platform-browser/animations\";\r\n\r\n@Component({\r\n  selector: 'app-add-inventory-form-page',\r\n  standalone: true,\r\n  imports: [\r\n    ButtonComponent,\r\n    SelectComponent,\r\n    MatFormField,\r\n    MatInput,\r\n    MatLabel,\r\n    MatError,\r\n    MatSelect,\r\n    MatOption\r\n  ],\r\n  providers: [\r\n    MatFormFieldModule,\r\n    MatInputModule,\r\n    provideAnimations()\r\n  ],\r\n  templateUrl: './AddInventoryFormPage.component.html',\r\n  styleUrl: './AddInventoryFormPage.component.css'\r\n})\r\nexport class AddInventoryFormPageComponent {\r\n  public options = [{value: '1', label: 'Option 1'}];\r\n}\r\n",
+            "styleUrl": "./AddInventoryFormPage.component.css",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<div [className]=\"'header'\">\r\n  <a href=\"/\" [className]=\"['w-100', 'left-align']\">\r\n    <i class=\"fa-solid fa-arrow-left\"></i>\r\n  </a>\r\n  <div [className]=\"'header-container'\">\r\n    <h2>Formulaire d'inventaire</h2>\r\n  </div>\r\n\r\n  <form method=\"post\">\r\n    <mat-form-field [className]=\"'form-group'\">\r\n      <mat-label>Matériel</mat-label>\r\n      <input type=\"text\" matInput id=\"material_select\" name=\"material\"\r\n             placeholder=\"Nom du matériel\" required/>\r\n      <mat-error>Le nom du matériel ne peut pas être vide.</mat-error>\r\n    </mat-form-field>\r\n\r\n    <mat-form-field [className]=\"'form-group'\">\r\n      <mat-label>Salle</mat-label>\r\n      <mat-select id=\"room_select\" name=\"room\" required>\r\n        @for (option of options; track option) {\r\n          <mat-option [value]=\"option.value\">{{ option.label }}</mat-option>\r\n        }\r\n      </mat-select>\r\n    </mat-form-field>\r\n\r\n    <mat-form-field [className]=\"'form-group'\">\r\n      <mat-label>Quantité</mat-label>\r\n      <input type=\"number\"  matInput id=\"quantity_input\" name=\"quantity\" placeholder=\"Nouvelle quantité disponible\"\r\n             min=\"1\" required/>\r\n      <mat-error>La quantité ne peut pas être inférieure à 1.</mat-error>\r\n    </mat-form-field>\r\n\r\n    <app-button [solid]=\"true\" [type]=\"'primary'\" label=\"Mettre à jour\" id=\"submit\"/>\r\n  </form>\r\n\r\n</div>\r\n"
+        },
+        {
             "name": "AppComponent",
-            "id": "component-AppComponent-4634ab42e28d440cc80d76b42fdadeb763c20d5a61b0817fae50cf19191753ebca9b2e343fba58d789bec529e99354cf79e877684e2dab869a7029f9d6be599b",
+            "id": "component-AppComponent-c49609922ed219c9ef6b85a484e00e4a3766a08754cf45b2f5118800c34b09575d4d64aa2fac16c61c91df098ec570857ceb431eea6bf697bf4f81823504b61a",
             "file": "src/app/app.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -232,18 +481,7 @@
             "hostDirectives": [],
             "inputsClass": [],
             "outputsClass": [],
-            "propertiesClass": [
-                {
-                    "name": "url",
-                    "defaultValue": "''",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "string",
-                    "optional": false,
-                    "description": "",
-                    "line": 14
-                }
-            ],
+            "propertiesClass": [],
             "methodsClass": [],
             "deprecated": false,
             "deprecationMessage": "",
@@ -262,50 +500,13 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\nimport { RouterOutlet } from '@angular/router';\r\nimport { NavbarComponent } from \"./components/navbar/navbar.component\";\r\nimport { Location } from \"@angular/common\";\r\n\r\n@Component({\r\n  selector: 'app-root',\r\n  standalone: true,\r\n  imports: [RouterOutlet, NavbarComponent],\r\n  templateUrl: './app.component.html',\r\n  styleUrl: './app.component.css',\r\n})\r\nexport class AppComponent {\r\n  url :string = '';\r\n\r\n  constructor(location: Location) {\r\n    this.url = location.path(true);\r\n  }\r\n  public get navbar() :string {\r\n    const routesWithoutNavbar = ['/', '/home', '/login', '/register'];\r\n    return routesWithoutNavbar.includes(this.url) ? 'd-none' : '';\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component } from \"@angular/core\";\r\nimport { RouterOutlet } from '@angular/router';\r\nimport { NavbarComponent } from \"./components/navbar/navbar.component\";\r\n\r\n@Component({\r\n  selector: 'app-root',\r\n  standalone: true,\r\n  imports: [RouterOutlet, NavbarComponent],\r\n  templateUrl: './app.component.html',\r\n  styleUrl: './app.component.css',\r\n})\r\nexport class AppComponent {\r\n}\r\n",
             "styleUrl": "./app.component.css",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
-            "constructorObj": {
-                "name": "constructor",
-                "description": "",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "args": [
-                    {
-                        "name": "location",
-                        "type": "Location",
-                        "deprecated": false,
-                        "deprecationMessage": ""
-                    }
-                ],
-                "line": 14,
-                "jsdoctags": [
-                    {
-                        "name": "location",
-                        "type": "Location",
-                        "deprecated": false,
-                        "deprecationMessage": "",
-                        "tagName": {
-                            "text": "param"
-                        }
-                    }
-                ]
-            },
             "extends": [],
-            "accessors": {
-                "navbar": {
-                    "name": "navbar",
-                    "getSignature": {
-                        "name": "navbar",
-                        "type": "string",
-                        "returnType": "string",
-                        "line": 19
-                    }
-                }
-            },
-            "templateData": "<app-navbar [css]=\"navbar\"/>\r\n<router-outlet/>\r\n"
+            "templateData": "<app-navbar/>\r\n<router-outlet/>\r\n"
         },
         {
             "name": "ButtonComponent",
@@ -431,13 +632,21 @@
         },
         {
             "name": "CalendarComponent",
-            "id": "component-CalendarComponent-9b5eebbd682e9dc1df907dad1d3542f6da89d73a3f3996715334a07d5888fdf3bb6ecfa0b2f38f462fe1d4275bf6b1c7a03929a8f85472e82f4a4cffa390f98a",
+            "id": "component-CalendarComponent-d85b3e9f7db5e89f0163fd9f4da18ae1aeac506fb12d5fd7cdea330c60189ecf3b563afbd0c4c52834518b504756abcba6bd5cbebf30fca39d029d99e419af57",
             "file": "src/app/components/calendar/calendar.component.ts",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
             "outputs": [],
-            "providers": [],
+            "providers": [
+                {
+                    "name": "MatDatepickerModule",
+                    "type": "module"
+                },
+                {
+                    "name": "provideNativeDateAdapter()"
+                }
+            ],
             "selector": "app-calendar",
             "styleUrls": [],
             "styles": [],
@@ -457,7 +666,7 @@
                     "type": "FullCalendarComponent",
                     "optional": false,
                     "description": "",
-                    "line": 19,
+                    "line": 48,
                     "decorators": [
                         {
                             "name": "ViewChild",
@@ -470,13 +679,13 @@
                 },
                 {
                     "name": "calendarOptions",
-                    "defaultValue": "{\r\n    timeZone: 'Europe/Paris',\r\n    contentHeight: 'auto',\r\n    plugins: [dayGridPlugin, listPlugin],\r\n    locale: frLocale,\r\n    headerToolbar: {\r\n      start: 'title',\r\n      center: '',\r\n      end: 'today prev,next'\r\n    },\r\n    events: [\r\n      { title: 'event 1', date: '2024-05-07' },\r\n      { title: 'event 2', date: '2024-05-08' }\r\n    ],\r\n    handleWindowResize: false,\r\n  }",
+                    "defaultValue": "{\r\n    contentHeight: \"auto\",\r\n    eventClick: this.handleEventClick.bind(this),\r\n    events: this.events,\r\n    handleWindowResize: false,\r\n    headerToolbar: {\r\n      start: \"title\",\r\n      center: \"\",\r\n      end: \"today prev,next dayGridMonth,timeGridWeek,timeGridDay,listWeek\"\r\n    },\r\n    initialView: \"dayGridMonth\",\r\n    locale: frLocale,\r\n    plugins: [dayGridPlugin, listPlugin, timeGridPlugin],\r\n    timeZone: \"Europe/Paris\"\r\n  }",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "CalendarOptions",
                     "optional": false,
                     "description": "",
-                    "line": 41
+                    "line": 80
                 },
                 {
                     "name": "calendarView",
@@ -486,9 +695,35 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 20,
+                    "line": 50,
                     "modifierKind": [
                         123
+                    ]
+                },
+                {
+                    "name": "event",
+                    "defaultValue": "{} as EventInterface",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "EventInterface",
+                    "optional": false,
+                    "description": "",
+                    "line": 55,
+                    "modifierKind": [
+                        124
+                    ]
+                },
+                {
+                    "name": "events",
+                    "defaultValue": "[\r\n    { title: 'event 1', start: new Date(2024, 5, 7), end: new Date(2024, 5, 10), location: 'Paris', status: 'confirmed' },\r\n    { title: 'event 2', start: new Date(2024, 5, 8, 9), end: new Date(2024, 5, 8, 16) }\r\n  ]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 57,
+                    "modifierKind": [
+                        124
                     ]
                 },
                 {
@@ -499,7 +734,7 @@
                     "type": "number",
                     "optional": false,
                     "description": "",
-                    "line": 21,
+                    "line": 52,
                     "modifierKind": [
                         123
                     ]
@@ -512,20 +747,90 @@
                     "type": "number",
                     "optional": false,
                     "description": "",
-                    "line": 22,
+                    "line": 53,
                     "modifierKind": [
                         123
+                    ]
+                },
+                {
+                    "name": "x",
+                    "defaultValue": "0",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 62,
+                    "modifierKind": [
+                        125
+                    ]
+                },
+                {
+                    "name": "y",
+                    "defaultValue": "0",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 63,
+                    "modifierKind": [
+                        125
                     ]
                 }
             ],
             "methodsClass": [
+                {
+                    "name": "closeDialog",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 100,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        125
+                    ]
+                },
+                {
+                    "name": "handleEventClick",
+                    "args": [
+                        {
+                            "name": "clickedEvent",
+                            "type": "EventClickArg",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 105,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        125
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "clickedEvent",
+                            "type": "EventClickArg",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
                 {
                     "name": "onResize",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 24,
+                    "line": 65,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "decorators": [
@@ -539,12 +844,43 @@
                     ]
                 },
                 {
+                    "name": "setEvent",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "EventImpl",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 96,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        125
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "EventImpl",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
                     "name": "view",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 29,
+                    "line": 71,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -564,7 +900,7 @@
                     ],
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 24
+                    "line": 65
                 }
             ],
             "standalone": true,
@@ -572,23 +908,49 @@
                 {
                     "name": "FullCalendarModule",
                     "type": "module"
+                },
+                {
+                    "name": "MatIcon"
+                },
+                {
+                    "name": "DatePipe",
+                    "type": "pipe"
+                },
+                {
+                    "name": "MatFormField"
+                },
+                {
+                    "name": "MatDatepicker"
+                },
+                {
+                    "name": "FormsModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatDatepickerInput"
+                },
+                {
+                    "name": "MatInput"
+                },
+                {
+                    "name": "MatLabel"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectorRef, Component, ElementRef, HostListener, ViewChild } from \"@angular/core\";\r\nimport { FullCalendarComponent, FullCalendarModule } from \"@fullcalendar/angular\";\r\nimport { CalendarOptions } from \"@fullcalendar/core\";\r\nimport dayGridPlugin from '@fullcalendar/daygrid';\r\nimport listPlugin from '@fullcalendar/list';\r\nimport frLocale from '@fullcalendar/core/locales/fr';\r\n\r\n@Component({\r\n  selector: 'app-calendar',\r\n  standalone: true,\r\n  imports: [\r\n    FullCalendarModule\r\n  ],\r\n  templateUrl: './calendar.component.html',\r\n  styleUrl: './calendar.component.css'\r\n})\r\nexport class CalendarComponent {\r\n  @ViewChild(\"calendar\")\r\n  calendarComponent: FullCalendarComponent = new FullCalendarComponent({} as ElementRef, {} as ChangeDetectorRef);\r\n  private calendarView: string = 'dayGridMonth'\r\n  private screenHeight : number = 0;\r\n  private screenWidth : number = 0;\r\n\r\n  @HostListener('window:resize', ['$event']) onResize() {\r\n    this.screenHeight = window.innerHeight;\r\n    this.screenWidth = window.innerWidth;\r\n  }\r\n\r\n  private view() {\r\n    this.onResize()\r\n    if(this.screenWidth <= 425) {\r\n      this.calendarView = 'listWeek';\r\n    } else {\r\n      this.calendarView = 'dayGridMonth';\r\n    }\r\n    this.calendarOptions.initialView = this.calendarView;\r\n    console.log(this.calendarOptions.initialView);\r\n    this.calendarComponent.getApi().updateSize();\r\n  }\r\n\r\n  calendarOptions: CalendarOptions = {\r\n    timeZone: 'Europe/Paris',\r\n    contentHeight: 'auto',\r\n    plugins: [dayGridPlugin, listPlugin],\r\n    locale: frLocale,\r\n    headerToolbar: {\r\n      start: 'title',\r\n      center: '',\r\n      end: 'today prev,next'\r\n    },\r\n    events: [\r\n      { title: 'event 1', date: '2024-05-07' },\r\n      { title: 'event 2', date: '2024-05-08' }\r\n    ],\r\n    handleWindowResize: false,\r\n  };\r\n}\r\n",
+            "sourceCode": "import { ChangeDetectorRef, Component, ElementRef, HostListener, ViewChild } from \"@angular/core\";\r\nimport { FullCalendarComponent, FullCalendarModule } from \"@fullcalendar/angular\";\r\nimport { CalendarOptions, EventClickArg, EventSourceInput } from \"@fullcalendar/core\";\r\nimport dayGridPlugin from '@fullcalendar/daygrid';\r\nimport listPlugin from '@fullcalendar/list';\r\nimport timeGridPlugin from '@fullcalendar/timegrid';\r\nimport frLocale from '@fullcalendar/core/locales/fr';\r\nimport { MatIcon } from \"@angular/material/icon\";\r\nimport { EventImpl, Identity } from \"@fullcalendar/core/internal\";\r\nimport { DatePipe } from \"@angular/common\";\r\nimport { MatFormField } from \"@angular/material/form-field\";\r\nimport { MatDatepicker, MatDatepickerInput, MatDatepickerModule } from \"@angular/material/datepicker\";\r\nimport { FormsModule } from \"@angular/forms\";\r\nimport { MatInput, MatLabel } from \"@angular/material/input\";\r\nimport { provideNativeDateAdapter } from \"@angular/material/core\";\r\n\r\nexport interface EventInterface {\r\n  title: string,\r\n  date_start: Date,\r\n  date_end: Date,\r\n  location: string,\r\n  status: string\r\n}\r\n\r\n@Component({\r\n  selector: 'app-calendar',\r\n  standalone: true,\r\n  imports: [\r\n    FullCalendarModule,\r\n    MatIcon,\r\n    DatePipe,\r\n    MatFormField,\r\n    MatDatepicker,\r\n    FormsModule,\r\n    MatDatepickerInput,\r\n    MatInput,\r\n    MatLabel\r\n  ],\r\n  providers: [\r\n    MatDatepickerModule,\r\n    provideNativeDateAdapter()\r\n  ],\r\n  templateUrl: './calendar.component.html',\r\n  styleUrl: './calendar.component.css'\r\n})\r\nexport class CalendarComponent {\r\n  @ViewChild(\"calendar\")\r\n  calendarComponent: FullCalendarComponent = new FullCalendarComponent({} as ElementRef, {} as ChangeDetectorRef);\r\n\r\n  private calendarView: string = 'dayGridMonth'\r\n\r\n  private screenHeight : number = 0;\r\n  private screenWidth : number = 0;\r\n\r\n  protected event: EventInterface = {} as EventInterface;\r\n\r\n  protected events = [\r\n    { title: 'event 1', start: new Date(2024, 5, 7), end: new Date(2024, 5, 10), location: 'Paris', status: 'confirmed' },\r\n    { title: 'event 2', start: new Date(2024, 5, 8, 9), end: new Date(2024, 5, 8, 16) }\r\n  ];\r\n\r\n  public x: number = 0;\r\n  public y: number = 0;\r\n\r\n  @HostListener('window:resize', ['$event']) onResize() {\r\n    this.screenHeight = window.innerHeight;\r\n    this.screenWidth = window.innerWidth;\r\n    this.view()\r\n  }\r\n\r\n  private view() {\r\n    if(this.screenWidth <= 425) {\r\n      this.calendarView = 'listWeek';\r\n    } else {\r\n      this.calendarView = 'dayGridMonth';\r\n    }\r\n    this.calendarComponent.getApi().changeView(this.calendarView);\r\n  }\r\n\r\n  calendarOptions: CalendarOptions = {\r\n    contentHeight: \"auto\",\r\n    eventClick: this.handleEventClick.bind(this),\r\n    events: this.events,\r\n    handleWindowResize: false,\r\n    headerToolbar: {\r\n      start: \"title\",\r\n      center: \"\",\r\n      end: \"today prev,next dayGridMonth,timeGridWeek,timeGridDay,listWeek\"\r\n    },\r\n    initialView: \"dayGridMonth\",\r\n    locale: frLocale,\r\n    plugins: [dayGridPlugin, listPlugin, timeGridPlugin],\r\n    timeZone: \"Europe/Paris\"\r\n  };\r\n\r\n  public setEvent(event: EventImpl) {\r\n    this.event = {title: event.title, date_start: event.start, date_end: event.end, location: event.extendedProps['location'], status: event.extendedProps['status']} as EventInterface;\r\n  }\r\n\r\n  public closeDialog() {\r\n    let dialog = document.getElementById(\"dialog\") as HTMLDialogElement;\r\n    dialog.close();\r\n  }\r\n\r\n  public handleEventClick(clickedEvent: EventClickArg) {\r\n    clickedEvent.jsEvent.preventDefault();\r\n    let coordinates = clickedEvent.el.getBoundingClientRect();\r\n    this.setEvent(clickedEvent.event);\r\n    let dialog = document.getElementById(\"dialog\") as HTMLDialogElement;\r\n    if(coordinates.left - 448 > 0) {\r\n      this.x = coordinates.left - 448;\r\n    } else {\r\n      this.x = coordinates.right;\r\n    }\r\n    if (this.screenHeight - coordinates.top < 220) {\r\n      this.y = coordinates.top - 220;\r\n    } else {\r\n      this.y = coordinates.top;\r\n    }\r\n    dialog.style.left = this.x + \"px\";\r\n    dialog.style.top = this.y + \"px\";\r\n    dialog.show();\r\n  }\r\n}\r\n",
             "styleUrl": "./calendar.component.css",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<full-calendar #calendar [options]=\"calendarOptions\"></full-calendar>\r\n"
+            "templateData": "<full-calendar #calendar [options]=\"calendarOptions\"></full-calendar>\r\n<dialog id=\"dialog\">\r\n  <div class=\"dialog-header\">\r\n    <h3>{{event.title}}</h3>\r\n    <span (click)=\"closeDialog()\" class=\"btn-close\">\r\n      <mat-icon fontIcon=\"close\"></mat-icon>\r\n    </span>\r\n  </div>\r\n  <mat-form-field>\r\n    <mat-label>Début</mat-label>\r\n    <input matInput [matDatepicker]=\"picker\" placeholder=\"Début\" [(ngModel)]=\"event.date_start\">\r\n    <mat-datepicker #picker></mat-datepicker>\r\n  </mat-form-field>\r\n  <mat-form-field>\r\n    <mat-label>Fin</mat-label>\r\n    <input matInput [matDatepicker]=\"picker_end\" placeholder=\"Fin\" [(ngModel)]=\"event.date_end\">\r\n    <mat-datepicker #picker_end></mat-datepicker>\r\n  </mat-form-field>\r\n  <p>Statut: {{event.status}}</p>\r\n  <p>Lieu: {{event.location}}</p>\r\n</dialog>\r\n"
         },
         {
             "name": "ChecklistItemComponent",
-            "id": "component-ChecklistItemComponent-20308eb68c69da17130799774b4e1522f5065dab35820fbae3cd0bb5f5141777ae8881b5deb1306a2c9e28da0c1af99bb8c848cf0a8db02349ad62577b0f84a1",
-            "file": "src/app/components/ChecklistItem/ChecklistItem.component.ts",
+            "id": "component-ChecklistItemComponent-063e6a71abdb34b212b754ca70ef08cdf0921f3497993eedd6a9de665d1a2e5ac0d704f9f6333d6986eee8a0132e9d93ad5db745cf41b57de09c047461415f0c",
+            "file": "src/app/components/checklistItem/ChecklistItem.component.ts",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
@@ -608,7 +970,7 @@
                     "defaultValue": "[]",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 24,
+                    "line": 27,
                     "type": "ChecklistItem[]",
                     "decorators": []
                 }
@@ -629,7 +991,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 26,
+                    "line": 29,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -664,22 +1026,26 @@
                 {
                     "name": "LowerCasePipe",
                     "type": "pipe"
+                },
+                {
+                    "name": "ButtonComponent",
+                    "type": "component"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from \"@angular/core\";\r\nimport { LowerCasePipe, NgForOf, NgIf } from \"@angular/common\";\r\nimport { RemoveSpecialCharactersPipe } from \"../../pipes/removeSpecialCharacters.pipe\";\r\n\r\nexport interface ChecklistItem {\r\n  name: string,\r\n  quantity: number,\r\n  checked: boolean,\r\n}\r\n\r\n@Component({\r\n  selector: 'app-checklist-item',\r\n  standalone: true,\r\n  imports: [\r\n    NgForOf,\r\n    RemoveSpecialCharactersPipe,\r\n    LowerCasePipe\r\n  ],\r\n  templateUrl: './ChecklistItem.component.html',\r\n  styleUrl: './ChecklistItem.component.css'\r\n})\r\nexport class ChecklistItemComponent {\r\n  @Input()\r\n  items: ChecklistItem[] = [];\r\n\r\n  public setVisible(item: ChecklistItem) {\r\n    item.checked = !item.checked;\r\n    document.getElementById(new RemoveSpecialCharactersPipe().transform(item.name).toLowerCase() + \"_div\")?.children[0].setAttribute(\"checked\", item.checked.toString());\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, Input, NO_ERRORS_SCHEMA } from \"@angular/core\";\r\nimport { LowerCasePipe, NgForOf } from \"@angular/common\";\r\nimport { RemoveSpecialCharactersPipe } from \"../../pipes/removeSpecialCharacters.pipe\";\r\nimport { ButtonComponent } from \"../button/button.component\";\r\n\r\nexport interface ChecklistItem {\r\n  name: string,\r\n  quantity: number,\r\n  checked: boolean,\r\n}\r\n\r\n@Component({\r\n  selector: 'app-checklist-item',\r\n  standalone: true,\r\n  imports: [\r\n    NgForOf,\r\n    RemoveSpecialCharactersPipe,\r\n    LowerCasePipe,\r\n    ButtonComponent\r\n  ],\r\n  templateUrl: './ChecklistItem.component.html',\r\n  styleUrl: './ChecklistItem.component.css',\r\n  schemas: [NO_ERRORS_SCHEMA]\r\n})\r\nexport class ChecklistItemComponent {\r\n  @Input()\r\n  items: ChecklistItem[] = [];\r\n\r\n  public setVisible(item: ChecklistItem) {\r\n    item.checked = !item.checked;\r\n    document.getElementById(new RemoveSpecialCharactersPipe().transform(item.name).toLowerCase() + \"_div\")?.setAttribute(\"checked\", item.checked.toString());\r\n  }\r\n}\r\n",
             "styleUrl": "./ChecklistItem.component.css",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div *ngFor=\"let item of items\" [className]=\"'item'\" (click)=\"setVisible(item)\" [id]=\"(item.name | lowercase |\r\nremoveSpecialCharacters) + '_div'\">\r\n  <div [className]=\"'item_checkbox'\" checked=\"{{item.checked}}\">\r\n    <i class=\"fa-solid fa-check\"></i>\r\n  </div>\r\n  <div [className]=\"'item_info'\">\r\n    <p>{{item.quantity}} {{item.name}}</p>\r\n  </div>\r\n</div>\r\n"
+            "templateData": "<div *ngFor=\"let item of items\" [className]=\"'item'\" (click)=\"setVisible(item)\" [id]=\"(item.name | lowercase |\r\nremoveSpecialCharacters) + '_div'\" checked=\"{{item.checked}}\">\r\n  <div [className]=\"'item_checkbox'\">\r\n    <i class=\"fa-solid fa-check\"></i>\r\n  </div>\r\n  <div [className]=\"'item_info'\">\r\n    <p>{{item.quantity}} {{item.name}}</p>\r\n  </div>\r\n</div>\r\n"
         },
         {
             "name": "EventListPageComponent",
-            "id": "component-EventListPageComponent-9d54951c52f454cb71543c47abc20ae92f98f571d21872d6a80b60ed979bf782c61d4fcfebfbb6daef5854bf1e6888e155c8f948ad1fe970408ecd7b03a63411",
+            "id": "component-EventListPageComponent-042b92b91233467f46803951c223852577ef23783b6df0b40cc72f322ab3c58aa3a1da098d987f1a8c774e25a4cb5fdda817677c6b90913623b6ab6e21e3edfc",
             "file": "src/app/pages/EventListPage/EventListPage.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -696,82 +1062,67 @@
             "hostDirectives": [],
             "inputsClass": [],
             "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "standalone": true,
-            "imports": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-event-list-page',\r\n  standalone: true,\r\n  imports: [],\r\n  templateUrl: './EventListPage.component.html',\r\n  styleUrl: './EventListPage.component.css'\r\n})\r\nexport class EventListPageComponent {\r\n\r\n}\r\n",
-            "styleUrl": "./EventListPage.component.css",
-            "assetsDirs": [],
-            "styleUrlsData": "",
-            "stylesData": "",
-            "extends": [],
-            "templateData": "<div [className]=\"'header'\">\r\n  <a href=\"/\" [className]=\"['w-100', 'left-align']\">\r\n    <i class=\"fa-solid fa-arrow-left\"></i>\r\n  </a>\r\n  <div [className]=\"'header-container'\">\r\n    <h2>Evénements</h2>\r\n  </div>\r\n\r\n  <!-- Faire un planner like -->\r\n</div>\r\n"
-        },
-        {
-            "name": "HeaderComponent",
-            "id": "component-HeaderComponent-d841199a7aab6799cadc2e697c0f9c05b1330d378a49a1f76022431d2582809949bed0155e26fc5621d4be1e38866a48e62f4e07cd45a37cf042452c2644e95d",
-            "file": "src/stories/header.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "storybook-header",
-            "styleUrls": [
-                "./header.css"
-            ],
-            "styles": [],
-            "template": "<header>    <div class=\"storybook-header\">\n      <div>\n        <svg\n          width=\"32\"\n          height=\"32\"\n          viewBox=\"0 0 32 32\"\n          xmlns=\"http://www.w3.org/2000/svg\"\n        >\n          <g fill=\"none\" fillRule=\"evenodd\">\n            <path\n              d=\"M10 0h12a10 10 0 0110 10v12a10 10 0 01-10 10H10A10 10 0 010 22V10A10 10 0 0110 0z\"\n              fill=\"#FFF\"\n            />\n            <path\n              d=\"M5.3 10.6l10.4 6v11.1l-10.4-6v-11zm11.4-6.2l9.7 5.5-9.7 5.6V4.4z\"\n              fill=\"#555AB9\"\n            />\n            <path\n              d=\"M27.2 10.6v11.2l-10.5 6V16.5l10.5-6zM15.7 4.4v11L6 10l9.7-5.5z\"\n              fill=\"#91BAF8\"\n            />\n          </g>\n        </svg>\n        <h1>Acme</h1>\n      </div>\n      <div>\n        <div *ngIf=\"user\">\n          <span class=\"welcome\">\n            Welcome, <b>{{ user.name }}</b\n            >!\n          </span>\n          <app-button *ngIf=\"user\" label=\"Log out\"></app-button>\n        </div>\n        <div *ngIf=\"!user\">\n          <app-button *ngIf=\"!user\" label=\"Log in\"></app-button>\n          <app-button *ngIf=\"!user\" primary=\"true\" label=\"Sign up\"></app-button>\n        </div>\n      </div>\n    </div>\n  </header>",
-            "templateUrl": [],
-            "viewProviders": [],
-            "hostDirectives": [],
-            "inputsClass": [
+            "propertiesClass": [
                 {
-                    "name": "user",
-                    "defaultValue": "null",
+                    "name": "currentView",
+                    "defaultValue": "'calendar'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 56,
-                    "type": "User | null",
-                    "decorators": []
-                }
-            ],
-            "outputsClass": [
-                {
-                    "name": "onCreateAccount",
-                    "defaultValue": "new EventEmitter<Event>()",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 65,
-                    "type": "EventEmitter"
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 18,
+                    "modifierKind": [
+                        124
+                    ]
                 },
                 {
-                    "name": "onLogin",
-                    "defaultValue": "new EventEmitter<Event>()",
+                    "name": "event",
+                    "defaultValue": "{\r\n    title: \"Test\",\r\n    date_start: new Date(2024, 6, 10),\r\n    date_end: new Date(2024, 6, 12),\r\n    location: \"Paris\",\r\n    status: \"En cours\"\r\n  }",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 59,
-                    "type": "EventEmitter"
-                },
-                {
-                    "name": "onLogout",
-                    "defaultValue": "new EventEmitter<Event>()",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 62,
-                    "type": "EventEmitter"
+                    "type": "EventInterface",
+                    "optional": false,
+                    "description": "",
+                    "line": 20,
+                    "modifierKind": [
+                        125
+                    ]
                 }
             ],
-            "propertiesClass": [],
-            "methodsClass": [],
+            "methodsClass": [
+                {
+                    "name": "changeView",
+                    "args": [
+                        {
+                            "name": "view",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 28,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        125
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "view",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -779,27 +1130,27 @@
             "standalone": true,
             "imports": [
                 {
-                    "name": "CommonModule",
-                    "type": "module"
+                    "name": "CalendarComponent",
+                    "type": "component"
                 },
                 {
                     "name": "ButtonComponent",
                     "type": "component"
+                },
+                {
+                    "name": "NgIf"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input, Output, EventEmitter } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport type { User } from './user';\r\nimport { ButtonComponent } from '../app/components/button/button.component';\r\n\r\n@Component({\r\n  selector: 'storybook-header',\r\n  standalone: true,\r\n  imports: [CommonModule, ButtonComponent],\r\n  template: `<header>\r\n    <div class=\"storybook-header\">\r\n      <div>\r\n        <svg\r\n          width=\"32\"\r\n          height=\"32\"\r\n          viewBox=\"0 0 32 32\"\r\n          xmlns=\"http://www.w3.org/2000/svg\"\r\n        >\r\n          <g fill=\"none\" fillRule=\"evenodd\">\r\n            <path\r\n              d=\"M10 0h12a10 10 0 0110 10v12a10 10 0 01-10 10H10A10 10 0 010 22V10A10 10 0 0110 0z\"\r\n              fill=\"#FFF\"\r\n            />\r\n            <path\r\n              d=\"M5.3 10.6l10.4 6v11.1l-10.4-6v-11zm11.4-6.2l9.7 5.5-9.7 5.6V4.4z\"\r\n              fill=\"#555AB9\"\r\n            />\r\n            <path\r\n              d=\"M27.2 10.6v11.2l-10.5 6V16.5l10.5-6zM15.7 4.4v11L6 10l9.7-5.5z\"\r\n              fill=\"#91BAF8\"\r\n            />\r\n          </g>\r\n        </svg>\r\n        <h1>Acme</h1>\r\n      </div>\r\n      <div>\r\n        <div *ngIf=\"user\">\r\n          <span class=\"welcome\">\r\n            Welcome, <b>{{ user.name }}</b\r\n            >!\r\n          </span>\r\n          <app-button *ngIf=\"user\" label=\"Log out\"></app-button>\r\n        </div>\r\n        <div *ngIf=\"!user\">\r\n          <app-button *ngIf=\"!user\" label=\"Log in\"></app-button>\r\n          <app-button *ngIf=\"!user\" primary=\"true\" label=\"Sign up\"></app-button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </header>`,\r\n  styleUrls: ['./header.css'],\r\n})\r\nexport class HeaderComponent {\r\n  @Input()\r\n  user: User | null = null;\r\n\r\n  @Output()\r\n  onLogin = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onLogout = new EventEmitter<Event>();\r\n\r\n  @Output()\r\n  onCreateAccount = new EventEmitter<Event>();\r\n}\r\n",
+            "sourceCode": "import { Component } from '@angular/core';\r\nimport { CalendarComponent, EventInterface } from \"../../components/calendar/calendar.component\";\r\nimport { ButtonComponent } from \"../../components/button/button.component\";\r\nimport { NgIf } from \"@angular/common\";\r\n\r\n@Component({\r\n  selector: 'app-event-list-page',\r\n  standalone: true,\r\n  imports: [\r\n    CalendarComponent,\r\n    ButtonComponent,\r\n    NgIf,\r\n  ],\r\n  templateUrl: './EventListPage.component.html',\r\n  styleUrl: './EventListPage.component.css'\r\n})\r\nexport class EventListPageComponent {\r\n  protected currentView: string = 'calendar';\r\n\r\n  public event : EventInterface = {\r\n    title: \"Test\",\r\n    date_start: new Date(2024, 6, 10),\r\n    date_end: new Date(2024, 6, 12),\r\n    location: \"Paris\",\r\n    status: \"En cours\"\r\n  }\r\n\r\n  public changeView(view: string) {\r\n    this.currentView = view;\r\n  }\r\n}\r\n",
+            "styleUrl": "./EventListPage.component.css",
             "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": ".storybook-header {\r\n  font-family: \"Nunito Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif;\r\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\r\n  padding: 15px 20px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: space-between;\r\n}\r\n\r\n.storybook-header svg {\r\n  display: inline-block;\r\n  vertical-align: top;\r\n}\r\n\r\n.storybook-header h1 {\r\n  font-weight: 700;\r\n  font-size: 20px;\r\n  line-height: 1;\r\n  margin: 6px 0 6px 10px;\r\n  display: inline-block;\r\n  vertical-align: top;\r\n}\r\n\r\n.storybook-header button + button {\r\n  margin-left: 10px;\r\n}\r\n\r\n.storybook-header .welcome {\r\n  color: #333;\r\n  font-size: 14px;\r\n  margin-right: 10px;\r\n}\r\n",
-                    "styleUrl": "./header.css"
-                }
-            ],
+            "styleUrlsData": "",
             "stylesData": "",
-            "extends": []
+            "extends": [],
+            "templateData": "<div [className]=\"'header'\">\r\n  <a href=\"/\" [className]=\"['w-100', 'left-align']\">\r\n    <i class=\"fa-solid fa-arrow-left\"></i>\r\n  </a>\r\n  <div [className]=\"'header-container'\">\r\n    <h2>Événements</h2>\r\n  </div>\r\n\r\n  <div class=\"d-flex\">\r\n    <app-button label=\"Calendrier\" (click)=\"changeView('calendar')\"/>\r\n    <app-button label=\"Status\" (click)=\"changeView('status')\"/>\r\n  </div>\r\n\r\n  <div id=\"calendarView\" *ngIf=\"currentView == 'calendar'\">\r\n    <app-calendar/>\r\n  </div>\r\n  <div id=\"statusView\" *ngIf=\"currentView == 'status'\">\r\n\r\n  </div>\r\n\r\n  <app-button label=\"Créer un événement\" type=\"primary\" [solid]=\"true\" onClickLink=\"/event/add\"/>\r\n</div>\r\n"
         },
         {
             "name": "HomePageComponent",
@@ -846,7 +1197,7 @@
         },
         {
             "name": "IMSListPageComponent",
-            "id": "component-IMSListPageComponent-a1b95cb39845aca3459bd224f66100ec53cea1723eedf88823074101b35ba4dfca6be05d78d0b5079c0721f272754e24e3319f2758594ecd58fe9ec9f99e0415",
+            "id": "component-IMSListPageComponent-60b3b17dbe3bb4c7f51aa2df97fb23da64fb7a7abd5602d4095ab10e1b07c5740b09e173ac4af49928aefdba4962a32616df63f2bd34873da97e6f6243b901c3",
             "file": "src/app/pages/IMSListPage/IMSListPage.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -870,49 +1221,7 @@
             "hostBindings": [],
             "hostListeners": [],
             "standalone": true,
-            "imports": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-imslist-page',\r\n  standalone: true,\r\n  imports: [],\r\n  templateUrl: './IMSListPage.component.html',\r\n  styleUrl: './IMSListPage.component.css'\r\n})\r\nexport class IMSListPageComponent {\r\n\r\n}\r\n",
-            "styleUrl": "./IMSListPage.component.css",
-            "assetsDirs": [],
-            "styleUrlsData": "",
-            "stylesData": "",
-            "extends": [],
-            "templateData": "<div [className]=\"'header'\">\r\n  <a href=\"/\" [className]=\"['w-100', 'left-align']\">\r\n    <i class=\"fa-solid fa-arrow-left\"></i>\r\n  </a>\r\n  <div [className]=\"'header-container'\">\r\n    <h2>Gestion du stock</h2>\r\n  </div>\r\n\r\n</div>\r\n"
-        },
-        {
-            "name": "InventoryFormPageComponent",
-            "id": "component-InventoryFormPageComponent-6290cfe92824223c5ed86328c94403ce6d264b020e1e222708dd23be7cd7df3fa65135aaf70c24d6d2ab018f430d6e83275d2944985b0c92d780f22740ca3ebb",
-            "file": "src/app/pages/InventoryFormPage/InventoryFormPage.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "app-inventory-form-page",
-            "styleUrls": [],
-            "styles": [],
-            "templateUrl": [
-                "./InventoryFormPage.component.html"
-            ],
-            "viewProviders": [],
-            "hostDirectives": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "standalone": true,
             "imports": [
-                {
-                    "name": "SelectComponent",
-                    "type": "component"
-                },
                 {
                     "name": "ButtonComponent",
                     "type": "component"
@@ -921,13 +1230,13 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\nimport { SelectComponent } from \"../../components/select/select.component\";\r\nimport { ButtonComponent } from \"../../components/button/button.component\";\r\n\r\n@Component({\r\n  selector: 'app-inventory-form-page',\r\n  standalone: true,\r\n  imports: [\r\n    SelectComponent,\r\n    ButtonComponent\r\n  ],\r\n  templateUrl: './InventoryFormPage.component.html',\r\n  styleUrl: './InventoryFormPage.component.css'\r\n})\r\nexport class InventoryFormPageComponent {\r\n\r\n}\r\n",
-            "styleUrl": "./InventoryFormPage.component.css",
+            "sourceCode": "import { Component } from '@angular/core';\r\nimport { ButtonComponent } from \"../../components/button/button.component\";\r\n\r\n@Component({\r\n  selector: 'app-imslist-page',\r\n  standalone: true,\r\n  imports: [\r\n    ButtonComponent\r\n  ],\r\n  templateUrl: './IMSListPage.component.html',\r\n  styleUrl: './IMSListPage.component.css'\r\n})\r\nexport class IMSListPageComponent {\r\n\r\n}\r\n",
+            "styleUrl": "./IMSListPage.component.css",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div [className]=\"'header'\">\r\n  <a href=\"/\" [className]=\"['w-100', 'left-align']\">\r\n    <i class=\"fa-solid fa-arrow-left\"></i>\r\n  </a>\r\n  <div [className]=\"'header-container'\">\r\n    <h2>Formulaire d'inventaire</h2>\r\n  </div>\r\n\r\n  <form method=\"post\">\r\n    <div [className]=\"'form-group'\">\r\n      <label for=\"material_select\">Matériel</label>\r\n      <app-select id=\"material_select\" name=\"material\"\r\n                  [options]=\"[{value: 'none', label: '--- Choisir un matériel --'}]\"/>\r\n    </div>\r\n\r\n    <div [className]=\"'form-group'\">\r\n      <label for=\"room_select\">Salle</label>\r\n      <app-select id=\"room_select\" name=\"room\" [options]=\"[{value: 'none', label: '--- Choisir une salle --'}]\"/>\r\n    </div>\r\n\r\n    <div [className]=\"'form-group'\">\r\n      <label for=\"quantity_input\">Quantité</label>\r\n      <input type=\"number\" id=\"quantity_input\" name=\"quantity\" placeholder=\"Nouvelle quantité disponible\"/>\r\n    </div>\r\n\r\n    <app-button [solid]=\"true\" [type]=\"'primary'\" label=\"Mettre à jour\" id=\"submit\"/>\r\n  </form>\r\n\r\n</div>\r\n"
+            "templateData": "<div [className]=\"'header'\">\r\n  <a href=\"/\" [className]=\"['w-100', 'left-align']\">\r\n    <i class=\"fa-solid fa-arrow-left\"></i>\r\n  </a>\r\n  <div [className]=\"'header-container'\">\r\n    <h2>Gestion du stock</h2>\r\n  </div>\r\n\r\n  <app-button type=\"secondary\" label=\"Ajouter un matériel\" [solid]=\"true\" onClickLink=\"/stock/add\"></app-button>\r\n</div>\r\n"
         },
         {
             "name": "LogInPageComponent",
@@ -976,7 +1285,7 @@
         },
         {
             "name": "NavbarComponent",
-            "id": "component-NavbarComponent-1a4da868d0e827c632f18407035c8d2e1cdfd4deda2f35094e1b1f19e3bf3ae134a8875fa35cac891e0524c54069f352f09a9b06b4147336acb78b2717e41c75",
+            "id": "component-NavbarComponent-464450137d94ee08c4281566e6f648d3136b2627689de6f7cf1125db8805c0652b7b4027783bf2f72111e3d49123e135474c44080daa218d3250485c9b6b8179",
             "file": "src/app/components/navbar/navbar.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -997,13 +1306,26 @@
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 21,
+                    "line": 24,
                     "type": "string",
                     "decorators": []
                 }
             ],
             "outputsClass": [],
             "propertiesClass": [
+                {
+                    "name": "router",
+                    "defaultValue": "{} as Router",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Router",
+                    "optional": false,
+                    "description": "",
+                    "line": 26,
+                    "modifierKind": [
+                        124
+                    ]
+                },
                 {
                     "name": "screenHeight",
                     "defaultValue": "0",
@@ -1012,7 +1334,7 @@
                     "type": "number",
                     "optional": false,
                     "description": "",
-                    "line": 17,
+                    "line": 20,
                     "modifierKind": [
                         123
                     ]
@@ -1025,7 +1347,7 @@
                     "type": "number",
                     "optional": false,
                     "description": "",
-                    "line": 18,
+                    "line": 21,
                     "modifierKind": [
                         123
                     ]
@@ -1038,7 +1360,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 27,
+                    "line": 33,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "decorators": [
@@ -1064,7 +1386,7 @@
                     ],
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 27
+                    "line": 33
                 }
             ],
             "standalone": true,
@@ -1078,12 +1400,15 @@
                 },
                 {
                     "name": "RouterLink"
+                },
+                {
+                    "name": "MatIcon"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, HostListener, Input } from \"@angular/core\";\r\nimport { ButtonComponent } from \"../button/button.component\";\r\nimport { RouterLink, RouterLinkActive } from \"@angular/router\";\r\n\r\n@Component({\r\n  selector: 'app-navbar',\r\n  standalone: true,\r\n  imports: [\r\n    ButtonComponent,\r\n    RouterLinkActive,\r\n    RouterLink\r\n  ],\r\n  templateUrl: './navbar.component.html',\r\n  styleUrl: './navbar.component.css'\r\n})\r\nexport class NavbarComponent {\r\n  private screenHeight : number = 0;\r\n  private screenWidth : number = 0;\r\n\r\n  @Input()\r\n  public css: string = '';\r\n\r\n  constructor() {\r\n    this.onResize()\r\n  }\r\n\r\n  @HostListener('window:resize', ['$event']) onResize() {\r\n    this.screenHeight = window.innerHeight;\r\n    this.screenWidth = window.innerWidth;\r\n  }\r\n\r\n  public get classes(): string {\r\n    let cssClasses = ['w-100'];\r\n    if (this.css) {\r\n      cssClasses.push(this.css);\r\n    }\r\n    if (this.screenWidth <= 1024) {\r\n      cssClasses.push('sticky-bottom', 'navbar-mobile');\r\n    } else {\r\n      cssClasses.push('sticky-top');\r\n    }\r\n    return cssClasses.join(' ')\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, HostListener, Input } from \"@angular/core\";\r\nimport { ButtonComponent } from \"../button/button.component\";\r\nimport { Router, RouterLink, RouterLinkActive } from \"@angular/router\";\r\nimport { MatIcon } from \"@angular/material/icon\";\r\nimport { routes } from \"../../app.routes\";\r\n\r\n@Component({\r\n  selector: 'app-navbar',\r\n  standalone: true,\r\n  imports: [\r\n    ButtonComponent,\r\n    RouterLinkActive,\r\n    RouterLink,\r\n    MatIcon\r\n  ],\r\n  templateUrl: './navbar.component.html',\r\n  styleUrl: './navbar.component.css'\r\n})\r\nexport class NavbarComponent {\r\n  private screenHeight : number = 0;\r\n  private screenWidth : number = 0;\r\n\r\n  @Input()\r\n  public css: string = '';\r\n\r\n  protected router : Router = {} as Router;\r\n\r\n  constructor(router : Router) {\r\n    this.onResize()\r\n    this.router = router;\r\n  }\r\n\r\n  @HostListener('window:resize', ['$event']) onResize() {\r\n    this.screenHeight = window.innerHeight;\r\n    this.screenWidth = window.innerWidth;\r\n  }\r\n\r\n  public get classes(): string {\r\n    let cssClasses = ['w-100'];\r\n    if (this.css) {\r\n      cssClasses.push(this.css);\r\n    }\r\n    if([\"/\", \"/home\", \"/login\"].includes(this.router.url)) {\r\n      cssClasses.push('d-none');\r\n    }\r\n    if (this.screenWidth <= 1024) {\r\n      cssClasses.push('sticky-bottom', 'navbar-mobile');\r\n    } else {\r\n      cssClasses.push('sticky-top');\r\n    }\r\n    return cssClasses.join(' ')\r\n  }\r\n}\r\n",
             "styleUrl": "./navbar.component.css",
             "assetsDirs": [],
             "styleUrlsData": "",
@@ -1093,8 +1418,26 @@
                 "description": "",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "args": [],
-                "line": 21
+                "args": [
+                    {
+                        "name": "router",
+                        "type": "Router",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 26,
+                "jsdoctags": [
+                    {
+                        "name": "router",
+                        "type": "Router",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
             },
             "extends": [],
             "accessors": {
@@ -1104,104 +1447,11 @@
                         "name": "classes",
                         "type": "string",
                         "returnType": "string",
-                        "line": 32
+                        "line": 38
                     }
                 }
             },
-            "templateData": "<nav [className]=\"classes\">\r\n  <ul>\r\n    <li>\r\n      <a [routerLink]=\"['/home']\" [routerLinkActive]=\"'active'\">\r\n        <i class=\"fa-solid fa-house\"></i>\r\n        Accueil\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a [routerLink]=\"['/stock']\" [routerLinkActive]=\"'active'\">\r\n        <i class=\"fa-solid fa-dolly\"></i>\r\n        Stock\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a [routerLink]=\"['/event/list']\" [routerLinkActive]=\"'active'\">\r\n        <i class=\"fa-regular fa-calendar\"></i>\r\n        Evénements\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a [routerLink]=\"['/profile']\" [routerLinkActive]=\"'active'\">\r\n        <i class=\"fa-solid fa-user\"></i>\r\n        Profil\r\n      </a>\r\n    </li>\r\n  </ul>\r\n</nav>\r\n"
-        },
-        {
-            "name": "PageComponent",
-            "id": "component-PageComponent-c4a5491f64a462e6fa9597ac527056a596bcb6093709d978906581c5b6d3a83cdc848bc2c39433eb5f92c31a0b53974ae9a46d48a70fe922547442d6c5ba6ee0",
-            "file": "src/stories/page.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "storybook-page",
-            "styleUrls": [
-                "./page.css"
-            ],
-            "styles": [],
-            "template": "<article>    <storybook-header\n      [user]=\"user\"\n      (onLogout)=\"doLogout()\"\n      (onLogin)=\"doLogin()\"\n      (onCreateAccount)=\"doCreateAccount()\"\n    ></storybook-header>\n    <section class=\"storybook-page\">\n      <h2>Pages in Storybook</h2>\n      <p>\n        We recommend building UIs with a\n        <a\n          href=\"https://componentdriven.org\"\n          target=\"_blank\"\n          rel=\"noopener noreferrer\"\n        >\n          <strong>component-driven</strong>\n        </a>\n        process starting with atomic components and ending with pages.\n      </p>\n      <p>\n        Render pages with mock data. This makes it easy to build and review page\n        states without needing to navigate to them in your app. Here are some\n        handy patterns for managing page data in Storybook:\n      </p>\n      <ul>\n        <li>\n          Use a higher-level connected component. Storybook helps you compose\n          such data from the \"args\" of child component stories\n        </li>\n        <li>\n          Assemble data in the page component from your services. You can mock\n          these services out using Storybook.\n        </li>\n      </ul>\n      <p>\n        Get a guided tutorial on component-driven development at\n        <a\n          href=\"https://storybook.js.org/tutorials/\"\n          target=\"_blank\"\n          rel=\"noopener noreferrer\"\n        >\n          Storybook tutorials\n        </a>\n        . Read more in the\n        <a\n          href=\"https://storybook.js.org/docs\"\n          target=\"_blank\"\n          rel=\"noopener noreferrer\"\n        >\n          docs\n        </a>\n        .\n      </p>\n      <div class=\"tip-wrapper\">\n        <span class=\"tip\">Tip</span> Adjust the width of the canvas with the\n        <svg\n          width=\"10\"\n          height=\"10\"\n          viewBox=\"0 0 12 12\"\n          xmlns=\"http://www.w3.org/2000/svg\"\n        >\n          <g fill=\"none\" fillRule=\"evenodd\">\n            <path\n              d=\"M1.5 5.2h4.8c.3 0 .5.2.5.4v5.1c-.1.2-.3.3-.4.3H1.4a.5.5 0 01-.5-.4V5.7c0-.3.2-.5.5-.5zm0-2.1h6.9c.3 0 .5.2.5.4v7a.5.5 0 01-1 0V4H1.5a.5.5 0 010-1zm0-2.1h9c.3 0 .5.2.5.4v9.1a.5.5 0 01-1 0V2H1.5a.5.5 0 010-1zm4.3 5.2H2V10h3.8V6.2z\"\n              id=\"a\"\n              fill=\"#999\"\n            />\n          </g>\n        </svg>\n        Viewports addon in the toolbar\n      </div>\n    </section>\n  </article>",
-            "templateUrl": [],
-            "viewProviders": [],
-            "hostDirectives": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "propertiesClass": [
-                {
-                    "name": "user",
-                    "defaultValue": "null",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "User | null",
-                    "optional": false,
-                    "description": "",
-                    "line": 88
-                }
-            ],
-            "methodsClass": [
-                {
-                    "name": "doCreateAccount",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 98,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                },
-                {
-                    "name": "doLogin",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 94,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                },
-                {
-                    "name": "doLogout",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 90,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                }
-            ],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "standalone": true,
-            "imports": [
-                {
-                    "name": "CommonModule",
-                    "type": "module"
-                },
-                {
-                    "name": "HeaderComponent",
-                    "type": "component"
-                }
-            ],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport { HeaderComponent } from './header.component';\r\nimport type { User } from './user';\r\n\r\n@Component({\r\n  selector: 'storybook-page',\r\n  standalone: true,\r\n  imports: [CommonModule, HeaderComponent],\r\n  template: `<article>\r\n    <storybook-header\r\n      [user]=\"user\"\r\n      (onLogout)=\"doLogout()\"\r\n      (onLogin)=\"doLogin()\"\r\n      (onCreateAccount)=\"doCreateAccount()\"\r\n    ></storybook-header>\r\n    <section class=\"storybook-page\">\r\n      <h2>Pages in Storybook</h2>\r\n      <p>\r\n        We recommend building UIs with a\r\n        <a\r\n          href=\"https://componentdriven.org\"\r\n          target=\"_blank\"\r\n          rel=\"noopener noreferrer\"\r\n        >\r\n          <strong>component-driven</strong>\r\n        </a>\r\n        process starting with atomic components and ending with pages.\r\n      </p>\r\n      <p>\r\n        Render pages with mock data. This makes it easy to build and review page\r\n        states without needing to navigate to them in your app. Here are some\r\n        handy patterns for managing page data in Storybook:\r\n      </p>\r\n      <ul>\r\n        <li>\r\n          Use a higher-level connected component. Storybook helps you compose\r\n          such data from the \"args\" of child component stories\r\n        </li>\r\n        <li>\r\n          Assemble data in the page component from your services. You can mock\r\n          these services out using Storybook.\r\n        </li>\r\n      </ul>\r\n      <p>\r\n        Get a guided tutorial on component-driven development at\r\n        <a\r\n          href=\"https://storybook.js.org/tutorials/\"\r\n          target=\"_blank\"\r\n          rel=\"noopener noreferrer\"\r\n        >\r\n          Storybook tutorials\r\n        </a>\r\n        . Read more in the\r\n        <a\r\n          href=\"https://storybook.js.org/docs\"\r\n          target=\"_blank\"\r\n          rel=\"noopener noreferrer\"\r\n        >\r\n          docs\r\n        </a>\r\n        .\r\n      </p>\r\n      <div class=\"tip-wrapper\">\r\n        <span class=\"tip\">Tip</span> Adjust the width of the canvas with the\r\n        <svg\r\n          width=\"10\"\r\n          height=\"10\"\r\n          viewBox=\"0 0 12 12\"\r\n          xmlns=\"http://www.w3.org/2000/svg\"\r\n        >\r\n          <g fill=\"none\" fillRule=\"evenodd\">\r\n            <path\r\n              d=\"M1.5 5.2h4.8c.3 0 .5.2.5.4v5.1c-.1.2-.3.3-.4.3H1.4a.5.5 0 01-.5-.4V5.7c0-.3.2-.5.5-.5zm0-2.1h6.9c.3 0 .5.2.5.4v7a.5.5 0 01-1 0V4H1.5a.5.5 0 010-1zm0-2.1h9c.3 0 .5.2.5.4v9.1a.5.5 0 01-1 0V2H1.5a.5.5 0 010-1zm4.3 5.2H2V10h3.8V6.2z\"\r\n              id=\"a\"\r\n              fill=\"#999\"\r\n            />\r\n          </g>\r\n        </svg>\r\n        Viewports addon in the toolbar\r\n      </div>\r\n    </section>\r\n  </article>`,\r\n  styleUrls: ['./page.css'],\r\n})\r\nexport class PageComponent {\r\n  user: User | null = null;\r\n\r\n  doLogout() {\r\n    this.user = null;\r\n  }\r\n\r\n  doLogin() {\r\n    this.user = { name: 'Jane Doe' };\r\n  }\r\n\r\n  doCreateAccount() {\r\n    this.user = { name: 'Jane Doe' };\r\n  }\r\n}\r\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": ".storybook-page {\r\n  font-family: \"Nunito Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif;\r\n  font-size: 14px;\r\n  line-height: 24px;\r\n  padding: 48px 20px;\r\n  margin: 0 auto;\r\n  max-width: 600px;\r\n  color: #333;\r\n}\r\n\r\n.storybook-page h2 {\r\n  font-weight: 700;\r\n  font-size: 32px;\r\n  line-height: 1;\r\n  margin: 0 0 4px;\r\n  display: inline-block;\r\n  vertical-align: top;\r\n}\r\n\r\n.storybook-page p {\r\n  margin: 1em 0;\r\n}\r\n\r\n.storybook-page a {\r\n  text-decoration: none;\r\n  color: #1ea7fd;\r\n}\r\n\r\n.storybook-page ul {\r\n  padding-left: 30px;\r\n  margin: 1em 0;\r\n}\r\n\r\n.storybook-page li {\r\n  margin-bottom: 8px;\r\n}\r\n\r\n.storybook-page .tip {\r\n  display: inline-block;\r\n  border-radius: 1em;\r\n  font-size: 11px;\r\n  line-height: 12px;\r\n  font-weight: 700;\r\n  background: #e7fdd8;\r\n  color: #66bf3c;\r\n  padding: 4px 12px;\r\n  margin-right: 10px;\r\n  vertical-align: top;\r\n}\r\n\r\n.storybook-page .tip-wrapper {\r\n  font-size: 13px;\r\n  line-height: 20px;\r\n  margin-top: 40px;\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.storybook-page .tip-wrapper svg {\r\n  display: inline-block;\r\n  height: 12px;\r\n  width: 12px;\r\n  margin-right: 4px;\r\n  vertical-align: top;\r\n  margin-top: 3px;\r\n}\r\n\r\n.storybook-page .tip-wrapper svg path {\r\n  fill: #1ea7fd;\r\n}\r\n",
-                    "styleUrl": "./page.css"
-                }
-            ],
-            "stylesData": "",
-            "extends": []
+            "templateData": "<nav [className]=\"classes\">\r\n  <ul>\r\n    <li>\r\n      <a [routerLink]=\"['/home']\" [routerLinkActive]=\"'active'\">\r\n        <mat-icon fontIcon=\"home\"/>\r\n        Accueil\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a [routerLink]=\"['/stock']\" [routerLinkActive]=\"'active'\">\r\n        <mat-icon fontIcon=\"inventory\"/>\r\n        Stock\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a [routerLink]=\"['/event/list']\" [routerLinkActive]=\"'active'\">\r\n        <mat-icon fontIcon=\"calendar_month\"/>\r\n        Événements\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a [routerLink]=\"['/logout']\" [routerLinkActive]=\"'active'\">\r\n        <mat-icon fontIcon=\"logout\"/>\r\n        Déconnexion\r\n      </a>\r\n    </li>\r\n  </ul>\r\n</nav>\r\n"
         },
         {
             "name": "SelectComponent",
@@ -1297,7 +1547,7 @@
         },
         {
             "name": "StockItemComponent",
-            "id": "component-StockItemComponent-45184911a214b03965c48f921ec8a439afced2f47790221d56afe401a96b8d79ea83b7a5f38b0be5cf76046877422ac297b5379e9e9788fb0996a5b83a381925",
+            "id": "component-StockItemComponent-eddee92116f0b82a8716c0182f6f2fc24e37c1d6d6ec4e9a6f122f5aa0ddd1accf8c4690779045ecfa4fff71235c609e4615a1126b7e4359bb0fd9514e1a7727",
             "file": "src/app/components/stockItem/stock-item.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1318,7 +1568,7 @@
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 22,
+                    "line": 25,
                     "type": "string",
                     "decorators": []
                 },
@@ -1327,7 +1577,7 @@
                     "defaultValue": "0",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 19,
+                    "line": 22,
                     "type": "number",
                     "decorators": []
                 },
@@ -1336,7 +1586,7 @@
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 16,
+                    "line": 19,
                     "type": "string",
                     "decorators": []
                 },
@@ -1345,7 +1595,7 @@
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 13,
+                    "line": 16,
                     "type": "string",
                     "decorators": []
                 }
@@ -1358,17 +1608,22 @@
             "hostBindings": [],
             "hostListeners": [],
             "standalone": true,
-            "imports": [],
+            "imports": [
+                {
+                    "name": "ButtonComponent",
+                    "type": "component"
+                }
+            ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from \"@angular/core\";\r\n\r\n@Component({\r\n  selector: 'app-stock-item',\r\n  standalone: true,\r\n  imports: [],\r\n  templateUrl: './stock-item.component.html',\r\n  styleUrl: './stock-item.component.css'\r\n})\r\nexport class StockItemComponent {\r\n\r\n  @Input()\r\n  title: string = '';\r\n\r\n  @Input()\r\n  room: string = '';\r\n\r\n  @Input()\r\n  quantity: number = 0;\r\n\r\n  @Input()\r\n  image: string = '';\r\n}\r\n",
+            "sourceCode": "import { Component, Input } from \"@angular/core\";\r\nimport { ButtonComponent } from \"../button/button.component\";\r\n\r\n@Component({\r\n  selector: 'app-stock-item',\r\n  standalone: true,\r\n  imports: [\r\n    ButtonComponent\r\n  ],\r\n  templateUrl: './stock-item.component.html',\r\n  styleUrl: './stock-item.component.css'\r\n})\r\nexport class StockItemComponent {\r\n\r\n  @Input()\r\n  title: string = '';\r\n\r\n  @Input()\r\n  room: string = '';\r\n\r\n  @Input()\r\n  quantity: number = 0;\r\n\r\n  @Input()\r\n  image: string = '';\r\n}\r\n",
             "styleUrl": "./stock-item.component.css",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div>\r\n  <div>\r\n    <img src=\"{{image}}\" alt=\"{{title}}\" />\r\n  </div>\r\n  <div>\r\n    <h5>{{title}}</h5>\r\n    <p>Salle: {{room}}</p>\r\n    <p>Quantité: {{quantity}}</p>\r\n  </div>\r\n</div>\r\n"
+            "templateData": "<div>\r\n  <div>\r\n    <img src=\"{{image}}\" alt=\"{{title}}\" />\r\n  </div>\r\n  <div>\r\n    <h5>{{title}}</h5>\r\n    <p>Salle: {{room}}</p>\r\n    <p>Quantité: {{quantity}}</p>\r\n  </div>\r\n</div>\r\n\r\n<app-button type=\"primary\" [solid]=\"true\" label=\"Ajouter un matériel\"></app-button>\r\n"
         },
         {
             "name": "SuccessPageComponent",
@@ -1422,6 +1677,91 @@
             "stylesData": "",
             "extends": [],
             "templateData": "<div [className]=\"'container h-100'\">\r\n    <img src=\"assets/img/icons/ISEN-bulles.png\" alt=\"ISEN bulles\">\r\n    <b [className]=\"'mb-25'\">{{text}}</b>\r\n\r\n  <div [className]=\"'w-100'\">\r\n    <app-button [label]=\"'Retour'\" [type]=\"'primary'\" [solid]=\"true\" [onClickLink]=\"'/home'\"/>\r\n  </div>\r\n</div>\r\n"
+        },
+        {
+            "name": "UpdateEventFormPageComponent",
+            "id": "component-UpdateEventFormPageComponent-5bfbb5d1c1eda899de56e5ded24d4757428f8426fccaba8d4be00a1e63580b25c37703d6ccda12583f91ef8c290625aa010e6c2d209c491dcef908b9c0f23e97",
+            "file": "src/app/pages/UpdateEventFormPage/UpdateEventFormPage.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-update-event-form-page",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./UpdateEventFormPage.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-update-event-form-page',\r\n  standalone: true,\r\n  imports: [],\r\n  templateUrl: './UpdateEventFormPage.component.html',\r\n  styleUrl: './UpdateEventFormPage.component.css'\r\n})\r\nexport class UpdateEventFormPageComponent {\r\n\r\n}\r\n",
+            "styleUrl": "./UpdateEventFormPage.component.css",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<p>update-event-form-page works!</p>\r\n"
+        },
+        {
+            "name": "UpdateInventoryFormPageComponent",
+            "id": "component-UpdateInventoryFormPageComponent-8c97d7c1b26db2340f1e222040408e6796b4d3e90cd0e11683746333e27d3ada6068ce4c82e30756444dcb0f591b434e0d401772a2b37fd0efbb6b2796fa4f75",
+            "file": "src/app/pages/UpdateInventoryFormPage/UpdateInventoryFormPage.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-inventory-form-page",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./UpdateInventoryFormPage.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "SelectComponent",
+                    "type": "component"
+                },
+                {
+                    "name": "ButtonComponent",
+                    "type": "component"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\r\nimport { SelectComponent } from \"../../components/select/select.component\";\r\nimport { ButtonComponent } from \"../../components/button/button.component\";\r\n\r\n@Component({\r\n  selector: 'app-inventory-form-page',\r\n  standalone: true,\r\n  imports: [\r\n    SelectComponent,\r\n    ButtonComponent\r\n  ],\r\n  templateUrl: './UpdateInventoryFormPage.component.html',\r\n  styleUrl: './UpdateInventoryFormPage.component.css'\r\n})\r\nexport class UpdateInventoryFormPageComponent {\r\n\r\n}\r\n",
+            "styleUrl": "./UpdateInventoryFormPage.component.css",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<div [className]=\"'header'\">\r\n  <a href=\"/\" [className]=\"['w-100', 'left-align']\">\r\n    <i class=\"fa-solid fa-arrow-left\"></i>\r\n  </a>\r\n  <div [className]=\"'header-container'\">\r\n    <h2>Formulaire d'inventaire</h2>\r\n  </div>\r\n\r\n  <form method=\"post\">\r\n    <div [className]=\"'form-group'\">\r\n      <label for=\"material_select\">Matériel</label>\r\n      <app-select id=\"material_select\" name=\"material\"\r\n                  [options]=\"[{value: 'none', label: '--- Choisir un matériel --'}]\"/>\r\n    </div>\r\n\r\n    <div [className]=\"'form-group'\">\r\n      <label for=\"room_select\">Salle</label>\r\n      <app-select id=\"room_select\" name=\"room\" [options]=\"[{value: 'none', label: '--- Choisir une salle --'}]\"/>\r\n    </div>\r\n\r\n    <div [className]=\"'form-group'\">\r\n      <label for=\"quantity_input\">Quantité</label>\r\n      <input type=\"number\" id=\"quantity_input\" name=\"quantity\" placeholder=\"Nouvelle quantité disponible\"/>\r\n    </div>\r\n\r\n    <app-button [solid]=\"true\" [type]=\"'primary'\" label=\"Mettre à jour\" id=\"submit\"/>\r\n  </form>\r\n\r\n</div>\r\n"
         }
     ],
     "modules": [],
@@ -1435,7 +1775,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "ApplicationConfig",
-                "defaultValue": "{\r\n  providers: [provideRouter(routes)],\r\n}"
+                "defaultValue": "{\r\n  providers: [provideRouter(routes), provideAnimationsAsync(), {provide: LOCALE_ID, useValue: 'fr-fr'}]\r\n}"
             },
             {
                 "name": "environment",
@@ -1471,7 +1811,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "ApplicationConfig",
-                    "defaultValue": "{\r\n  providers: [provideRouter(routes)],\r\n}"
+                    "defaultValue": "{\r\n  providers: [provideRouter(routes), provideAnimationsAsync(), {provide: LOCALE_ID, useValue: 'fr-fr'}]\r\n}"
                 }
             ],
             "src/environments/environment.development.ts": [
@@ -1514,7 +1854,7 @@
                 "linktype": "component",
                 "name": "AppComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/3",
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
@@ -1525,24 +1865,6 @@
                 "name": "appConfig",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/components/ChecklistItem/ChecklistItem.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "ChecklistItemComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/3",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/components/ChecklistItem/ChecklistItem.component.ts",
-                "type": "interface",
-                "linktype": "interface",
-                "name": "ChecklistItem",
-                "coveragePercent": 0,
-                "coverageCount": "0/4",
                 "status": "low"
             },
             {
@@ -1560,7 +1882,34 @@
                 "linktype": "component",
                 "name": "CalendarComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/9",
+                "coverageCount": "0/16",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/calendar/calendar.component.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "EventInterface",
+                "coveragePercent": 0,
+                "coverageCount": "0/6",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/checklistItem/ChecklistItem.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ChecklistItemComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/checklistItem/ChecklistItem.component.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "ChecklistItem",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
                 "status": "low"
             },
             {
@@ -1569,7 +1918,7 @@
                 "linktype": "component",
                 "name": "NavbarComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/7",
+                "coverageCount": "0/8",
                 "status": "low"
             },
             {
@@ -1600,12 +1949,30 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/pages/AddEventFormPage/AddEventFormPage.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "AddEventFormPageComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/pages/AddInventoryFormPage/AddInventoryFormPage.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "AddInventoryFormPageComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/pages/EventListPage/EventListPage.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "EventListPageComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/1",
+                "coverageCount": "0/4",
                 "status": "low"
             },
             {
@@ -1627,15 +1994,6 @@
                 "status": "low"
             },
             {
-                "filePath": "src/app/pages/InventoryFormPage/InventoryFormPage.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "InventoryFormPageComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
                 "filePath": "src/app/pages/LogInPage/LogInPage.component.ts",
                 "type": "component",
                 "linktype": "component",
@@ -1651,6 +2009,24 @@
                 "name": "SuccessPageComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/pages/UpdateEventFormPage/UpdateEventFormPage.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "UpdateEventFormPageComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/pages/UpdateInventoryFormPage/UpdateInventoryFormPage.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "UpdateInventoryFormPageComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
@@ -1689,33 +2065,6 @@
                 "name": "environment",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/stories/header.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "HeaderComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/5",
-                "status": "low"
-            },
-            {
-                "filePath": "src/stories/page.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "PageComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/5",
-                "status": "low"
-            },
-            {
-                "filePath": "src/stories/user.ts",
-                "type": "interface",
-                "linktype": "interface",
-                "name": "User",
-                "coveragePercent": 0,
-                "coverageCount": "0/2",
                 "status": "low"
             }
         ]

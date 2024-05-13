@@ -7,20 +7,28 @@
   </div>
 
   <form method="post">
-    <div [className]="'form-group'">
-      <label for="material_select">Matériel</label>
-      <input type="text" id="material_select" name="material" placeholder="Nom du matériel"/>
-    </div>
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Matériel</mat-label>
+      <input type="text" matInput id="material_select" name="material"
+             placeholder="Nom du matériel" required/>
+      <mat-error>Le nom du matériel ne peut pas être vide.</mat-error>
+    </mat-form-field>
 
-    <div [className]="'form-group'">
-      <label for="room_select">Salle</label>
-      <app-select id="room_select" name="room" [options]="[{value: 'none', label: '--- Choisir une salle --'}]"/>
-    </div>
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Salle</mat-label>
+      <mat-select id="room_select" name="room" required>
+        @for (option of options; track option) {
+          <mat-option [value]="option.value">{{ option.label }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
 
-    <div [className]="'form-group'">
-      <label for="quantity_input">Quantité</label>
-      <input type="number" id="quantity_input" name="quantity" placeholder="Nouvelle quantité disponible"/>
-    </div>
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Quantité</mat-label>
+      <input type="number"  matInput id="quantity_input" name="quantity" placeholder="Nouvelle quantité disponible"
+             min="1" required/>
+      <mat-error>La quantité ne peut pas être inférieure à 1.</mat-error>
+    </mat-form-field>
 
     <app-button [solid]="true" [type]="'primary'" label="Mettre à jour" id="submit"/>
   </form>

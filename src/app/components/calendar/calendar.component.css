@@ -1,0 +1,20 @@
+dialog {
+  position: absolute;
+  z-index: 999;
+  border: 1px solid var(--grey);
+  border-radius: 5px;
+  width: 448px;
+  max-width: 448px;
+  margin: 0;
+}
+
+.dialog-header {
+  display: flex;
+  flex-direction: row;
+  vertical-align: center;
+  justify-content: space-between;
+}
+
+.btn-close {
+  cursor: pointer;
+}
