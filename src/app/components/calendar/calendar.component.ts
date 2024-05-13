@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, HostListener, ViewChild } from "@angular/core";
+import { ChangeDetectorRef, Component, ElementRef, HostListener, Input, ViewChild } from "@angular/core";
 import { FullCalendarComponent, FullCalendarModule } from "@fullcalendar/angular";
 import { CalendarOptions, EventClickArg, EventSourceInput } from "@fullcalendar/core";
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -6,7 +6,6 @@ import listPlugin from '@fullcalendar/list';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import frLocale from '@fullcalendar/core/locales/fr';
 import { MatIcon } from "@angular/material/icon";
-import { EventImpl, Identity } from "@fullcalendar/core/internal";
 import { DatePipe } from "@angular/common";
 import { MatFormField } from "@angular/material/form-field";
 import { MatDatepicker, MatDatepickerInput, MatDatepickerModule } from "@angular/material/datepicker";
@@ -52,23 +51,21 @@ export class CalendarComponent {
   private screenHeight : number = 0;
   private screenWidth : number = 0;
 
-  protected event: EventInterface = {} as EventInterface;
+  protected selectedEvent: EventInterface = {} as EventInterface;
 
-  protected events = [
-    { title: 'event 1', start: new Date(2024, 5, 7), end: new Date(2024, 5, 10), location: 'Paris', status: 'confirmed' },
-    { title: 'event 2', start: new Date(2024, 5, 8, 9), end: new Date(2024, 5, 8, 16) }
-  ];
+  @Input()
+  public events: EventSourceInput = [];
 
   public x: number = 0;
   public y: number = 0;
 
-  @HostListener('window:resize', ['$event']) onResize() {
+  @HostListener('window:resize', ['$event']) onResize(): void {
     this.screenHeight = window.innerHeight;
     this.screenWidth = window.innerWidth;
     this.view()
   }
 
-  private view() {
+  private view(): void {
     if(this.screenWidth <= 425) {
       this.calendarView = 'listWeek';
     } else {
@@ -77,10 +74,9 @@ export class CalendarComponent {
     this.calendarComponent.getApi().changeView(this.calendarView);
   }
 
-  calendarOptions: CalendarOptions = {
+  public calendarOptions : CalendarOptions = {
     contentHeight: "auto",
     eventClick: this.handleEventClick.bind(this),
-    events: this.events,
     handleWindowResize: false,
     headerToolbar: {
       start: "title",
@@ -93,19 +89,25 @@ export class CalendarComponent {
     timeZone: "Europe/Paris"
   };
 
-  public setEvent(event: EventImpl) {
-    this.event = {title: event.title, date_start: event.start, date_end: event.end, location: event.extendedProps['location'], status: event.extendedProps['status']} as EventInterface;
+  ngAfterViewInit(): void {
+    this.calendarOptions.events = this.events;
   }
 
-  public closeDialog() {
+  ngOnChanges(): void {
+    this.calendarOptions.events = this.events;
+  }
+
+  public closeDialog(): void {
     let dialog = document.getElementById("dialog") as HTMLDialogElement;
     dialog.close();
   }
 
-  public handleEventClick(clickedEvent: EventClickArg) {
+  public handleEventClick(clickedEvent: EventClickArg): void {
     clickedEvent.jsEvent.preventDefault();
     let coordinates = clickedEvent.el.getBoundingClientRect();
-    this.setEvent(clickedEvent.event);
+    this.selectedEvent = {title: clickedEvent.event.title, date_start: clickedEvent.event.start,
+      date_end: clickedEvent.event.end, location: clickedEvent.event.extendedProps['location'],
+      status: clickedEvent.event.extendedProps['status']} as EventInterface;
     let dialog = document.getElementById("dialog") as HTMLDialogElement;
     if(coordinates.left - 448 > 0) {
       this.x = coordinates.left - 448;

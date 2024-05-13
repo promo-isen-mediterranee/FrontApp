@@ -1,0 +1,33 @@
+.toggle-group {
+  display: flex;
+  width: 100%;
+}
+
+.toggle-item {
+  border: 1px solid var(--blue);
+  text-align: center;
+  padding: 20px 10px;
+  font-size: 14px;
+  background-color: var(--blue);
+  color: var(--white);
+}
+
+.toggle-item:hover {
+  background-color: var(--light-red);
+  border-color: var(--light-red);
+}
+
+.toggle-item .active {
+  background-color: var(--red);
+  border-color: var(--red);
+}
+
+.toggle-group > .toggle-item:first-child {
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.toggle-group > .toggle-item:last-child {
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}

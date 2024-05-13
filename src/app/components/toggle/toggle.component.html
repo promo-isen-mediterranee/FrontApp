@@ -1,0 +1,6 @@
+<div class="toggle-group">
+  <button *ngFor="let item of items" (click)="toggleItem(item)"
+     [className]="'toggle-item'" [class.active]="selectedItem==item">
+    {{ item|titlecase }}
+  </button>
+</div>
