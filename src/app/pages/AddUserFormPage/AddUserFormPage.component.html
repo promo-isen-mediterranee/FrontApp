@@ -1,0 +1,32 @@
+<div [className]="'header'">
+  <a href="/" [className]="['w-100', 'left-align']">
+    <i class="fa-solid fa-arrow-left"></i>
+  </a>
+  <div [className]="'header-container'">
+    <h2>Ajout d'utilisateur</h2>
+  </div>
+  <form method="post">
+    <div [className]="'form-group'">
+      <label for="name">prenom</label>
+      <input type="text" id="name" name="user" placeholder="Prénom de l'utilisateur"/>
+    </div>
+    <div [className]="'form-group'">
+      <label for="surname">nom</label>
+      <input type="text" id="surname" name="user" placeholder="Nom de l'utilisateur"/>
+    </div>
+    <div [className]="'form-group'">
+      <label for="room_select">Rôles</label>
+      <app-select id="room_select" name="room" [options]="[{value: 'none', label: '--- Choisir Le rôle --'},{value: '1' , label: 'rôle 1'},{value: '2', label:'rôle 2' },{value:'3' , label:'rôle 3'}, {value: '4', label: 'rôle 4' }]"/>
+    </div>
+
+    <div [className]="'form-group'">
+      <label for="mail_user">email</label>
+      <input type="email" id="mail_user" name="email" placeholder="Email de l'utilisateur"/>
+    </div>
+
+  </form>
+  <div id="actionButtons">
+    <app-button [solid]="true" [type]="'primary'" label="Ajouter l'utilisateur" id="submit"/>
+  </div>
+</div>
+
