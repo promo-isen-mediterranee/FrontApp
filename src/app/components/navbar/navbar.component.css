@@ -18,15 +18,18 @@ li {
 a {
   text-decoration: none;
   color: var(--blue);
+  opacity: 70%;
 }
 
 li a:hover {
-  color: var(--light-red);
+  opacity: 100%;
+  transition: 0.2s;
 }
 
 .navbar-mobile {
   border-bottom: none;
   border-top: 1px solid var(--blue);
+
 }
 
 .navbar-mobile li {
@@ -45,5 +48,5 @@ li a:hover {
 }
 
 .active {
-  color: var(--red);
+  opacity: 100%;
 }

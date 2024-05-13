@@ -1,12 +1,25 @@
-<div class="container">
-  <img src="assets/img/logos/logo-ISEN-vertical.png" alt="Logo ISEN Méditerranée" [ngClass]="'m-4'">
+<div [className]="'header-container'">
+  <h2>Connexion</h2>
+  <div class="container">
 
-  <img src="assets/img/icons/ISEN-bulles.png" alt="Bulles ISEN" [ngClass]="'m-4'">
+    <img src="assets/img/logos/logo-ISEN-vertical.png" alt="Logo ISEN Méditerranée" [ngClass]="'mt-2'">
+    <img src="assets/img/icons/ISEN-bulles.png" alt="Bulles ISEN" [ngClass]="'mt-2'">
 
-  <p>Bonjour 👋</p>
-
-  <a href="" [ngClass]="['btn-microsoft', 'm-4']">
-    <img ngSrc="assets/img/logos/logoMicrosoft.png" width="40" height="40" alt="Logo Microsoft"/>
-    Connexion avec Microsoft
-  </a>
+    <p>Connecte-toi ! 🪪</p>
+  </div>
 </div>
+<div class="container">
+<form method="post">
+
+  <div [className]="'form-group'">
+    <label for="mail_user">email</label>
+    <input type="email" id="mail_user" name="email" placeholder="Email de l'utilisateur"/>
+  </div>
+  <div [className]="'form-group'">
+    <label for="pwd">nom</label>
+    <input type="password" id="pwd" name="pwd" placeholder="mot de passe"/>
+  </div>
+</form>
+  <app-button type="secondary" label="Se déconnecter" [solid]="true" css="mt-4" onClickLink="/home"/>
+</div>
+

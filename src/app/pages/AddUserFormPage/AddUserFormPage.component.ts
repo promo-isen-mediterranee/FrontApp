@@ -1,20 +1,17 @@
 import { Component } from '@angular/core';
-import { NgClass, NgOptimizedImage } from "@angular/common";
 import { ButtonComponent } from "../../components/button/button.component";
 import { SelectComponent } from "../../components/select/select.component";
 
 @Component({
-  selector: 'app-log-in-page',
+  selector: 'app-AddUserFormPage',
   standalone: true,
   imports: [
-    NgOptimizedImage,
-    NgClass,
     ButtonComponent,
     SelectComponent
   ],
-  templateUrl: './LogInPage.component.html',
-  styleUrl: './LogInPage.component.css'
+  templateUrl: './AddUserFormPage.component.html',
+  styleUrl: './AddUserFormPage.component.css'
 })
-export class LogInPageComponent {
+export class AddUserFormPageComponent {
 
 }

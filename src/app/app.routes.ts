@@ -10,6 +10,7 @@ import { AddEventFormPageComponent } from "./pages/AddEventFormPage/AddEventForm
 import { UpdateEventFormPageComponent } from "./pages/UpdateEventFormPage/UpdateEventFormPage.component";
 import { AdminPageComponent } from "./pages/AdminPage/AdminPage.component";
 import { UserListPageComponent } from "./pages/UserListPage/UserListPage.component";
+import { AddUserFormPageComponent } from "./pages/AddUserFormPage/AddUserFormPage.component";
 
 export const routes: Routes = [
   {
@@ -58,7 +59,11 @@ export const routes: Routes = [
     component:AdminPageComponent
   },
   {
-    path: 'userList',
+    path: 'user',
     component: UserListPageComponent
+  },
+  {
+    path: 'user/add',
+    component: AddUserFormPageComponent
   }
 ];
