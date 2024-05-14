@@ -11,13 +11,14 @@
 
 <form method="post">
   <mat-form-field [className]="'form-group'">
-    <mat-label>email</mat-label>
-    <input type="email" matInput id="mail_user" name="mail" required>
+    <mat-label>Adresse mail</mat-label>
+    <input type="email" matInput id="mail_user" name="mail" required placeholder="antoine.dupont@isen.fr">
     <mat-error>Veuillez vérifier votre mail</mat-error>
   </mat-form-field>
   <mat-form-field [className]="'form-group'">
-    <mat-label>password</mat-label>
-    <input type="password" matInput id="psw" name="password" required>
+    <mat-label>Mot de passe</mat-label>
+    <input type="password" matInput id="psw" name="password" required
+           placeholder="Mot de passe">
   </mat-form-field>
   <app-button [solid]="true" [css]="'mt-8'" [type]="'primary'" label="Se connecter" id="btn-login"/>
 </form>

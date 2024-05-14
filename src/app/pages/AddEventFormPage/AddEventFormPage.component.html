@@ -34,9 +34,9 @@
     <mat-form-field [className]="'form-group'">
       <mat-label>Adresse</mat-label>
       <input type="text" placeholder="Rechercher une adresse" aria-label="Adresse" matInput
-             [matAutocomplete]="auto" required>
+             [matAutocomplete]="auto" required [formControl]="addressControl">
       <mat-autocomplete #auto="matAutocomplete">
-        @for (option of options; track option) {
+        @for (option of filteredOption | async; track option) {
           <mat-option [value]="option">
             {{option}}
           </mat-option>
