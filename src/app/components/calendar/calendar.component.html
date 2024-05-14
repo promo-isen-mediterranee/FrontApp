@@ -10,13 +10,13 @@
     <mat-form-field>
       <mat-label>Début</mat-label>
       <input matInput [matDatepicker]="picker" placeholder="Début" (dateChange)="closeDatepicker(picker)"
-             [(ngModel)]="selectedEvent.date_start">
+             [(ngModel)]="selectedEvent.date_start" readonly>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Fin</mat-label>
       <input matInput [matDatepicker]="picker_end" placeholder="Fin" (dateChange)="closeDatepicker(picker_end)"
-             [(ngModel)]="selectedEvent.date_end">
+             [(ngModel)]="selectedEvent.date_end" readonly>
       <mat-datepicker #picker_end></mat-datepicker>
     </mat-form-field>
     <p>Statut: {{selectedEvent.status}}</p>
