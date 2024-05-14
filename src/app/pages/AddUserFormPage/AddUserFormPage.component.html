@@ -5,28 +5,33 @@
   <div [className]="'header-container'">
     <h2>Ajout d'utilisateur</h2>
   </div>
-  <form method="post">
-    <div [className]="'form-group'">
-      <label for="name">prenom</label>
-      <input type="text" id="name" name="user" placeholder="Prénom de l'utilisateur"/>
-    </div>
-    <div [className]="'form-group'">
-      <label for="surname">nom</label>
-      <input type="text" id="surname" name="user" placeholder="Nom de l'utilisateur"/>
-    </div>
-    <div [className]="'form-group'">
-      <label for="room_select">Rôles</label>
-      <app-select id="room_select" name="room" [options]="[{value: 'none', label: '--- Choisir Le rôle --'},{value: '1' , label: 'rôle 1'},{value: '2', label:'rôle 2' },{value:'3' , label:'rôle 3'}, {value: '4', label: 'rôle 4' }]"/>
-    </div>
+</div>
+<div class="container">
+<form method="post">
+  <mat-form-field [className]="'form-group'">
+    <mat-label>Prénom</mat-label>
+    <input matInput placeholder="Antoine" name="nameInput" required>
+  </mat-form-field>
+  <mat-form-field [className]="'form-group'">
+    <mat-label>Nom</mat-label>
+    <input matInput placeholder="Dupont" name="surnameInput" required>
+  </mat-form-field>
+  <mat-form-field [className]="'form-group'">
+    <mat-label>Rôle</mat-label>
+    <mat-select [(value)]="roleSelector" required multiple>
+      @for(role of roles; track role) {
+        <mat-option value="{{role.value}}">{{role.label}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field [className]="'form-group'">
+    <mat-label>Email</mat-label>
+    <input type="email" matInput placeholder="antoine.dupont@isen.fr" name="emailInput" required>
+  </mat-form-field>
 
-    <div [className]="'form-group'">
-      <label for="mail_user">email</label>
-      <input type="email" id="mail_user" name="email" placeholder="Email de l'utilisateur"/>
-    </div>
-
-  </form>
-  <div id="actionButtons">
-    <app-button [solid]="true" [type]="'primary'" label="Ajouter l'utilisateur" id="submit"/>
-  </div>
+</form>
+<div id="actionButtons">
+  <app-button [solid]="true" [type]="'primary'" label="Ajouter l'utilisateur" id="submit"/>
+</div>
 </div>
 
