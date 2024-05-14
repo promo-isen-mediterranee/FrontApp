@@ -1,25 +1,23 @@
 <div [className]="'header-container'">
   <h2>Connexion</h2>
-  <div class="container">
-
-    <img src="assets/img/logos/logo-ISEN-vertical.png" alt="Logo ISEN Méditerranée" [ngClass]="'mt-2'">
-    <img src="assets/img/icons/ISEN-bulles.png" alt="Bulles ISEN" [ngClass]="'mt-2'">
-
-    <p>Connecte-toi ! 🪪</p>
-  </div>
 </div>
 <div class="container">
-<form method="post">
 
-  <div [className]="'form-group'">
-    <label for="mail_user">email</label>
-    <input type="email" id="mail_user" name="email" placeholder="Email de l'utilisateur"/>
-  </div>
-  <div [className]="'form-group'">
-    <label for="pwd">nom</label>
-    <input type="password" id="pwd" name="pwd" placeholder="mot de passe"/>
-  </div>
-</form>
-  <app-button type="secondary" label="Se déconnecter" [solid]="true" css="mt-4" onClickLink="/home"/>
+  <img src="assets/img/icons/ISEN-bulles.png" alt="Bulles ISEN">
+  <p>Bienvenue sur <b>IMS Promo</b> 👋</p>
+  <p><b>Connecte-toi ! 🔑</b></p>
 </div>
 
+
+<form method="post">
+  <mat-form-field [className]="'form-group'">
+    <mat-label>email</mat-label>
+    <input type="email" matInput id="mail_user" name="mail" required>
+    <mat-error>Veuillez vérifier votre mail</mat-error>
+  </mat-form-field>
+  <mat-form-field [className]="'form-group'">
+    <mat-label>password</mat-label>
+    <input type="password" matInput id="psw" name="password" required>
+  </mat-form-field>
+  <app-button [solid]="true" [css]="'mt-8'" [type]="'primary'" label="Se connecter" id="btn-login"/>
+</form>

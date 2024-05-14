@@ -1,18 +1,8 @@
-.btn-microsoft {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #D9D9D9;
-  border-radius: 40px;
-  text-decoration: none;
-  padding: 10px;
+form{
+  margin-left: 300px;
+  margin-right: 300px;
 }
 
-.btn-microsoft img {
-  width: 40px;
-  margin-right: 10px
-}
-
-.btn-microsoft:visited {
-  color: var(--black);
+img{
+  height:200px;
 }
