@@ -53,31 +53,19 @@ export class CalendarComponent {
 
   protected selectedEvent: EventInterface = {} as EventInterface;
 
+  public endButton(): string {
+    let base = "today prev,next"
+    if(document.documentElement.clientWidth > 660) {
+      return base + " dayGridMonth,timeGridWeek,timeGridDay,listWeek";
+    }
+    return base;
+  }
+
   @Input()
   public events: EventSourceInput = [];
 
   public x: number = 0;
   public y: number = 0;
-
-  @HostListener('window:resize', ['$event']) onResize(): void {
-    this.screenHeight = document.documentElement.clientHeight;
-    this.screenWidth = document.documentElement.clientWidth;
-    this.view()
-  }
-
-  ngOnInit() {
-    this.screenHeight = document.documentElement.clientHeight;
-    this.screenWidth = document.documentElement.clientWidth;
-  }
-
-  private view(): void {
-    if(this.screenWidth <= 425) {
-      this.calendarView = 'listWeek';
-    } else {
-      this.calendarView = 'dayGridMonth';
-    }
-    this.calendarComponent.getApi().changeView(this.calendarView);
-  }
 
   public calendarOptions : CalendarOptions = {
     contentHeight: "auto",
@@ -86,13 +74,30 @@ export class CalendarComponent {
     headerToolbar: {
       start: "title",
       center: "",
-      end: "today prev,next dayGridMonth,timeGridWeek,timeGridDay,listWeek"
+      end: this.endButton()
     },
-    initialView: "dayGridMonth",
     locale: frLocale,
     plugins: [dayGridPlugin, listPlugin, timeGridPlugin],
     timeZone: "Europe/Paris"
   };
+
+  @HostListener('window:resize', ['$event']) onResize(): void {
+    this.screenHeight = document.documentElement.clientHeight;
+    this.screenWidth = document.documentElement.clientWidth;
+    this.view()
+    this.calendarComponent.getApi().setOption('headerToolbar', {start: "title", center: "", end: this.endButton()})
+  }
+
+  ngOnInit() {
+    this.screenHeight = document.documentElement.clientHeight;
+    this.screenWidth = document.documentElement.clientWidth;
+    if(this.screenWidth > 660) {
+      this.calendarView = 'dayGridMonth';
+    } else {
+      this.calendarView = 'listWeek';
+    }
+    this.calendarOptions.initialView = this.calendarView;
+  }
 
   ngAfterViewInit(): void {
     this.calendarOptions.events = this.events;
@@ -100,6 +105,15 @@ export class CalendarComponent {
 
   ngOnChanges(): void {
     this.calendarOptions.events = this.events;
+  }
+
+  private view(): void {
+    if(this.screenWidth < 660) {
+      this.calendarView = 'listWeek';
+    } else {
+      this.calendarView = 'dayGridMonth';
+    }
+    this.calendarComponent.getApi().changeView(this.calendarView);
   }
 
   public closeDialog(): void {
@@ -110,11 +124,15 @@ export class CalendarComponent {
   public handleEventClick(clickedEvent: EventClickArg): void {
     clickedEvent.jsEvent.preventDefault();
     let coordinates = clickedEvent.el.getBoundingClientRect();
+
     this.selectedEvent = {
-      title: clickedEvent.event.title, date_start: clickedEvent.event.start,
-      date_end: clickedEvent.event.end, location: clickedEvent.event.extendedProps['location'],
+      title: clickedEvent.event.title,
+      date_start: clickedEvent.event.start,
+      date_end: clickedEvent.event.end,
+      location: clickedEvent.event.extendedProps['location'],
       status: clickedEvent.event.extendedProps['status']
     } as EventInterface;
+
     let dialog = document.getElementById("dialog") as HTMLDialogElement;
     if (this.screenWidth > 900) {
       this.x = coordinates.left;
@@ -127,14 +145,13 @@ export class CalendarComponent {
       }
       dialog.style.left = this.x + "px";
       dialog.style.top = this.y + "px";
-    }else {
+    } else {
       console.log(this.screenWidth);
       dialog.style.width = this.screenWidth - 32 - 2 + "px";
       dialog.style.maxWidth = "none";
       dialog.style.top = 0 + "px";
       dialog.style.height = "100%";
     }
-
     dialog.show();
   }
 

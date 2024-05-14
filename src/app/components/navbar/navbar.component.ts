@@ -31,8 +31,8 @@ export class NavbarComponent {
   }
 
   @HostListener('window:resize', ['$event']) onResize() {
-    this.screenHeight = window.innerHeight;
-    this.screenWidth = window.innerWidth;
+    this.screenHeight = document.documentElement.clientHeight;
+    this.screenWidth = document.documentElement.clientWidth;
   }
 
   public get classes(): string {

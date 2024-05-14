@@ -150,6 +150,12 @@ td {
   margin-bottom: 25%;
 }
 
+@media screen and (max-width: 1024px) {
+  mobile-mb-15 {
+    margin-bottom: 15%;
+  }
+}
+
 .mt-2 {
   margin-top: 16px;
 }
