@@ -18,3 +18,10 @@ dialog {
 .btn-close {
   cursor: pointer;
 }
+
+@media screen and (max-width: 900px) {
+  .dialog-container {
+    display: flex;
+    flex-direction: column;
+  }
+}

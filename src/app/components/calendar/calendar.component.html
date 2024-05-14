@@ -6,16 +6,20 @@
       <mat-icon fontIcon="close"></mat-icon>
     </span>
   </div>
-  <mat-form-field>
-    <mat-label>Début</mat-label>
-    <input matInput [matDatepicker]="picker" placeholder="Début" [(ngModel)]="selectedEvent.date_start">
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Fin</mat-label>
-    <input matInput [matDatepicker]="picker_end" placeholder="Fin" [(ngModel)]="selectedEvent.date_end">
-    <mat-datepicker #picker_end></mat-datepicker>
-  </mat-form-field>
-  <p>Statut: {{selectedEvent.status}}</p>
-  <p>Lieu: {{selectedEvent.location}}</p>
+  <div class="dialog-container">
+    <mat-form-field>
+      <mat-label>Début</mat-label>
+      <input matInput [matDatepicker]="picker" placeholder="Début" (dateChange)="closeDatepicker(picker)"
+             [(ngModel)]="selectedEvent.date_start">
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Fin</mat-label>
+      <input matInput [matDatepicker]="picker_end" placeholder="Fin" (dateChange)="closeDatepicker(picker_end)"
+             [(ngModel)]="selectedEvent.date_end">
+      <mat-datepicker #picker_end></mat-datepicker>
+    </mat-form-field>
+    <p>Statut: {{selectedEvent.status}}</p>
+    <p>Lieu: {{selectedEvent.location}}</p>
+  </div>
 </dialog>

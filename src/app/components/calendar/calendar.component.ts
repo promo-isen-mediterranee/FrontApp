@@ -60,9 +60,14 @@ export class CalendarComponent {
   public y: number = 0;
 
   @HostListener('window:resize', ['$event']) onResize(): void {
-    this.screenHeight = window.innerHeight;
-    this.screenWidth = window.innerWidth;
+    this.screenHeight = document.documentElement.clientHeight;
+    this.screenWidth = document.documentElement.clientWidth;
     this.view()
+  }
+
+  ngOnInit() {
+    this.screenHeight = document.documentElement.clientHeight;
+    this.screenWidth = document.documentElement.clientWidth;
   }
 
   private view(): void {
@@ -105,22 +110,35 @@ export class CalendarComponent {
   public handleEventClick(clickedEvent: EventClickArg): void {
     clickedEvent.jsEvent.preventDefault();
     let coordinates = clickedEvent.el.getBoundingClientRect();
-    this.selectedEvent = {title: clickedEvent.event.title, date_start: clickedEvent.event.start,
+    this.selectedEvent = {
+      title: clickedEvent.event.title, date_start: clickedEvent.event.start,
       date_end: clickedEvent.event.end, location: clickedEvent.event.extendedProps['location'],
-      status: clickedEvent.event.extendedProps['status']} as EventInterface;
+      status: clickedEvent.event.extendedProps['status']
+    } as EventInterface;
     let dialog = document.getElementById("dialog") as HTMLDialogElement;
-    if(coordinates.left - 448 > 0) {
-      this.x = coordinates.left - 448;
-    } else {
-      this.x = coordinates.right;
-    }
-    if (this.screenHeight - coordinates.top < 220) {
-      this.y = coordinates.top - 220;
-    } else {
+    if (this.screenWidth > 900) {
+      this.x = coordinates.left;
       this.y = coordinates.top;
+      if(this.screenWidth - this.x < 448) {
+        this.x = this.x - (this.screenWidth - this.x);
+      }
+      if (this.screenHeight - this.y < 220) {
+        this.y = this.y - 220;
+      }
+      dialog.style.left = this.x + "px";
+      dialog.style.top = this.y + "px";
+    }else {
+      console.log(this.screenWidth);
+      dialog.style.width = this.screenWidth - 32 - 2 + "px";
+      dialog.style.maxWidth = "none";
+      dialog.style.top = 0 + "px";
+      dialog.style.height = "100%";
     }
-    dialog.style.left = this.x + "px";
-    dialog.style.top = this.y + "px";
+
     dialog.show();
+  }
+
+  public closeDatepicker(picker: MatDatepicker<any>) {
+    picker["_destroyOverlay"]();
   }
 }

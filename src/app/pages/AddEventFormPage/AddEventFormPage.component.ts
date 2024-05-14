@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { Component } from "@angular/core";
 import { ButtonComponent } from "../../components/button/button.component";
 import { SelectComponent } from "../../components/select/select.component";
 import { MatFormField, MatHint, MatInput, MatInputModule, MatLabel, MatSuffix } from "@angular/material/input";
@@ -46,5 +46,10 @@ import { provideAnimations } from "@angular/platform-browser/animations";
 export class AddEventFormPageComponent {
 
   protected options: string[] = ['option 1', 'option 2', 'option 3'];
+
+  public closeDatepicker(datepicker: MatDatepicker<Date>): void {
+    console.log('closing datepicker')
+    datepicker["_destroyOverlay"]();
+  }
 
 }
