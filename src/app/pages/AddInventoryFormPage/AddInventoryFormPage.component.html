@@ -16,8 +16,8 @@
 
     <mat-form-field [className]="'form-group'">
       <mat-label>Salle</mat-label>
-      <mat-select id="room_select" name="room" required>
-        @for (option of options; track option) {
+      <mat-select id="room_select" [(value)]="room" required [formControl]="roomControl">
+        @for (option of filteredOption | async; track option) {
           <mat-option [value]="option.value">{{ option.label }}</mat-option>
         }
       </mat-select>
