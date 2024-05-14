@@ -25,11 +25,11 @@ import { MatError, MatFormFieldModule } from '@angular/material/form-field';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 export interface Location {
   address: string;
   city: string;
-  room?: string; // Optional
 }
 @Component({
   selector: 'app-add-event-form-page',
@@ -70,8 +70,8 @@ export class AddEventFormPageComponent {
   eventEndDate: Date | null = null;
   eventAddress: any;
   locations: Location = {} as Location;
+  private apiUrl = environment.apiUrl;
   protected options: Location[] = [];
-
   constructor(private http: HttpClient) {}
 
   getLocation(): Observable<any> {
@@ -85,7 +85,6 @@ export class AddEventFormPageComponent {
         const option: Location = {
           address: location.address,
           city: location.city,
-          room: location.room,
         };
         this.options.push(option);
       }
@@ -93,9 +92,7 @@ export class AddEventFormPageComponent {
   }
 
   displayFn(location: Location): string {
-    return location
-      ? `${location.address}, ${location.city} ${location.room ? ', ' + location.room : ''}`
-      : '';
+    return location ? `${location.address}, ${location.city}` : '';
   }
 
   onOptionSelected(option: any): void {
@@ -113,7 +110,6 @@ export class AddEventFormPageComponent {
     eventData.set('date_end', this.eventEndDate?.toISOString() ?? '');
     eventData.set('location.address', this.eventAddress.address);
     eventData.set('location.city', this.eventAddress.city);
-    eventData.set('location.room', this.eventAddress.room);
     this.http
       .post('http://localhost:5000/event/create', eventData, { headers })
       .subscribe(
