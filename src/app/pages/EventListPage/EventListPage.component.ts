@@ -5,6 +5,7 @@ import { NgIf } from '@angular/common';
 import { ToggleComponent } from '../../components/toggle/toggle.component';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
+import { environment } from "../../../environments/environment";
 
 interface Event {
   title: string;
@@ -44,10 +45,11 @@ export class EventListPageComponent implements OnInit {
 
   public Tabevents: Event[] = [];
   public events: Event[] = [];
+  private apiUrl = environment.apiEventUrl
 
   ngOnInit() {
     this.http
-      .get<Event[]>('http://localhost:5000/event/getAll')
+      .get<Event[]>(this.apiUrl + 'getAll')
       .pipe(
         tap((data) => {
           this.Tabevents = data;

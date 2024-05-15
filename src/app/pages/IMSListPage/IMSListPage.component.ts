@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ButtonComponent } from '../../components/button/button.component';
 import { CommonModule } from '@angular/common';
+import { environment } from "../../../environments/environment";
 
 interface Item {
   id: number;
@@ -28,7 +29,7 @@ interface Item {
 }
 
 @Component({
-  selector: 'app-imslist-page',  
+  selector: 'app-imslist-page',
   standalone: true,
   imports: [
     ButtonComponent,
@@ -43,9 +44,12 @@ interface Item {
 
 export class IMSListPageComponent implements OnInit {
   items: Item[] = [];
-  constructor(private http: HttpClient) {}  
+  private apiUrl = environment.apiStockUrl;
+
+  constructor(private http: HttpClient) {}
+
   ngOnInit() {
-    this.http.get<Item[]>('http://localhost:5000/stock/item/getAll').pipe(
+    this.http.get<Item[]>(this.apiUrl + 'item/getAll').pipe(
       tap(data => {
         this.items = data;
       }),
@@ -55,7 +59,7 @@ export class IMSListPageComponent implements OnInit {
       })
     ).subscribe();
   }
-  
+
 }
 
 @NgModule({

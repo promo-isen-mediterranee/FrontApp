@@ -70,12 +70,12 @@ export class AddEventFormPageComponent {
   eventEndDate: Date | null = null;
   eventAddress: any;
   locations: Location = {} as Location;
-  private apiUrl = environment.apiUrl;
+  private apiUrl = environment.apiEventUrl;
   protected options: Location[] = [];
   constructor(private http: HttpClient) {}
 
   getLocation(): Observable<any> {
-    return this.http.get<any>('http://localhost:5000/event/location/getAll');
+    return this.http.get<any>(this.apiUrl + 'location/getAll');
   }
 
   ngOnInit(): void {
@@ -111,7 +111,7 @@ export class AddEventFormPageComponent {
     eventData.set('location.address', this.eventAddress.address);
     eventData.set('location.city', this.eventAddress.city);
     this.http
-      .post('http://localhost:5000/event/create', eventData, { headers })
+      .post(this.apiUrl + 'create', eventData, { headers })
       .subscribe(
         (response) => {
           console.log(response);

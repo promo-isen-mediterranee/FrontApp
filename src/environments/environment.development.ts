@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:5000',
+  apiEventUrl: 'http://localhost:5000/event/',
+  apiStockUrl: 'http://localhost:5000/stock/',
 };
