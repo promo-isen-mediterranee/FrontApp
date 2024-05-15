@@ -26,6 +26,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { AsyncPipe } from "@angular/common";
 
 export interface Location {
   address: string;
@@ -52,6 +53,7 @@ export interface Location {
     ReactiveFormsModule,
     MatAutocompleteTrigger,
     MatError,
+    AsyncPipe
   ],
   providers: [
     MatDatepickerModule,
@@ -63,7 +65,7 @@ export interface Location {
   styleUrl: './AddEventFormPage.component.css',
 })
 export class AddEventFormPageComponent {
-  myControl = new FormControl();
+  addressControl = new FormControl();
 
   eventName: string = '';
   eventStartDate: Date | null = null;

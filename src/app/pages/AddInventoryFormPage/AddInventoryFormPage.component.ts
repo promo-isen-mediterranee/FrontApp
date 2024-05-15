@@ -5,6 +5,9 @@ import { MatError, MatFormField, MatFormFieldModule } from "@angular/material/fo
 import { MatInput, MatInputModule, MatLabel } from "@angular/material/input";
 import { MatOption, MatSelect } from "@angular/material/select";
 import { provideAnimations } from "@angular/platform-browser/animations";
+import { FormControl, ReactiveFormsModule } from "@angular/forms";
+import { map, Observable, startWith } from "rxjs";
+import { AsyncPipe } from "@angular/common";
 
 @Component({
   selector: 'app-add-inventory-form-page',
@@ -17,7 +20,9 @@ import { provideAnimations } from "@angular/platform-browser/animations";
     MatLabel,
     MatError,
     MatSelect,
-    MatOption
+    MatOption,
+    ReactiveFormsModule,
+    AsyncPipe
   ],
   providers: [
     MatFormFieldModule,
@@ -28,5 +33,20 @@ import { provideAnimations } from "@angular/platform-browser/animations";
   styleUrl: './AddInventoryFormPage.component.css'
 })
 export class AddInventoryFormPageComponent {
-  public options = [{value: '1', label: 'Option 1'}];
+  public roomControl = new FormControl('');
+  public options = [{value: 1, label: 'Option 1'}];
+  filteredOption: Observable<{ value: number, label: string }[]> = new Observable();
+  room: any;
+
+  ngOnInit() {
+    this.filteredOption = this.roomControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || ''))
+    )
+  }
+
+  private _filter(value: string): { value: number, label: string }[] {
+    const filterValue = value.toLowerCase();
+    return this.options.filter(option => option.label.toLowerCase().includes(filterValue));
+  }
 }
