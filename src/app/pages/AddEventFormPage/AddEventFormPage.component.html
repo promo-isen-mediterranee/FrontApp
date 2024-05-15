@@ -74,7 +74,7 @@
         [displayWith]="displayFn"
         (optionSelected)="onOptionSelected($event.option.value)"
       >
-        @for (option of filteredOption | async; track option) {
+        @for (option of options; track option) {
           <mat-option [value]="option">
             {{ option.address }}, {{ option.city }}
           </mat-option>
