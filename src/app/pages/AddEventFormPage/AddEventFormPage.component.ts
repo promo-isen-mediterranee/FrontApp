@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component } from '@angular/core';
 import { ButtonComponent } from '../../components/button/button.component';
 import { SelectComponent } from '../../components/select/select.component';
 import {
@@ -80,7 +80,7 @@ export class AddEventFormPageComponent {
   constructor(private http: HttpClient) {}
 
   getLocation(): Observable<any> {
-    return this.http.get<any>(this.apiUrl + '/location/getAll');
+    return this.http.get<any>(this.apiUrl + 'location/getAll');
   }
 
   ngOnInit(): void {

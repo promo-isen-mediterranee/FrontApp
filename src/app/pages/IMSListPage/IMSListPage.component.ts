@@ -38,14 +38,15 @@ interface Item {
 export class IMSListPageComponent implements OnInit {
   items: Item[] = [];
   private apiUrl = environment.apiStockUrl;
+
   constructor(private http: HttpClient) {}
+
   ngOnInit() {
     this.http
-      .get<Item[]>(this.apiUrl + '/item/getAll')
+      .get<Item[]>(this.apiUrl + 'item/getAll')
       .pipe(
         tap((data) => {
           this.items = data;
-          console.log(this.items);
         }),
         catchError((error) => {
           console.error(error);

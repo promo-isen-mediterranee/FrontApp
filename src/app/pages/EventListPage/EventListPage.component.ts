@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CalendarComponent } from '../../components/calendar/calendar.component';
 import { ButtonComponent } from '../../components/button/button.component';
 import { NgIf } from '@angular/common';
-import { EventSourceInput } from '@fullcalendar/core';
 import { ToggleComponent } from '../../components/toggle/toggle.component';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
@@ -42,10 +41,11 @@ interface Event {
   styleUrl: './EventListPage.component.css',
 })
 export class EventListPageComponent implements OnInit {
-  Tabevents: Event[] = [];
-  private apiUrl = environment.apiEventUrl;
   constructor(private http: HttpClient) {}
+
+  public Tabevents: Event[] = [];
   public events: Event[] = [];
+  private apiUrl = environment.apiEventUrl;
 
   ngOnInit() {
     this.http
