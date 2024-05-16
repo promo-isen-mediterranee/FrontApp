@@ -16,11 +16,11 @@
   vertical-align: center;
 }
 
-.item[checked="false"] i{
+.item[checked="false"] i {
   display: none;
 }
 
-.item[checked="true"] p{
+.item[checked="true"] p {
   text-decoration: line-through;
 }
 

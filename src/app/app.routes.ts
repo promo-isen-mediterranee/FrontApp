@@ -1,16 +1,16 @@
 import { Routes } from '@angular/router';
-import { HomePageComponent } from "./pages/HomePage/HomePage.component";
-import { IMSListPageComponent } from "./pages/IMSListPage/IMSListPage.component";
-import { LogInPageComponent } from "./pages/LogInPage/LogInPage.component";
-import { SuccessPageComponent } from "./pages/SucessPage/SuccessPage.component";
-import { EventListPageComponent } from "./pages/EventListPage/EventListPage.component";
-import { UpdateInventoryFormPageComponent } from "./pages/UpdateInventoryFormPage/UpdateInventoryFormPage.component";
-import { AddInventoryFormPageComponent } from "./pages/AddInventoryFormPage/AddInventoryFormPage.component";
-import { AddEventFormPageComponent } from "./pages/AddEventFormPage/AddEventFormPage.component";
-import { UpdateEventFormPageComponent } from "./pages/UpdateEventFormPage/UpdateEventFormPage.component";
-import { AdminPageComponent } from "./pages/AdminPage/AdminPage.component";
-import { UserListPageComponent } from "./pages/UserListPage/UserListPage.component";
-import { AddUserFormPageComponent } from "./pages/AddUserFormPage/AddUserFormPage.component";
+import { HomePageComponent } from './pages/HomePage/HomePage.component';
+import { IMSListPageComponent } from './pages/IMSListPage/IMSListPage.component';
+import { LogInPageComponent } from './pages/LogInPage/LogInPage.component';
+import { SuccessPageComponent } from './pages/SucessPage/SuccessPage.component';
+import { EventListPageComponent } from './pages/EventListPage/EventListPage.component';
+import { UpdateInventoryFormPageComponent } from './pages/UpdateInventoryFormPage/UpdateInventoryFormPage.component';
+import { AddInventoryFormPageComponent } from './pages/AddInventoryFormPage/AddInventoryFormPage.component';
+import { AddEventFormPageComponent } from './pages/AddEventFormPage/AddEventFormPage.component';
+import { UpdateEventFormPageComponent } from './pages/UpdateEventFormPage/UpdateEventFormPage.component';
+import { AdminPageComponent } from './pages/AdminPage/AdminPage.component';
+import { UserListPageComponent } from './pages/UserListPage/UserListPage.component';
+import { AddUserFormPageComponent } from './pages/AddUserFormPage/AddUserFormPage.component';
 
 export const routes: Routes = [
   {
@@ -44,7 +44,7 @@ export const routes: Routes = [
   },
   {
     path: 'event/list',
-    component: EventListPageComponent
+    component: EventListPageComponent,
   },
   {
     path: 'event/add',
@@ -55,15 +55,15 @@ export const routes: Routes = [
     component: UpdateEventFormPageComponent,
   },
   {
-    path:'admin',
-    component:AdminPageComponent
+    path: 'admin',
+    component: AdminPageComponent,
   },
   {
     path: 'user',
-    component: UserListPageComponent
+    component: UserListPageComponent,
   },
   {
     path: 'user/add',
-    component: AddUserFormPageComponent
-  }
+    component: AddUserFormPageComponent,
+  },
 ];

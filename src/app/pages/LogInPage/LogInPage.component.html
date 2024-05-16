@@ -2,23 +2,40 @@
   <h2>Connexion</h2>
 </div>
 <div class="container">
-
-  <img src="assets/img/icons/ISEN-bulles.png" alt="Bulles ISEN">
+  <img src="assets/img/icons/ISEN-bulles.png" alt="Bulles ISEN" />
   <p>Bienvenue sur <b>IMS Promo</b> 👋</p>
   <p><b>Connecte-toi ! 🔑</b></p>
 </div>
 
-
 <form method="post">
   <mat-form-field [className]="'form-group'">
     <mat-label>Adresse mail</mat-label>
-    <input type="email" matInput id="mail_user" name="mail" required placeholder="antoine.dupont@isen.fr">
+    <input
+      type="email"
+      matInput
+      id="mail_user"
+      name="mail"
+      required
+      placeholder="antoine.dupont@isen.fr"
+    />
     <mat-error>Veuillez vérifier votre mail</mat-error>
   </mat-form-field>
   <mat-form-field [className]="'form-group'">
     <mat-label>Mot de passe</mat-label>
-    <input type="password" matInput id="psw" name="password" required
-           placeholder="Mot de passe">
+    <input
+      type="password"
+      matInput
+      id="psw"
+      name="password"
+      required
+      placeholder="Mot de passe"
+    />
   </mat-form-field>
-  <app-button [solid]="true" [css]="'mt-8'" [type]="'primary'" label="Se connecter" id="btn-login"/>
+  <app-button
+    [solid]="true"
+    [css]="'mt-8'"
+    [type]="'primary'"
+    label="Se connecter"
+    id="btn-login"
+  />
 </form>

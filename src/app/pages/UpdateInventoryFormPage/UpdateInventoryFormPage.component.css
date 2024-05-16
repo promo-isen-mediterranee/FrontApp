@@ -14,7 +14,9 @@
     display: none;
   }
 
-  input, app-select, select {
+  input,
+  app-select,
+  select {
     width: 100%;
     text-align: left;
   }

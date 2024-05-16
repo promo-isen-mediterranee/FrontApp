@@ -8,9 +8,8 @@ describe('UpdateEventFormPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UpdateEventFormPageComponent]
-    })
-    .compileComponents();
+      imports: [UpdateEventFormPageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(UpdateEventFormPageComponent);
     component = fixture.componentInstance;

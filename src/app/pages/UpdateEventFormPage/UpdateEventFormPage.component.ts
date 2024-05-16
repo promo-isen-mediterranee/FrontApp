@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './UpdateEventFormPage.component.html',
-  styleUrl: './UpdateEventFormPage.component.css'
+  styleUrl: './UpdateEventFormPage.component.css',
 })
-export class UpdateEventFormPageComponent {
-
-}
+export class UpdateEventFormPageComponent {}

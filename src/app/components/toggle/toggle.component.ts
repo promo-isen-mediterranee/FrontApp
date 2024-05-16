@@ -1,15 +1,12 @@
-import { Component, Input } from "@angular/core";
-import { NgForOf, TitleCasePipe } from "@angular/common";
+import { Component, Input } from '@angular/core';
+import { NgForOf, TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-toggle',
   standalone: true,
-  imports: [
-    NgForOf,
-    TitleCasePipe
-  ],
+  imports: [NgForOf, TitleCasePipe],
   templateUrl: './toggle.component.html',
-  styleUrl: './toggle.component.css'
+  styleUrl: './toggle.component.css',
 })
 export class ToggleComponent {
   @Input()
