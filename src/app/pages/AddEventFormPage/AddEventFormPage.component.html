@@ -6,7 +6,7 @@
     <h2>Créer un événement</h2>
   </div>
 
-  <form (ngSubmit)="createEvent()" method="post">
+  <form (ngSubmit)="createEvent()" method="post" #eventForm="ngForm">
     <mat-form-field [className]="'form-group'">
       <mat-label>Nom de l'événement</mat-label>
       <input
@@ -17,7 +17,7 @@
         [(ngModel)]="eventName"
         required
       />
-      <mat-error>Le nom de l'événement ne peut pas être vide.</mat-error>
+      <mat-error> Le nom de l'événement ne peut pas être vide.</mat-error>
     </mat-form-field>
 
     <mat-form-field [className]="'form-group'">
@@ -88,6 +88,7 @@
       label="Mettre à jour"
       id="submit"
       onClickLink="/event/list"
+      [disabled]="!eventForm.form.valid"
     />
   </form>
 </div>

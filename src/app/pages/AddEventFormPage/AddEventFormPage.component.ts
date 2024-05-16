@@ -26,11 +26,13 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 
 export interface Location {
+  id: number;
   address: string;
   city: string;
+  room?: string;
 }
 @Component({
   selector: 'app-add-event-form-page',
@@ -38,6 +40,7 @@ export interface Location {
   imports: [
     ButtonComponent,
     SelectComponent,
+    CommonModule,
     MatInput,
     MatDatepickerModule,
     MatNativeDateModule,
@@ -72,12 +75,12 @@ export class AddEventFormPageComponent {
   eventEndDate: Date | null = null;
   eventAddress: any;
   locations: Location = {} as Location;
-  private apiUrl = environment.apiUrl;
+  private apiUrl = environment.apiEventUrl;
   protected options: Location[] = [];
   constructor(private http: HttpClient) {}
 
   getLocation(): Observable<any> {
-    return this.http.get<any>('http://localhost:5000/event/location/getAll');
+    return this.http.get<any>(this.apiUrl + '/location/getAll');
   }
 
   ngOnInit(): void {
@@ -85,8 +88,10 @@ export class AddEventFormPageComponent {
       this.locations = data;
       for (const location of data) {
         const option: Location = {
+          id: location.id,
           address: location.address,
           city: location.city,
+          room: location.room,
         };
         this.options.push(option);
       }
@@ -106,22 +111,20 @@ export class AddEventFormPageComponent {
       'Content-Type',
       'application/x-www-form-urlencoded',
     );
+
     const eventData = new URLSearchParams();
     eventData.set('name', this.eventName);
     eventData.set('date_start', this.eventStartDate?.toISOString() ?? '');
     eventData.set('date_end', this.eventEndDate?.toISOString() ?? '');
-    eventData.set('location.address', this.eventAddress.address);
-    eventData.set('location.city', this.eventAddress.city);
-    this.http
-      .post('http://localhost:5000/event/create', eventData, { headers })
-      .subscribe(
-        (response) => {
-          console.log(response);
-        },
-        (error) => {
-          console.error(error.status);
-        },
-      );
+    eventData.set('location.id', this.eventAddress.id);
+    this.http.post(this.apiUrl + 'create', eventData, { headers }).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.error(error.status);
+      },
+    );
   }
 
   public closeDatepicker(datepicker: MatDatepicker<Date>): void {

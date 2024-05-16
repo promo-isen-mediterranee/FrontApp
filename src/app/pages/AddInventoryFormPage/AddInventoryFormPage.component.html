@@ -6,31 +6,75 @@
     <h2>Formulaire d'inventaire</h2>
   </div>
 
-  <form method="post">
+  <form (ngSubmit)="createItem()" method="post" #itemForm="ngForm">
     <mat-form-field [className]="'form-group'">
       <mat-label>Matériel</mat-label>
-      <input type="text" matInput id="material_select" name="material"
-             placeholder="Nom du matériel" required/>
+      <input
+        type="text"
+        matInput
+        id="material_select"
+        name="material"
+        placeholder="Nom du matériel"
+        [(ngModel)]="itemName"
+        required
+      />
       <mat-error>Le nom du matériel ne peut pas être vide.</mat-error>
     </mat-form-field>
 
     <mat-form-field [className]="'form-group'">
       <mat-label>Salle</mat-label>
-      <mat-select id="room_select" [(value)]="room" required [formControl]="roomControl">
-        @for (option of filteredOption | async; track option) {
-          <mat-option [value]="option.value">{{ option.label }}</mat-option>
+      <mat-select
+        id="room_select"
+        [(value)]="address"
+        required
+        [formControl]="roomControl"
+      >
+        @for (option of options; track option) {
+          <mat-option [value]="option">
+            {{ option.room }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Categorie</mat-label>
+      <mat-select
+        id="category_select"
+        [(value)]="category"
+        required
+        [formControl]="categoryControl"
+      >
+        @for (category of optionsC; track category) {
+          <mat-option [value]="category">
+            {{ category.label }}
+          </mat-option>
         }
       </mat-select>
     </mat-form-field>
 
     <mat-form-field [className]="'form-group'">
       <mat-label>Quantité</mat-label>
-      <input type="number"  matInput id="quantity_input" name="quantity" placeholder="Nouvelle quantité disponible"
-             min="1" required/>
+      <input
+        type="number"
+        matInput
+        id="quantity_input"
+        name="quantity"
+        [(ngModel)]="quantity"
+        placeholder="Nouvelle quantité disponible"
+        min="1"
+        required
+      />
       <mat-error>La quantité ne peut pas être inférieure à 1.</mat-error>
     </mat-form-field>
 
-    <app-button [solid]="true" [type]="'primary'" label="Mettre à jour" id="submit"/>
+    <app-button
+      [solid]="true"
+      [type]="'primary'"
+      label="Mettre à jour"
+      id="submit"
+      onClickLink="/stock/"
+      [disabled]="!itemForm.form.valid"
+    />
   </form>
-
 </div>

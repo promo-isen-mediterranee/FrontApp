@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:5000',
+  apiEventUrl: 'http://promo-api.isen.fr/event/',
+  apiStockUrl: 'http://promo-api.isen.fr/stock/',
 };

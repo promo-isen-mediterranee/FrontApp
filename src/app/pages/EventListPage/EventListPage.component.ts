@@ -6,6 +6,7 @@ import { EventSourceInput } from '@fullcalendar/core';
 import { ToggleComponent } from '../../components/toggle/toggle.component';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 interface Event {
   title: string;
@@ -42,12 +43,13 @@ interface Event {
 })
 export class EventListPageComponent implements OnInit {
   Tabevents: Event[] = [];
+  private apiUrl = environment.apiEventUrl;
   constructor(private http: HttpClient) {}
   public events: Event[] = [];
 
   ngOnInit() {
     this.http
-      .get<Event[]>('http://localhost:5000/event/getAll')
+      .get<Event[]>(this.apiUrl + 'getAll')
       .pipe(
         tap((data) => {
           this.Tabevents = data;
