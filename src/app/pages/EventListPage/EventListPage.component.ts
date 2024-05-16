@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CalendarComponent } from '../../components/calendar/calendar.component';
 import { ButtonComponent } from '../../components/button/button.component';
 import { NgIf } from '@angular/common';
-import { EventSourceInput } from '@fullcalendar/core';
 import { ToggleComponent } from '../../components/toggle/toggle.component';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
+import { environment } from "../../../environments/environment";
 
 interface Event {
   title: string;
@@ -41,13 +41,15 @@ interface Event {
   styleUrl: './EventListPage.component.css',
 })
 export class EventListPageComponent implements OnInit {
-  Tabevents: Event[] = [];
   constructor(private http: HttpClient) {}
+
+  public Tabevents: Event[] = [];
   public events: Event[] = [];
+  private apiUrl = environment.apiEventUrl
 
   ngOnInit() {
     this.http
-      .get<Event[]>('http://localhost:5000/event/getAll')
+      .get<Event[]>(this.apiUrl + 'getAll')
       .pipe(
         tap((data) => {
           this.Tabevents = data;
@@ -76,4 +78,5 @@ export class EventListPageComponent implements OnInit {
       },
     }));
   }
+
 }

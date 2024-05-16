@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EventListPageComponent } from './EventListPage.component';
 import { provideAnimations } from "@angular/platform-browser/animations";
+import { provideHttpClient } from "@angular/common/http";
 
 describe('EventListPageComponent', () => {
   let component: EventListPageComponent;
@@ -11,7 +12,8 @@ describe('EventListPageComponent', () => {
     await TestBed.configureTestingModule({
       imports: [EventListPageComponent],
       providers: [
-        provideAnimations()
+        provideAnimations(),
+        provideHttpClient()
       ]
     })
     .compileComponents();

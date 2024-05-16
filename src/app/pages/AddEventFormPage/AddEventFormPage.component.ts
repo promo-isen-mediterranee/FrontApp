@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component } from '@angular/core';
 import { ButtonComponent } from '../../components/button/button.component';
 import { SelectComponent } from '../../components/select/select.component';
 import {
@@ -26,7 +26,6 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { AsyncPipe } from "@angular/common";
 
 export interface Location {
   address: string;
@@ -52,8 +51,7 @@ export interface Location {
     FormsModule,
     ReactiveFormsModule,
     MatAutocompleteTrigger,
-    MatError,
-    AsyncPipe
+    MatError
   ],
   providers: [
     MatDatepickerModule,
@@ -72,12 +70,12 @@ export class AddEventFormPageComponent {
   eventEndDate: Date | null = null;
   eventAddress: any;
   locations: Location = {} as Location;
-  private apiUrl = environment.apiUrl;
+  private apiUrl = environment.apiEventUrl;
   protected options: Location[] = [];
   constructor(private http: HttpClient) {}
 
   getLocation(): Observable<any> {
-    return this.http.get<any>('http://localhost:5000/event/location/getAll');
+    return this.http.get<any>(this.apiUrl + 'location/getAll');
   }
 
   ngOnInit(): void {
@@ -113,7 +111,7 @@ export class AddEventFormPageComponent {
     eventData.set('location.address', this.eventAddress.address);
     eventData.set('location.city', this.eventAddress.city);
     this.http
-      .post('http://localhost:5000/event/create', eventData, { headers })
+      .post(this.apiUrl + 'create', eventData, { headers })
       .subscribe(
         (response) => {
           console.log(response);
