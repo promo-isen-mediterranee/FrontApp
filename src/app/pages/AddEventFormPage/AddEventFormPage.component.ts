@@ -93,7 +93,12 @@ export class AddEventFormPageComponent {
           city: location.city,
           room: location.room,
         };
-        this.options.push(option);
+        const exists = this.options.some(
+          (opt) => opt.city === option.city && opt.address === option.address,
+        );
+        if (!exists) {
+          this.options.push(option);
+        }
       }
     });
   }
@@ -114,8 +119,8 @@ export class AddEventFormPageComponent {
 
     const eventData = new URLSearchParams();
     eventData.set('name', this.eventName);
-    eventData.set('date_start', this.eventStartDate?.toISOString() ?? '');
-    eventData.set('date_end', this.eventEndDate?.toISOString() ?? '');
+    eventData.set('date_start', this.eventStartDate?.toDateString() ?? '');
+    eventData.set('date_end', this.eventEndDate?.toDateString() ?? '');
     eventData.set('location.id', this.eventAddress.id);
     this.http.post(this.apiUrl + 'create', eventData, { headers }).subscribe(
       (response) => {

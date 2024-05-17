@@ -1,30 +1,52 @@
-import { ChangeDetectorRef, Component, ElementRef, HostListener, Input, ViewChild } from "@angular/core";
-import { FullCalendarComponent, FullCalendarModule } from "@fullcalendar/angular";
-import { CalendarOptions, EventClickArg, EventSourceInput } from "@fullcalendar/core";
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  ViewChild,
+} from '@angular/core';
+import { ButtonComponent } from '../../components/button/button.component';
+import {
+  FullCalendarComponent,
+  FullCalendarModule,
+} from '@fullcalendar/angular';
+import {
+  CalendarOptions,
+  EventClickArg,
+  EventSourceInput,
+} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import listPlugin from '@fullcalendar/list';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import frLocale from '@fullcalendar/core/locales/fr';
-import { MatIcon } from "@angular/material/icon";
-import { DatePipe } from "@angular/common";
-import { MatFormField } from "@angular/material/form-field";
-import { MatDatepicker, MatDatepickerInput, MatDatepickerModule } from "@angular/material/datepicker";
-import { FormsModule } from "@angular/forms";
-import { MatInput, MatLabel } from "@angular/material/input";
-import { provideNativeDateAdapter } from "@angular/material/core";
+import { MatIcon } from '@angular/material/icon';
+import { DatePipe } from '@angular/common';
+import { MatFormField } from '@angular/material/form-field';
+import {
+  MatDatepicker,
+  MatDatepickerInput,
+  MatDatepickerModule,
+} from '@angular/material/datepicker';
+import { FormsModule } from '@angular/forms';
+import { MatInput, MatLabel } from '@angular/material/input';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { Router } from '@angular/router';
 
 export interface EventInterface {
-  title: string,
-  date_start: Date,
-  date_end: Date,
-  location: string,
-  status: string
+  id: number;
+  title: string;
+  date_start: Date;
+  date_end: Date;
+  location: string;
+  status: string;
 }
 
 @Component({
   selector: 'app-calendar',
   standalone: true,
   imports: [
+    ButtonComponent,
     FullCalendarModule,
     MatIcon,
     DatePipe,
@@ -33,30 +55,30 @@ export interface EventInterface {
     FormsModule,
     MatDatepickerInput,
     MatInput,
-    MatLabel
+    MatLabel,
   ],
-  providers: [
-    MatDatepickerModule,
-    provideNativeDateAdapter()
-  ],
+  providers: [MatDatepickerModule, provideNativeDateAdapter()],
   templateUrl: './calendar.component.html',
-  styleUrl: './calendar.component.css'
+  styleUrl: './calendar.component.css',
 })
 export class CalendarComponent {
-  @ViewChild("calendar")
-  calendarComponent: FullCalendarComponent = new FullCalendarComponent({} as ElementRef, {} as ChangeDetectorRef);
+  @ViewChild('calendar')
+  calendarComponent: FullCalendarComponent = new FullCalendarComponent(
+    {} as ElementRef,
+    {} as ChangeDetectorRef,
+  );
 
-  private calendarView: string = 'dayGridMonth'
+  private calendarView: string = 'dayGridMonth';
 
-  private screenHeight : number = 0;
-  private screenWidth : number = 0;
+  private screenHeight: number = 0;
+  private screenWidth: number = 0;
 
   protected selectedEvent: EventInterface = {} as EventInterface;
 
   public endButton(): string {
-    let base = "today prev,next"
-    if(document.documentElement.clientWidth > 660) {
-      return base + " dayGridMonth,timeGridWeek,timeGridDay,listWeek";
+    let base = 'today prev,next';
+    if (document.documentElement.clientWidth > 660) {
+      return base + ' dayGridMonth,timeGridWeek,timeGridDay,listWeek';
     }
     return base;
   }
@@ -67,31 +89,42 @@ export class CalendarComponent {
   public x: number = 0;
   public y: number = 0;
 
-  public calendarOptions : CalendarOptions = {
-    contentHeight: "auto",
+  public calendarOptions: CalendarOptions = {
+    contentHeight: 'auto',
     eventClick: this.handleEventClick.bind(this),
     handleWindowResize: false,
     headerToolbar: {
-      start: "title",
-      center: "",
-      end: this.endButton()
+      start: 'title',
+      center: '',
+      end: this.endButton(),
     },
     locale: frLocale,
     plugins: [dayGridPlugin, listPlugin, timeGridPlugin],
-    timeZone: "Europe/Paris"
+    timeZone: 'Europe/Paris',
   };
 
   @HostListener('window:resize', ['$event']) onResize(): void {
     this.screenHeight = document.documentElement.clientHeight;
     this.screenWidth = document.documentElement.clientWidth;
-    this.view()
-    this.calendarComponent.getApi().setOption('headerToolbar', {start: "title", center: "", end: this.endButton()})
+    this.view();
+    this.calendarComponent.getApi().setOption('headerToolbar', {
+      start: 'title',
+      center: '',
+      end: this.endButton(),
+    });
+  }
+  constructor(private router: Router) {}
+
+  updateEvent() {
+    this.router.navigate(['/event/update'], {
+      state: { selectedEvent: this.selectedEvent },
+    });
   }
 
   ngOnInit() {
     this.screenHeight = document.documentElement.clientHeight;
     this.screenWidth = document.documentElement.clientWidth;
-    if(this.screenWidth > 660) {
+    if (this.screenWidth > 660) {
       this.calendarView = 'dayGridMonth';
     } else {
       this.calendarView = 'listWeek';
@@ -108,7 +141,7 @@ export class CalendarComponent {
   }
 
   private view(): void {
-    if(this.screenWidth < 660) {
+    if (this.screenWidth < 660) {
       this.calendarView = 'listWeek';
     } else {
       this.calendarView = 'dayGridMonth';
@@ -117,7 +150,7 @@ export class CalendarComponent {
   }
 
   public closeDialog(): void {
-    let dialog = document.getElementById("dialog") as HTMLDialogElement;
+    let dialog = document.getElementById('dialog') as HTMLDialogElement;
     dialog.close();
   }
 
@@ -129,33 +162,37 @@ export class CalendarComponent {
       title: clickedEvent.event.title,
       date_start: clickedEvent.event.start,
       date_end: clickedEvent.event.end,
-      location: clickedEvent.event.extendedProps['location'],
-      status: clickedEvent.event.extendedProps['status']
+      location:
+        clickedEvent.event.extendedProps['location'].address +
+        ' ' +
+        clickedEvent.event.extendedProps['location'].city,
+      status: clickedEvent.event.extendedProps['status'],
+      id: clickedEvent.event.extendedProps['id'],
     } as EventInterface;
 
-    let dialog = document.getElementById("dialog") as HTMLDialogElement;
+    let dialog = document.getElementById('dialog') as HTMLDialogElement;
     if (this.screenWidth > 900) {
       this.x = coordinates.left;
       this.y = coordinates.top;
-      if(this.screenWidth - this.x < 448) {
+      if (this.screenWidth - this.x < 448) {
         this.x = this.x - (this.screenWidth - this.x);
       }
       if (this.screenHeight - this.y < 220) {
         this.y = this.y - 220;
       }
-      dialog.style.left = this.x + "px";
-      dialog.style.top = this.y + "px";
+      dialog.style.left = this.x + 'px';
+      dialog.style.top = this.y + 'px';
     } else {
       console.log(this.screenWidth);
-      dialog.style.width = this.screenWidth - 32 - 2 + "px";
-      dialog.style.maxWidth = "none";
-      dialog.style.top = 0 + "px";
-      dialog.style.height = "100%";
+      dialog.style.width = this.screenWidth - 32 - 2 + 'px';
+      dialog.style.maxWidth = 'none';
+      dialog.style.top = 0 + 'px';
+      dialog.style.height = '100%';
     }
     dialog.show();
   }
 
   public closeDatepicker(picker: MatDatepicker<any>) {
-    picker["_destroyOverlay"]();
+    picker['_destroyOverlay']();
   }
 }

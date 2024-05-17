@@ -23,7 +23,7 @@ interface Event {
       address: string;
       city: string;
       id: number;
-      room: string;
+      room?: string;
     };
     standSize?: number;
     status?: {
@@ -72,7 +72,12 @@ export class EventListPageComponent implements OnInit {
         id: event.id,
         contactObjective: event.contact_objective,
         itemManager: event.item_manager,
-        location: event.location.city,
+        location: {
+          address: event.location.address,
+          city: event.location.city,
+          id: event.location.id,
+          room: event.location.room,
+        },
         standSize: event.stand_size,
         status: event.status.label,
       },

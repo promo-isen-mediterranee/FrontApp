@@ -1,1 +1,91 @@
-<p>update-event-form-page works!</p>
+<div [className]="'header'">
+  <a href="/" [className]="['w-100', 'left-align']">
+    <i class="fa-solid fa-arrow-left"></i>
+  </a>
+  <div [className]="'header-container'">
+    <h2>Mise à jour {{ eventName }} {{ selectedEvent.location }}</h2>
+  </div>
+  <form (ngSubmit)="updateEvent()" #updateEventForm="ngForm">
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Nom de l'événement</mat-label>
+      <input
+        type="text"
+        matInput
+        id="event_name_input"
+        name="event_name"
+        [(ngModel)]="selectedEvent.title"
+        required
+      />
+      <mat-error> Le nom de l'événement ne peut pas être vide.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Choisir une date de début</mat-label>
+      <input
+        matInput
+        [matDatepicker]="pickerStart"
+        (dateChange)="closeDatepicker(pickerStart)"
+        required
+        [(ngModel)]="selectedEvent.date_start"
+        name="eventStartDate"
+      />
+      <mat-hint>DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="pickerStart"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #pickerStart></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Choisir une date de fin</mat-label>
+      <input
+        matInput
+        [matDatepicker]="pickerEnd"
+        (dateChange)="closeDatepicker(pickerEnd)"
+        required
+        [(ngModel)]="selectedEvent.date_end"
+        name="eventEndDate"
+      />
+      <mat-hint>DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="pickerEnd"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #pickerEnd></mat-datepicker>
+      <mat-error>La date de fin ne peut pas être vide.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Adresse</mat-label>
+      <input
+        type="text"
+        aria-label="Adresse"
+        name="event_address"
+        matInput
+        [matAutocomplete]="auto"
+        required
+      />
+      <mat-autocomplete
+        #auto="matAutocomplete"
+        [displayWith]="displayFn"
+        (optionSelected)="onOptionSelected($event.option.value)"
+      >
+        @for (option of options; track option) {
+          <mat-option [value]="option">
+            {{ option.address }}, {{ option.city }}
+          </mat-option>
+        }
+      </mat-autocomplete>
+      <mat-error>L'adresse ne peut pas être vide.</mat-error>
+    </mat-form-field>
+    <app-button
+      [solid]="true"
+      [type]="'primary'"
+      label="Mettre à jour l'événement"
+      id="submit"
+      onClickLink="event/list"
+      [disabled]="!updateEventForm.form.valid"
+    />
+  </form>
+</div>
