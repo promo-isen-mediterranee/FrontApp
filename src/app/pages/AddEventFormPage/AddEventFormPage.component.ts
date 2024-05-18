@@ -19,7 +19,7 @@ import {
   MatAutocomplete,
   MatAutocompleteTrigger,
 } from '@angular/material/autocomplete';
-import { FormControl, FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatError, MatFormFieldModule } from '@angular/material/form-field';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -68,13 +68,10 @@ export interface Location {
   styleUrl: './AddEventFormPage.component.css',
 })
 export class AddEventFormPageComponent {
-  addressControl = new FormControl();
-
   eventName: string = '';
   eventStartDate: Date | null = null;
   eventEndDate: Date | null = null;
   eventAddress: any;
-  locations: Location = {} as Location;
   private apiUrl = environment.apiEventUrl;
   protected options: Location[] = [];
   constructor(private http: HttpClient) {}
@@ -85,7 +82,6 @@ export class AddEventFormPageComponent {
 
   ngOnInit(): void {
     this.getLocation().subscribe((data) => {
-      this.locations = data;
       for (const location of data) {
         const option: Location = {
           id: location.id,
