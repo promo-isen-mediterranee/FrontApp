@@ -19,11 +19,15 @@ import {
   MatAutocomplete,
   MatAutocompleteTrigger,
 } from '@angular/material/autocomplete';
-import { FormControl, FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatError, MatFormFieldModule } from '@angular/material/form-field';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpClientModule,
+} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AsyncPipe, CommonModule } from '@angular/common';
@@ -36,10 +40,16 @@ export interface Location {
   room?: string;
 }
 
+export interface Status {
+  id: number;
+  label: string;
+}
+
 @Component({
   selector: 'app-update-event-form-page',
   standalone: true,
   imports: [
+    HttpClientModule,
     ButtonComponent,
     SelectComponent,
     CommonModule,
@@ -71,13 +81,15 @@ export interface Location {
 })
 export class UpdateEventFormPageComponent implements OnInit {
   selectedEvent: any = {};
-  locations: Location = {} as Location;
+  updateError = false;
+
   private apiUrl = environment.apiEventUrl;
-  protected options: Location[] = [];
-  addressControl = new FormControl();
+  protected optionsL: Location[] = [];
+  protected optionsS: Status[] = [];
 
   eventName: string = '';
   eventAddress: any;
+  eventStatus: any;
 
   constructor(
     private router: Router,
@@ -93,17 +105,28 @@ export class UpdateEventFormPageComponent implements OnInit {
     return location ? `${location.address}, ${location.city}` : '';
   }
 
+  displayS(status: Status): string {
+    return status ? status.label : '';
+  }
+
   getLocation(): Observable<any> {
     return this.http.get<any>(this.apiUrl + 'location/getAll');
   }
 
-  onOptionSelected(option: any): void {
+  getStatus(): Observable<any> {
+    return this.http.get<any>(this.apiUrl + 'status/getAll');
+  }
+
+  onAddressSelected(option: any): void {
     this.eventAddress = option;
+  }
+
+  onStatusSelected(option: any): void {
+    this.eventStatus = option;
   }
 
   ngOnInit(): void {
     this.getLocation().subscribe((data) => {
-      this.locations = data;
       for (const location of data) {
         const option: Location = {
           id: location.id,
@@ -111,14 +134,24 @@ export class UpdateEventFormPageComponent implements OnInit {
           city: location.city,
           room: location.room,
         };
-        const exists = this.options.some(
+        const exists = this.optionsL.some(
           (opt) => opt.city === option.city && opt.address === option.address,
         );
         if (!exists) {
-          this.options.push(option);
+          this.optionsL.push(option);
         }
       }
     });
+    this.getStatus().subscribe((data) => {
+      for (const stat of data) {
+        const option: Status = {
+          id: stat.id,
+          label: stat.label,
+        };
+        this.optionsS.push(option);
+      }
+    });
+    this.eventStatus = this.selectedEvent.status;
     this.eventName = this.selectedEvent.title;
   }
 
@@ -127,7 +160,6 @@ export class UpdateEventFormPageComponent implements OnInit {
       'Content-Type',
       'application/x-www-form-urlencoded',
     );
-
     const eventData = new URLSearchParams();
     eventData.set('name', this.selectedEvent.title);
     eventData.set(
@@ -139,14 +171,20 @@ export class UpdateEventFormPageComponent implements OnInit {
       this.selectedEvent.date_end?.toDateString() ?? '',
     );
     eventData.set('location.id', this.eventAddress.id);
+    eventData.set('status.label', this.selectedEvent.status);
     this.http
-      .put(this.apiUrl + this.selectedEvent.id + '/', eventData, { headers })
+      .put(this.apiUrl + this.selectedEvent.id + '/', eventData, {
+        headers,
+        responseType: 'text',
+      })
       .subscribe(
         (response) => {
           console.log(response);
+          this.router.navigateByUrl('event/list');
         },
         (error) => {
           console.error(error.status);
+          this.updateError = true;
         },
       );
   }
