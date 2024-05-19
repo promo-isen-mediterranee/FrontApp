@@ -19,6 +19,7 @@ import { map, Observable, startWith } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
 export interface Location {
   id: number;
@@ -69,7 +70,10 @@ export class AddInventoryFormPageComponent {
   protected optionsC: Category[] = [];
   private apiUrl = environment.apiStockUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+  ) {}
 
   getLocation(): Observable<any> {
     return this.http.get<any>(this.apiUrl + 'location/getAll');
@@ -103,13 +107,21 @@ export class AddInventoryFormPageComponent {
     });
   }
 
+  toTitleCase(str: string): string {
+    return str
+      .toLowerCase()
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+
   createItem() {
     const headers = new HttpHeaders().set(
       'Content-Type',
       'application/x-www-form-urlencoded',
     );
     const itemData = new URLSearchParams();
-    itemData.set('name', this.itemName);
+    itemData.set('name', this.toTitleCase(this.itemName));
     itemData.set('location.id', this.address.id);
     itemData.set('category', this.category.label);
     itemData.set('quantity', this.quantity);
@@ -118,6 +130,7 @@ export class AddInventoryFormPageComponent {
       .subscribe(
         (response) => {
           console.log(response);
+          this.router.navigateByUrl('/stock');
         },
         (error) => {
           console.error(error.status);

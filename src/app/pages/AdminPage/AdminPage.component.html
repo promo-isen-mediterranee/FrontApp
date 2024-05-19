@@ -1,12 +1,36 @@
 <div [className]="'header-container'">
   <h2>Espace administrateur</h2>
   <div class="container">
-    <img ngSrc="assets/img/logos/logo-admin.png" alt="logo adminstrateur" class="mt-2" height="300" width="300" priority>
+    <img
+      ngSrc="assets/img/logos/logo-admin.png"
+      alt="logo adminstrateur"
+      class="mt-2"
+      height="300"
+      width="300"
+      priority
+    />
     <div id="actionButtons">
-      <app-button type="primary" label="Gestion utilisateurs" [solid]="true" [css]="'mt-8'"
-                  onClickLink="/user"/>
-      <app-button type="secondary" label="Quitter l'espace administrateur" [solid]="true" [css]="'mt-2 mobile-mb-30'"
-                  onClickLink="/home"/>
+      <app-button
+        type="primary"
+        label="Gestion utilisateurs"
+        [solid]="true"
+        [css]="'mt-8'"
+        onClickLink="/user"
+      />
+      <app-button
+        type="primary"
+        label="Gestion lieux"
+        [solid]="true"
+        [css]="'mt-2 mobile-mb-30'"
+        onClickLink="/location"
+      />
+      <app-button
+        type="secondary"
+        label="Quitter l'espace administrateur"
+        [solid]="true"
+        [css]="'mt-2 mobile-mb-30'"
+        onClickLink="/home"
+      />
     </div>
   </div>
 </div>

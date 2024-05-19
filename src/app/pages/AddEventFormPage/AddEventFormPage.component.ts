@@ -27,6 +27,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AsyncPipe, CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 export interface Location {
   id: number;
@@ -74,7 +75,10 @@ export class AddEventFormPageComponent {
   eventAddress: any;
   private apiUrl = environment.apiEventUrl;
   protected options: Location[] = [];
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+  ) {}
 
   getLocation(): Observable<any> {
     return this.http.get<any>(this.apiUrl + 'location/getAll');
@@ -99,6 +103,14 @@ export class AddEventFormPageComponent {
     });
   }
 
+  toTitleCase(str: string): string {
+    return str
+      .toLowerCase()
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+
   displayFn(location: Location): string {
     return location ? `${location.address}, ${location.city}` : '';
   }
@@ -114,18 +126,24 @@ export class AddEventFormPageComponent {
     );
 
     const eventData = new URLSearchParams();
-    eventData.set('name', this.eventName);
+    eventData.set('name', this.toTitleCase(this.eventName));
     eventData.set('date_start', this.eventStartDate?.toDateString() ?? '');
     eventData.set('date_end', this.eventEndDate?.toDateString() ?? '');
     eventData.set('location.id', this.eventAddress.id);
-    this.http.post(this.apiUrl + 'create', eventData, { headers }).subscribe(
-      (response) => {
-        console.log(response);
-      },
-      (error) => {
-        console.error(error.status);
-      },
-    );
+    this.http
+      .post(this.apiUrl + 'create', eventData, {
+        headers,
+        responseType: 'text',
+      })
+      .subscribe(
+        (response) => {
+          console.log(response);
+          this.router.navigateByUrl('event/list');
+        },
+        (error) => {
+          console.error(error.status);
+        },
+      );
   }
 
   public closeDatepicker(datepicker: MatDatepicker<Date>): void {

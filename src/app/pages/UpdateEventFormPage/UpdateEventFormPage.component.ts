@@ -81,7 +81,6 @@ export interface Status {
 })
 export class UpdateEventFormPageComponent implements OnInit {
   selectedEvent: any = {};
-  updateError = false;
 
   private apiUrl = environment.apiEventUrl;
   protected optionsL: Location[] = [];
@@ -89,7 +88,7 @@ export class UpdateEventFormPageComponent implements OnInit {
 
   eventName: string = '';
   eventAddress: any;
-  eventStatus: any;
+  eventStatus: Status = { id: 0, label: '' };
 
   constructor(
     private router: Router,
@@ -151,7 +150,7 @@ export class UpdateEventFormPageComponent implements OnInit {
         this.optionsS.push(option);
       }
     });
-    this.eventStatus = this.selectedEvent.status;
+    this.eventStatus.label = this.selectedEvent.status;
     this.eventName = this.selectedEvent.title;
   }
 
@@ -171,7 +170,7 @@ export class UpdateEventFormPageComponent implements OnInit {
       this.selectedEvent.date_end?.toDateString() ?? '',
     );
     eventData.set('location.id', this.eventAddress.id);
-    eventData.set('status.label', this.selectedEvent.status);
+    eventData.set('status.label', this.eventStatus.label);
     this.http
       .put(this.apiUrl + this.selectedEvent.id + '/', eventData, {
         headers,
@@ -184,7 +183,22 @@ export class UpdateEventFormPageComponent implements OnInit {
         },
         (error) => {
           console.error(error.status);
-          this.updateError = true;
+        },
+      );
+  }
+
+  deleteEvent() {
+    this.http
+      .delete(this.apiUrl + this.selectedEvent.id + '/', {
+        responseType: 'text',
+      })
+      .subscribe(
+        (response) => {
+          console.log(response);
+          this.router.navigateByUrl('event/list');
+        },
+        (error) => {
+          console.error(error.status);
         },
       );
   }

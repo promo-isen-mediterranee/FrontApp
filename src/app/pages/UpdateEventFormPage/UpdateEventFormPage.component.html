@@ -111,4 +111,11 @@
       [disabled]="!updateEventForm.form.valid"
     />
   </form>
+  <app-button
+    type="secondary"
+    label="Supprimer"
+    [solid]="true"
+    css="mt-2"
+    (click)="deleteEvent()"
+  />
 </div>

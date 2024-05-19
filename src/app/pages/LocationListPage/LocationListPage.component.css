@@ -51,7 +51,7 @@ body {
   background-color: rgb(230, 230, 230);
 }
 
-.item {
+.address {
   color: red;
   font-weight: bold;
 }
@@ -90,8 +90,21 @@ body {
 }
 
 .room,
-.quantity-i {
+.city {
   color: #333;
+}
+
+.icon-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 70px;
+}
+
+.icon:hover {
+  color: #888;
+  cursor: pointer;
+  transform: scale(1.1);
 }
 
 app-button {

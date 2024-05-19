@@ -1,0 +1,53 @@
+<div [className]="'header'">
+  <a href="/" [className]="['w-100', 'left-align']">
+    <i class="fa-solid fa-arrow-left"></i>
+  </a>
+  <div [className]="'header-container'">
+    <h2>Mise à jour {{ Location }}</h2>
+  </div>
+
+  <form (ngSubmit)="updateLocation()" method="put" #updateLocationForm="ngForm">
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Addresse</mat-label>
+      <input
+        type="text"
+        matInput
+        name="address"
+        placeholder="Adresse"
+        [(ngModel)]="selectedLocation.address"
+        required
+      />
+      <mat-error> L'adresse ne peut pas être vide.</mat-error>
+    </mat-form-field>
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Ville</mat-label>
+      <input
+        type="text"
+        matInput
+        name="city"
+        placeholder="Ville"
+        [(ngModel)]="selectedLocation.city"
+        required
+      />
+      <mat-error> La ville ne peut pas être vide.</mat-error>
+    </mat-form-field>
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Salle</mat-label>
+      <input
+        type="text"
+        matInput
+        name="room"
+        placeholder="Salle"
+        [(ngModel)]="selectedLocation.room"
+      />
+      <mat-error> La salle ne peut pas être vide.</mat-error>
+    </mat-form-field>
+    <app-button
+      [solid]="true"
+      [type]="'primary'"
+      label="Mettre à jour"
+      id="submit"
+      [disabled]="!updateLocationForm.form.valid"
+    />
+  </form>
+</div>
