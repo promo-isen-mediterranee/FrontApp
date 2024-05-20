@@ -4,7 +4,7 @@ import { ButtonComponent } from '../../components/button/button.component';
 import { NgIf } from '@angular/common';
 import { ToggleComponent } from '../../components/toggle/toggle.component';
 import { HttpClient } from '@angular/common/http';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, first, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 
 interface Event {
@@ -13,11 +13,11 @@ interface Event {
   end: string;
   extendedProps?: {
     id?: number;
-    contactObjective?: number;
-    itemManager?: {
+    contact_objective?: number;
+    item_manager?: {
       id: string;
-      name: string;
-      surname: string;
+      last_name: string;
+      first_name: string;
     };
     location?: {
       address: string;
@@ -25,7 +25,7 @@ interface Event {
       id: number;
       room?: string;
     };
-    standSize?: number;
+    stand_size?: number;
     status?: {
       id: number;
       label: string;
@@ -70,15 +70,19 @@ export class EventListPageComponent implements OnInit {
       end: event.date_end,
       extendedProps: {
         id: event.id,
-        contactObjective: event.contact_objective,
-        itemManager: event.item_manager,
+        contact_objective: event.contact_objective,
+        item_manager: {
+          id: event.item_manager.id,
+          last_name: event.item_manager.last_name,
+          first_name: event.item_manager.first_name,
+        },
         location: {
           address: event.location.address,
           city: event.location.city,
           id: event.location.id,
           room: event.location.room,
         },
-        standSize: event.stand_size,
+        stand_size: event.stand_size,
         status: event.status.label,
       },
     }));

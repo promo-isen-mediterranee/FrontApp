@@ -126,10 +126,12 @@ export class AddInventoryFormPageComponent {
     itemData.set('category', this.category.label);
     itemData.set('quantity', this.quantity);
     this.http
-      .post(this.apiUrl + 'item/create', itemData, { headers })
+      .post(this.apiUrl + 'item/create', itemData, {
+        headers,
+        responseType: 'text',
+      })
       .subscribe(
         (response) => {
-          console.log(response);
           this.router.navigateByUrl('/stock');
         },
         (error) => {

@@ -168,6 +168,9 @@ export class CalendarComponent {
         clickedEvent.event.extendedProps['location'].city,
       status: clickedEvent.event.extendedProps['status'],
       id: clickedEvent.event.extendedProps['id'],
+      contact_objective: clickedEvent.event.extendedProps['contact_objective'],
+      stand_size: clickedEvent.event.extendedProps['stand_size'],
+      item_manager: clickedEvent.event.extendedProps['item_manager'],
     } as EventInterface;
 
     let dialog = document.getElementById('dialog') as HTMLDialogElement;

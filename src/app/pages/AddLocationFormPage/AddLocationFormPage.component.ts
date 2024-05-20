@@ -51,12 +51,12 @@ export class AddLocationFormPageComponent {
       'Content-Type',
       'application/x-www-form-urlencoded',
     );
-    const itemData = new URLSearchParams();
-    itemData.set('address', this.toTitleCase(this.address));
-    itemData.set('city', this.toTitleCase(this.city));
-    itemData.set('room', this.room);
+    const LocationData = new URLSearchParams();
+    LocationData.set('address', this.toTitleCase(this.address));
+    LocationData.set('city', this.toTitleCase(this.city));
+    LocationData.set('room', this.room);
     this.http
-      .post(this.apiUrl + 'location/create', itemData, {
+      .post(this.apiUrl + 'location/create', LocationData, {
         headers,
         responseType: 'text',
       })

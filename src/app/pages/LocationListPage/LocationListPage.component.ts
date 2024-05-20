@@ -54,7 +54,7 @@ export class LocationListPageComponent {
 
   deleteLocation(location: Location) {
     this.http
-      .delete(this.apiUrl + 'location/' + location.id + '/', {
+      .delete(this.apiUrl + 'location/' + location.id, {
         responseType: 'text',
       })
       .subscribe(

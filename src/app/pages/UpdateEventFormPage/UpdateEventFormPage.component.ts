@@ -45,6 +45,11 @@ export interface Status {
   label: string;
 }
 
+export interface Person {
+  id: string;
+  last_name: string;
+  first_name: string;
+}
 @Component({
   selector: 'app-update-event-form-page',
   standalone: true,
@@ -85,10 +90,12 @@ export class UpdateEventFormPageComponent implements OnInit {
   private apiUrl = environment.apiEventUrl;
   protected optionsL: Location[] = [];
   protected optionsS: Status[] = [];
+  protected optionsM: Person[] = [];
 
   eventName: string = '';
   eventAddress: any;
   eventStatus: Status = { id: 0, label: '' };
+  eventManager: Person = { id: '', last_name: 'A', first_name: 'Definir' };
 
   constructor(
     private router: Router,
@@ -97,6 +104,7 @@ export class UpdateEventFormPageComponent implements OnInit {
     const navigation = this.router.getCurrentNavigation();
     if (navigation && navigation.extras && navigation.extras.state) {
       this.selectedEvent = navigation.extras.state?.['selectedEvent'];
+      this.eventManager = this.selectedEvent.item_manager;
     }
   }
 
@@ -106,6 +114,14 @@ export class UpdateEventFormPageComponent implements OnInit {
 
   displayS(status: Status): string {
     return status ? status.label : '';
+  }
+
+  displayMn(person: Person): string {
+    return person ? `${person.last_name} ${person.first_name}` : '';
+  }
+
+  getPerson(): Observable<any> {
+    return this.http.get<any>(this.apiUrl + 'person/getAll');
   }
 
   getLocation(): Observable<any> {
@@ -122,6 +138,18 @@ export class UpdateEventFormPageComponent implements OnInit {
 
   onStatusSelected(option: any): void {
     this.eventStatus = option;
+  }
+
+  onOptionSelectedM(option: any): void {
+    this.eventManager = option;
+  }
+
+  toTitleCase(str: string): string {
+    return str
+      .toLowerCase()
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
   }
 
   ngOnInit(): void {
@@ -150,6 +178,24 @@ export class UpdateEventFormPageComponent implements OnInit {
         this.optionsS.push(option);
       }
     });
+    this.getPerson().subscribe((data) => {
+      for (const person of data) {
+        const option: Person = {
+          id: person.id,
+          last_name: person.last_name,
+          first_name: person.first_name,
+        };
+        const exists = this.optionsM.some(
+          (opt) =>
+            opt.last_name === option.last_name &&
+            opt.first_name === option.first_name,
+        );
+        if (!exists) {
+          this.optionsM.push(option);
+        }
+      }
+    });
+
     this.eventStatus.label = this.selectedEvent.status;
     this.eventName = this.selectedEvent.title;
   }
@@ -171,8 +217,12 @@ export class UpdateEventFormPageComponent implements OnInit {
     );
     eventData.set('location.id', this.eventAddress.id);
     eventData.set('status.label', this.eventStatus.label);
+    eventData.set('contact_objective', this.selectedEvent.contact_objective);
+    eventData.set('stand_size', this.selectedEvent.stand_size);
+    eventData.set('item_manager.last_name', this.eventManager.last_name);
+    eventData.set('item_manager.first_name', this.eventManager.first_name);
     this.http
-      .put(this.apiUrl + this.selectedEvent.id + '/', eventData, {
+      .put(this.apiUrl + this.selectedEvent.id, eventData, {
         headers,
         responseType: 'text',
       })
@@ -189,7 +239,7 @@ export class UpdateEventFormPageComponent implements OnInit {
 
   deleteEvent() {
     this.http
-      .delete(this.apiUrl + this.selectedEvent.id + '/', {
+      .delete(this.apiUrl + this.selectedEvent.id, {
         responseType: 'text',
       })
       .subscribe(

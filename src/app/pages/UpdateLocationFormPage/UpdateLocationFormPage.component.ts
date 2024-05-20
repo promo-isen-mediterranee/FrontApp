@@ -57,14 +57,10 @@ export class UpdateLocationFormPageComponent {
     LocationData.set('city', this.selectedLocation.city);
     LocationData.set('room', this.selectedLocation.room);
     this.http
-      .put(
-        this.apiUrl + 'location/' + this.selectedLocation.id + '/',
-        LocationData,
-        {
-          headers,
-          responseType: 'text',
-        },
-      )
+      .put(this.apiUrl + 'location/' + this.selectedLocation.id, LocationData, {
+        headers,
+        responseType: 'text',
+      })
       .subscribe(
         (response) => {
           console.log(response);

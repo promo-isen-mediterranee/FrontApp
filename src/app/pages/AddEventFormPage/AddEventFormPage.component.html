@@ -81,6 +81,50 @@
       </mat-autocomplete>
       <mat-error>L'adresse ne peut pas être vide.</mat-error>
     </mat-form-field>
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Taille du stand</mat-label>
+      <input
+        type="text"
+        matInput
+        id="stand_size_input"
+        name="stand_size"
+        [(ngModel)]="eventSize"
+      />
+    </mat-form-field>
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Objectif contact</mat-label>
+      <input
+        type="text"
+        matInput
+        id="contact_objective_input"
+        name="contact_objective"
+        [(ngModel)]="eventContact"
+      />
+    </mat-form-field>
+
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Manager</mat-label>
+      <input
+        type="text"
+        placeholder="Rechercher un manager"
+        aria-label="Manager"
+        name="event_manager"
+        matInput
+        [matAutocomplete]="autoM"
+      />
+      <mat-autocomplete
+        #autoM="matAutocomplete"
+        [displayWith]="displayMn"
+        (optionSelected)="onOptionSelectedM($event.option.value)"
+      >
+        @for (option of optionsM; track option) {
+          <mat-option [value]="option">
+            {{ option.last_name }} {{ option.first_name }}
+          </mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+
     <app-button
       [solid]="true"
       [type]="'primary'"
