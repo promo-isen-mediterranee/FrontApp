@@ -4,10 +4,10 @@ import { catchError, tap } from 'rxjs/operators';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
 import { ButtonComponent } from '../../components/button/button.component';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../environments/environment';
+import { Router, RouterModule } from '@angular/router';
 
 interface Item {
   id: number;
@@ -38,8 +38,17 @@ interface Item {
 export class IMSListPageComponent implements OnInit {
   items: Item[] = [];
   private apiUrl = environment.apiStockUrl;
+    
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+  ) {}
 
-  constructor(private http: HttpClient) {}
+  editItem(item: Item) {
+    this.router.navigate(['stock/update'], {
+      state: { selectedItem: item },
+    });
+  }
 
   ngOnInit() {
     this.http

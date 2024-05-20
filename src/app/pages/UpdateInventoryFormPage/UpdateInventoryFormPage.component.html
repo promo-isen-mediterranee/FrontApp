@@ -3,35 +3,62 @@
     <i class="fa-solid fa-arrow-left"></i>
   </a>
   <div [className]="'header-container'">
-    <h2>Formulaire d'inventaire</h2>
+    <h2>Modification inventaire</h2>
+    <div class="container">
+      <img
+        src="../../assets/img/logos/logo-inventaire.png"
+        alt="logo inventaire"
+        class="mt-2"
+        height="300"
+        width="300"
+        priority
+      />
+    </div>
   </div>
-
   <form method="post">
     <mat-form-field [className]="'form-group'">
       <mat-label>Matériel</mat-label>
-      <mat-select id="item_select" [(value)]="item" required [formControl]="itemControl">
-        @for (option of filteredOption | async; track option) {
-          <mat-option [value]="itemOption.value">{{ option.label }}</mat-option>
-        }
-      </mat-select>
+      <input matInput
+        type="text"
+        id="item_selected"
+        name="item"
+        [(ngModel)]="selectedItem.item_id.name"
+        disabled
+      />
+    </mat-form-field>
 
     <mat-form-field [className]="'form-group'">
       <mat-label>Salle</mat-label>
-      <mat-select id="room_select" [(value)]="room" required [formControl]="roomControl">
-        @for (option of filteredOption | async; track option) {
-          <mat-option [value]="roomOption.value">{{ option.label }}</mat-option>
-        }
-      </mat-select>
+      <input matInput
+        type="text"
+        id="room_selected"
+        name="room"
+        [(ngModel)]="selectedItem.location_id.room"
+        disabled
+      />
     </mat-form-field>
 
     <mat-form-field [className]="'form-group'">
       <mat-label>Quantité</mat-label>
-      <input type="number"  matInput id="quantity_input" name="quantity" placeholder="Nouvelle quantité disponible"
-             min="1" required/>
+      <input
+        type="number"
+        matInput
+        id="quantity_input"
+        name="quantity"
+        placeholder="Nouvelle quantité disponible"
+        [(ngModel)]="selectedItem.quantity"
+        min="1"
+        required
+      />
       <mat-error>La quantité ne peut pas être inférieure à 1.</mat-error>
     </mat-form-field>
 
-    <app-button [solid]="true" [type]="'primary'" label="Mettre à jour" id="submit"/>
+    <app-button
+      [solid]="true"
+      [type]="'primary'"
+      label="Mettre à jour"
+      id="submit"
+      (click)="updateItem()"
+    ></app-button>
   </form>
-
 </div>
