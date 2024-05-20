@@ -14,6 +14,7 @@ import { AddUserFormPageComponent } from './pages/AddUserFormPage/AddUserFormPag
 import { LocationListPageComponent } from './pages/LocationListPage/LocationListPage.component';
 import { AddLocationFormPageComponent } from './pages/AddLocationFormPage/AddLocationFormPage.component';
 import { UpdateLocationFormPageComponent } from './pages/UpdateLocationFormPage/UpdateLocationFormPage.component';
+import { ListCategoryPageComponent } from './pages/ListCategoryPage/ListCategoryPage.component';
 
 export const routes: Routes = [
   {
@@ -80,5 +81,9 @@ export const routes: Routes = [
   {
     path: 'location/update',
     component: UpdateLocationFormPageComponent,
+  },
+  {
+    path: 'category',
+    component: ListCategoryPageComponent,
   },
 ];

@@ -132,7 +132,15 @@ export class AddInventoryFormPageComponent {
       })
       .subscribe(
         (response) => {
-          this.router.navigateByUrl('/stock');
+          this.router.navigate(['/success'], {
+            queryParams: {
+              text:
+                'L item ' +
+                this.toTitleCase(this.itemName) +
+                ' a été ajouté avec succès',
+              link: '/stock',
+            },
+          });
         },
         (error) => {
           console.error(error.status);

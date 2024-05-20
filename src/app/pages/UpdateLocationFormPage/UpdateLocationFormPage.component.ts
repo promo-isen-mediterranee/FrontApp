@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ButtonComponent } from '../../components/button/button.component';
 import {
@@ -47,14 +47,25 @@ export class UpdateLocationFormPageComponent {
     this.Location = this.selectedLocation.address;
   }
 
+  toTitleCase(str: string): string {
+    return str
+      .toLowerCase()
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+
   updateLocation() {
     const headers = new HttpHeaders().set(
       'Content-Type',
       'application/x-www-form-urlencoded',
     );
     const LocationData = new URLSearchParams();
-    LocationData.set('address', this.selectedLocation.address);
-    LocationData.set('city', this.selectedLocation.city);
+    LocationData.set(
+      'address',
+      this.toTitleCase(this.selectedLocation.address),
+    );
+    LocationData.set('city', this.toTitleCase(this.selectedLocation.city));
     LocationData.set('room', this.selectedLocation.room);
     this.http
       .put(this.apiUrl + 'location/' + this.selectedLocation.id, LocationData, {
@@ -64,7 +75,17 @@ export class UpdateLocationFormPageComponent {
       .subscribe(
         (response) => {
           console.log(response);
-          this.router.navigateByUrl('location');
+          this.router.navigate(['/success'], {
+            queryParams: {
+              text:
+                'Le lieu ' +
+                this.toTitleCase(this.selectedLocation.address) +
+                ', ' +
+                this.toTitleCase(this.selectedLocation.city) +
+                ' a été mis à jour avec succès',
+              link: '/location',
+            },
+          });
         },
         (error) => {
           console.error(error.status);

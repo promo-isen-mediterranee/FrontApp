@@ -32,6 +32,9 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../../components/ConfirmationDialog/ConfirmationDialog.component';
 
 export interface Location {
   id: number;
@@ -100,6 +103,8 @@ export class UpdateEventFormPageComponent implements OnInit {
   constructor(
     private router: Router,
     private http: HttpClient,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
   ) {
     const navigation = this.router.getCurrentNavigation();
     if (navigation && navigation.extras && navigation.extras.state) {
@@ -206,7 +211,7 @@ export class UpdateEventFormPageComponent implements OnInit {
       'application/x-www-form-urlencoded',
     );
     const eventData = new URLSearchParams();
-    eventData.set('name', this.selectedEvent.title);
+    eventData.set('name', this.toTitleCase(this.selectedEvent.title));
     eventData.set(
       'date_start',
       this.selectedEvent.date_start?.toDateString() ?? '',
@@ -229,7 +234,15 @@ export class UpdateEventFormPageComponent implements OnInit {
       .subscribe(
         (response) => {
           console.log(response);
-          this.router.navigateByUrl('event/list');
+          this.router.navigate(['/success'], {
+            queryParams: {
+              text:
+                'L évènement ' +
+                this.toTitleCase(this.eventName) +
+                ' a été mis à jour avec succès',
+              link: '/event/list',
+            },
+          });
         },
         (error) => {
           console.error(error.status);
@@ -238,19 +251,50 @@ export class UpdateEventFormPageComponent implements OnInit {
   }
 
   deleteEvent() {
-    this.http
-      .delete(this.apiUrl + this.selectedEvent.id, {
-        responseType: 'text',
-      })
-      .subscribe(
-        (response) => {
-          console.log(response);
-          this.router.navigateByUrl('event/list');
-        },
-        (error) => {
-          console.error(error.status);
-        },
-      );
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.http
+          .delete(this.apiUrl + this.selectedEvent.id, {
+            responseType: 'text',
+            observe: 'response',
+          })
+          .subscribe(
+            (response) => {
+              if (response.status == 204)
+                this.router.navigate(['/success'], {
+                  queryParams: {
+                    text:
+                      'L évènement ' +
+                      this.toTitleCase(this.eventName) +
+                      ' a été supprimé avec succès',
+                    link: '/event/list',
+                  },
+                });
+              else {
+                this.snackBar.open(
+                  'Une erreur est survenue: ' + response.body,
+                  'Fermer',
+                  {
+                    duration: 5000,
+                  },
+                );
+              }
+            },
+            (error) => {
+              console.error(error.status);
+              this.snackBar.open(
+                'Une erreur est survenue: ' + error.message,
+                'Fermer',
+                {
+                  duration: 5000,
+                },
+              );
+            },
+          );
+      }
+    });
   }
 
   public closeDatepicker(datepicker: MatDatepicker<Date>): void {

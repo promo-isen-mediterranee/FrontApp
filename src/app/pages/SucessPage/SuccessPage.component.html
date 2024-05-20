@@ -1,8 +1,13 @@
 <div [className]="'container h-100'">
-    <img src="assets/img/icons/ISEN-bulles.png" alt="ISEN bulles">
-    <b [className]="'mb-25'">{{text}}</b>
+  <img src="assets/img/icons/ISEN-bulles.png" alt="ISEN bulles" />
+  <b [className]="'mb-25'">{{ text }}</b>
 
   <div [className]="'w-100'">
-    <app-button [label]="'Retour'" [type]="'primary'" [solid]="true" [onClickLink]="'/home'"/>
+    <app-button
+      [label]="'Retour'"
+      [type]="'primary'"
+      [solid]="true"
+      [onClickLink]="link"
+    />
   </div>
 </div>

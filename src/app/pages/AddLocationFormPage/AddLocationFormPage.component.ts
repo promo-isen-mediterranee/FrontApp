@@ -63,7 +63,17 @@ export class AddLocationFormPageComponent {
       .subscribe(
         (response) => {
           console.log(response);
-          this.router.navigateByUrl('/location');
+          this.router.navigate(['/success'], {
+            queryParams: {
+              text:
+                'Le lieu ' +
+                this.toTitleCase(this.toTitleCase(this.address)) +
+                ', ' +
+                this.toTitleCase(this.city) +
+                ' a été ajouté avec succès',
+              link: '/location',
+            },
+          });
         },
         (error) => {
           console.error(error.status);

@@ -182,7 +182,15 @@ export class AddEventFormPageComponent {
       .subscribe(
         (response) => {
           console.log(response);
-          this.router.navigateByUrl('event/list');
+          this.router.navigate(['/success'], {
+            queryParams: {
+              text:
+                'L évènement ' +
+                this.toTitleCase(this.eventName) +
+                ' a été ajouté avec succès',
+              link: '/event/list',
+            },
+          });
         },
         (error) => {
           console.error(error.status);
