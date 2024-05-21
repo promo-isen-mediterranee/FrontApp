@@ -8,6 +8,8 @@ import { ButtonComponent } from '../../components/button/button.component';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../environments/environment';
 import { Router, RouterModule } from '@angular/router';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
 
 interface Item {
   id: number;
@@ -31,14 +33,21 @@ interface Item {
 @Component({
   selector: 'app-imslist-page',
   standalone: true,
-  imports: [ButtonComponent, CommonModule, HttpClientModule, RouterModule],
+  imports: [
+    ButtonComponent,
+    CommonModule,
+    HttpClientModule,
+    RouterModule,
+    MatIcon,
+    MatIconButton
+  ],
   templateUrl: './IMSListPage.component.html',
-  styleUrl: './IMSListPage.component.css',
+  styleUrls: ['./IMSListPage.component.css']
 })
 export class IMSListPageComponent implements OnInit {
   items: Item[] = [];
   private apiUrl = environment.apiStockUrl;
-    
+
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -48,6 +57,11 @@ export class IMSListPageComponent implements OnInit {
     this.router.navigate(['stock/update'], {
       state: { selectedItem: item },
     });
+  }
+
+  deleteItem(item: Item)
+  {    
+    console.log(item);
   }
 
   ngOnInit() {
@@ -64,6 +78,14 @@ export class IMSListPageComponent implements OnInit {
       )
       .subscribe();
   }
+
+  toggleActions(event: MouseEvent): void {
+    const fileElement = (event.currentTarget as HTMLElement).closest('.file');
+    if (fileElement) {
+      fileElement.classList.toggle('show-actions');
+    }
+  }
+  
 }
 
 @NgModule({
