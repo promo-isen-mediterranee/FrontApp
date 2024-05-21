@@ -1,14 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { catchError, tap } from 'rxjs/operators';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ButtonComponent } from '../../components/button/button.component';
 import { CommonModule } from '@angular/common';
-import { environment } from "../../../environments/environment";
-import { MatIcon } from "@angular/material/icon";
-import { MatIconButton } from "@angular/material/button";
-import { RouterModule } from '@angular/router';
+import { environment } from '../../../environments/environment';
+import { Router, RouterModule } from '@angular/router';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
 
 interface Item {
   id: number;
@@ -38,20 +39,30 @@ interface Item {
     HttpClientModule,
     RouterModule,
     MatIcon,
-    MatIconButton,
-    BrowserModule,
+    MatIconButton
   ],
   templateUrl: './IMSListPage.component.html',
-  styleUrl: './IMSListPage.component.css',
+  styleUrls: ['./IMSListPage.component.css']
 })
-
 export class IMSListPageComponent implements OnInit {
   items: Item[] = [];
   private apiUrl = environment.apiStockUrl;
 
   constructor(
     private http: HttpClient,
+    private router: Router,
   ) {}
+
+  editItem(item: Item) {
+    this.router.navigate(['stock/update'], {
+      state: { selectedItem: item },
+    });
+  }
+
+  deleteItem(item: Item)
+  {    
+    console.log(item);
+  }
 
   ngOnInit() {
     this.http
@@ -74,4 +85,12 @@ export class IMSListPageComponent implements OnInit {
       fileElement.classList.toggle('show-actions');
     }
   }
+  
 }
+
+@NgModule({
+  imports: [BrowserModule, HttpClientModule, CommonModule, RouterModule],
+  providers: [],
+  schemas: [NO_ERRORS_SCHEMA],
+})
+export class AppModule {}

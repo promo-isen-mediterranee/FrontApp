@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UpdateInventoryFormPageComponent } from './UpdateInventoryFormPage.component';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('UpdateInventoryFormPageComponent', () => {
   let component: UpdateInventoryFormPageComponent;
@@ -10,7 +11,7 @@ describe('UpdateInventoryFormPageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [UpdateInventoryFormPageComponent],
-      providers: [provideAnimations()],
+      providers: [provideAnimations(), provideHttpClient()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(UpdateInventoryFormPageComponent);
