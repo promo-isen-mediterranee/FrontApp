@@ -1,15 +1,11 @@
 import { Component } from '@angular/core';
-import { ButtonComponent } from "../../components/button/button.component";
+import { ButtonComponent } from '../../components/button/button.component';
 
 @Component({
   selector: 'app-UserListPage',
   standalone: true,
-  imports: [
-    ButtonComponent
-  ],
+  imports: [ButtonComponent],
   templateUrl: './UserListPage.component.html',
-  styleUrl: './UserListPage.component.css'
+  styleUrl: './UserListPage.component.css',
 })
-export class UserListPageComponent {
-
-}
+export class UserListPageComponent {}

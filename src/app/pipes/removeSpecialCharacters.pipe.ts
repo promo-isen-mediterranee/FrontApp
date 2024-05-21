@@ -6,25 +6,24 @@ export interface SpecialCharactersMap {
 
 @Pipe({
   name: 'removeSpecialCharacters',
-  standalone: true
+  standalone: true,
 })
 export class RemoveSpecialCharactersPipe implements PipeTransform {
-
   private specialCharacters: SpecialCharactersMap = {
-    "à": "a",
-    "ç": "c",
-    "ê": "e",
-    "é": "e",
-    "è": "e",
-    "ï": "i",
-    "ô": "o",
-    " ": "-"
-  }
+    à: 'a',
+    ç: 'c',
+    ê: 'e',
+    é: 'e',
+    è: 'e',
+    ï: 'i',
+    ô: 'o',
+    ' ': '-',
+  };
 
   transform(value: string, ...args: unknown[]): string {
-   return value.replace(new RegExp(Object.keys(this.specialCharacters).join("|"), "g"),
-     (match) => this.specialCharacters[match]
-   )
+    return value.replace(
+      new RegExp(Object.keys(this.specialCharacters).join('|'), 'g'),
+      (match) => this.specialCharacters[match],
+    );
   }
-
 }

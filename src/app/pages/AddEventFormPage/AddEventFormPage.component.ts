@@ -51,7 +51,7 @@ export interface Location {
     FormsModule,
     ReactiveFormsModule,
     MatAutocompleteTrigger,
-    MatError
+    MatError,
   ],
   providers: [
     MatDatepickerModule,
@@ -110,16 +110,14 @@ export class AddEventFormPageComponent {
     eventData.set('date_end', this.eventEndDate?.toISOString() ?? '');
     eventData.set('location.address', this.eventAddress.address);
     eventData.set('location.city', this.eventAddress.city);
-    this.http
-      .post(this.apiUrl + 'create', eventData, { headers })
-      .subscribe(
-        (response) => {
-          console.log(response);
-        },
-        (error) => {
-          console.error(error.status);
-        },
-      );
+    this.http.post(this.apiUrl + 'create', eventData, { headers }).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.error(error.status);
+      },
+    );
   }
 
   public closeDatepicker(datepicker: MatDatepicker<Date>): void {

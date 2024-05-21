@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { ButtonComponent } from "../../components/button/button.component";
-import { SelectComponent } from "../../components/select/select.component";
-import { MatFormField } from "@angular/material/form-field";
-import { MatInput, MatLabel } from "@angular/material/input";
-import { MatOption, MatSelect } from "@angular/material/select";
+import { ButtonComponent } from '../../components/button/button.component';
+import { SelectComponent } from '../../components/select/select.component';
+import { MatFormField } from '@angular/material/form-field';
+import { MatInput, MatLabel } from '@angular/material/input';
+import { MatOption, MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'app-AddUserFormPage',
@@ -15,12 +15,15 @@ import { MatOption, MatSelect } from "@angular/material/select";
     MatInput,
     MatSelect,
     MatOption,
-    MatLabel
+    MatLabel,
   ],
   templateUrl: './AddUserFormPage.component.html',
-  styleUrl: './AddUserFormPage.component.css'
+  styleUrl: './AddUserFormPage.component.css',
 })
 export class AddUserFormPageComponent {
-  protected roles = [{value: 1, label: "role1"}, {value: 2, label: "role2"}];
+  protected roles = [
+    { value: 1, label: 'role1' },
+    { value: 2, label: 'role2' },
+  ];
   public roleSelector = 0;
 }

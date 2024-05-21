@@ -1,15 +1,15 @@
-form{
+form {
   margin-left: 300px;
   margin-right: 300px;
 }
 
 @media screen and (max-width: 1024px) {
-  form{
+  form {
     margin-left: 8px;
     margin-right: 8px;
   }
 }
 
-img{
-  height:200px;
+img {
+  height: 200px;
 }
