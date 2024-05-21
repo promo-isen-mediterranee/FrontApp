@@ -11,6 +11,10 @@ import { UpdateEventFormPageComponent } from './pages/UpdateEventFormPage/Update
 import { AdminPageComponent } from './pages/AdminPage/AdminPage.component';
 import { UserListPageComponent } from './pages/UserListPage/UserListPage.component';
 import { AddUserFormPageComponent } from './pages/AddUserFormPage/AddUserFormPage.component';
+import { LocationListPageComponent } from './pages/LocationListPage/LocationListPage.component';
+import { AddLocationFormPageComponent } from './pages/AddLocationFormPage/AddLocationFormPage.component';
+import { UpdateLocationFormPageComponent } from './pages/UpdateLocationFormPage/UpdateLocationFormPage.component';
+import { ListCategoryPageComponent } from './pages/ListCategoryPage/ListCategoryPage.component';
 
 export const routes: Routes = [
   {
@@ -65,5 +69,21 @@ export const routes: Routes = [
   {
     path: 'user/add',
     component: AddUserFormPageComponent,
+  },
+  {
+    path: 'location',
+    component: LocationListPageComponent,
+  },
+  {
+    path: 'location/add',
+    component: AddLocationFormPageComponent,
+  },
+  {
+    path: 'location/update',
+    component: UpdateLocationFormPageComponent,
+  },
+  {
+    path: 'category',
+    component: ListCategoryPageComponent,
   },
 ];

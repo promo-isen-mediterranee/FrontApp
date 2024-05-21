@@ -33,5 +33,13 @@
     </mat-form-field>
     <p>Statut: {{ selectedEvent.status }}</p>
     <p>Lieu: {{ selectedEvent.location }}</p>
+    <app-button
+      [solid]="true"
+      [type]="'primary'"
+      label="Mettre à jour"
+      id="submit"
+      (click)="updateEvent()"
+    >
+    </app-button>
   </div>
 </dialog>

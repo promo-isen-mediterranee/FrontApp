@@ -1,1 +1,171 @@
-<p>update-event-form-page works!</p>
+<div [className]="'header'">
+  <a href="/" [className]="['w-100', 'left-align']">
+    <i class="fa-solid fa-arrow-left"></i>
+  </a>
+  <div [className]="'header-container'">
+    <h2>{{ eventName }} {{ selectedEvent.location }}</h2>
+  </div>
+  <form
+    (ngSubmit)="updateEvent(updateEventForm)"
+    method="put"
+    #updateEventForm="ngForm"
+  >
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Nom de l'événement</mat-label>
+      <input
+        type="text"
+        matInput
+        id="event_name_input"
+        name="event_name"
+        [(ngModel)]="selectedEvent.title"
+        required
+      />
+      <mat-error> Le nom de l'événement ne peut pas être vide.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Choisir une date de début</mat-label>
+      <input
+        matInput
+        [matDatepicker]="pickerStart"
+        (dateChange)="closeDatepicker(pickerStart)"
+        required
+        [(ngModel)]="selectedEvent.date_start"
+        name="eventStartDate"
+      />
+      <mat-hint>DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="pickerStart"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #pickerStart></mat-datepicker>
+      <mat-error>La date de début ne peut pas être vide.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Choisir une date de fin</mat-label>
+      <input
+        matInput
+        [matDatepicker]="pickerEnd"
+        (dateChange)="closeDatepicker(pickerEnd)"
+        required
+        [(ngModel)]="selectedEvent.date_end"
+        name="eventEndDate"
+      />
+      <mat-hint>DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="pickerEnd"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #pickerEnd></mat-datepicker>
+      <mat-error>La date de fin ne peut pas être vide.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Adresse</mat-label>
+      <input
+        type="text"
+        aria-label="Adresse"
+        name="event_address"
+        matInput
+        [(ngModel)]="eventAddress"
+        [matAutocomplete]="addressauto"
+        required
+      />
+      <mat-autocomplete
+        #addressauto="matAutocomplete"
+        [displayWith]="displayFn"
+        (optionSelected)="onAddressSelected($event.option.value)"
+      >
+        @for (option of optionsL; track option) {
+          <mat-option [value]="option">
+            {{ option.address }}, {{ option.city }}
+          </mat-option>
+        }
+      </mat-autocomplete>
+      <mat-error>L'adresse ne peut pas être vide.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Status</mat-label>
+      <input
+        type="text"
+        aria-label="Status"
+        [value]="selectedEvent.status"
+        name="event_status"
+        matInput
+        [matAutocomplete]="statusauto"
+      />
+      <mat-autocomplete
+        #statusauto="matAutocomplete"
+        [displayWith]="displayS"
+        (optionSelected)="onStatusSelected($event.option.value)"
+      >
+        @for (option of optionsS; track option) {
+          <mat-option [value]="option">
+            {{ option.label }}
+          </mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Taille du stand</mat-label>
+      <input
+        type="text"
+        matInput
+        id="stand_size_input"
+        name="stand_size"
+        [(ngModel)]="selectedEvent.stand_size"
+      />
+    </mat-form-field>
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Objectif contact</mat-label>
+      <input
+        type="text"
+        matInput
+        id="contact_objective_input"
+        name="contact_objective"
+        [(ngModel)]="selectedEvent.contact_objective"
+      />
+    </mat-form-field>
+
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Manager</mat-label>
+      <input
+        type="text"
+        placeholder="Rechercher un manager"
+        aria-label="Manager"
+        name="event_manager"
+        matInput
+        [ngModel]="eventManager"
+        [matAutocomplete]="autoM"
+      />
+      <mat-autocomplete
+        #autoM="matAutocomplete"
+        [displayWith]="displayMn"
+        (optionSelected)="onOptionSelectedM($event.option.value)"
+      >
+        @for (option of optionsM; track option) {
+          <mat-option [value]="option">
+            {{ option.last_name }} {{ option.first_name }}
+          </mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <app-button
+      [solid]="true"
+      [type]="'primary'"
+      label="Mettre à jour"
+      id="submit"
+    />
+  </form>
+  <app-button
+    type="secondary"
+    label="Supprimer"
+    [solid]="true"
+    css="mt-2"
+    (click)="deleteEvent()"
+  />
+</div>

@@ -6,7 +6,7 @@
     <h2>Créer un événement</h2>
   </div>
 
-  <form (ngSubmit)="createEvent()" method="post">
+  <form (ngSubmit)="createEvent(eventForm)" method="post" #eventForm="ngForm">
     <mat-form-field [className]="'form-group'">
       <mat-label>Nom de l'événement</mat-label>
       <input
@@ -17,7 +17,7 @@
         [(ngModel)]="eventName"
         required
       />
-      <mat-error>Le nom de l'événement ne peut pas être vide.</mat-error>
+      <mat-error> Le nom de l'événement ne peut pas être vide.</mat-error>
     </mat-form-field>
 
     <mat-form-field [className]="'form-group'">
@@ -36,6 +36,7 @@
         [for]="pickerStart"
       ></mat-datepicker-toggle>
       <mat-datepicker #pickerStart></mat-datepicker>
+      <mat-error>La date de début ne peut pas être vide.</mat-error>
     </mat-form-field>
 
     <mat-form-field [className]="'form-group'">
@@ -65,8 +66,8 @@
         aria-label="Adresse"
         name="event_address"
         matInput
+        [(ngModel)]="eventAddress"
         [matAutocomplete]="auto"
-        [formControl]="addressControl"
         required
       />
       <mat-autocomplete
@@ -82,12 +83,55 @@
       </mat-autocomplete>
       <mat-error>L'adresse ne peut pas être vide.</mat-error>
     </mat-form-field>
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Taille du stand</mat-label>
+      <input
+        type="text"
+        matInput
+        id="stand_size_input"
+        name="stand_size"
+        [(ngModel)]="eventSize"
+      />
+    </mat-form-field>
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Objectif contact</mat-label>
+      <input
+        type="text"
+        matInput
+        id="contact_objective_input"
+        name="contact_objective"
+        [(ngModel)]="eventContact"
+      />
+    </mat-form-field>
+
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Manager</mat-label>
+      <input
+        type="text"
+        placeholder="Rechercher un manager"
+        aria-label="Manager"
+        name="event_manager"
+        matInput
+        [matAutocomplete]="autoM"
+      />
+      <mat-autocomplete
+        #autoM="matAutocomplete"
+        [displayWith]="displayMn"
+        (optionSelected)="onOptionSelectedM($event.option.value)"
+      >
+        @for (option of optionsM; track option) {
+          <mat-option [value]="option">
+            {{ option.last_name }} {{ option.first_name }}
+          </mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+
     <app-button
       [solid]="true"
       [type]="'primary'"
-      label="Mettre à jour"
+      label="Créer l'événement"
       id="submit"
-      onClickLink="/event/list"
     />
   </form>
 </div>

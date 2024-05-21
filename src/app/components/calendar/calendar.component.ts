@@ -6,6 +6,7 @@ import {
   Input,
   ViewChild,
 } from '@angular/core';
+import { ButtonComponent } from '../button/button.component';
 import {
   FullCalendarComponent,
   FullCalendarModule,
@@ -30,8 +31,10 @@ import {
 import { FormsModule } from '@angular/forms';
 import { MatInput, MatLabel } from '@angular/material/input';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { Router } from '@angular/router';
 
 export interface EventInterface {
+  id: number;
   title: string;
   date_start: Date;
   date_end: Date;
@@ -43,6 +46,7 @@ export interface EventInterface {
   selector: 'app-calendar',
   standalone: true,
   imports: [
+    ButtonComponent,
     FullCalendarModule,
     MatIcon,
     DatePipe,
@@ -103,13 +107,18 @@ export class CalendarComponent {
     this.screenHeight = document.documentElement.clientHeight;
     this.screenWidth = document.documentElement.clientWidth;
     this.view();
-    this.calendarComponent
-      .getApi()
-      .setOption('headerToolbar', {
-        start: 'title',
-        center: '',
-        end: this.endButton(),
-      });
+    this.calendarComponent.getApi().setOption('headerToolbar', {
+      start: 'title',
+      center: '',
+      end: this.endButton(),
+    });
+  }
+  constructor(private router: Router) {}
+
+  updateEvent() {
+    this.router.navigate(['/event/update'], {
+      state: { selectedEvent: this.selectedEvent },
+    });
   }
 
   ngOnInit() {
@@ -153,8 +162,15 @@ export class CalendarComponent {
       title: clickedEvent.event.title,
       date_start: clickedEvent.event.start,
       date_end: clickedEvent.event.end,
-      location: clickedEvent.event.extendedProps['location'],
+      location:
+        clickedEvent.event.extendedProps['location'].address +
+        ' ' +
+        clickedEvent.event.extendedProps['location'].city,
       status: clickedEvent.event.extendedProps['status'],
+      id: clickedEvent.event.extendedProps['id'],
+      contact_objective: clickedEvent.event.extendedProps['contact_objective'],
+      stand_size: clickedEvent.event.extendedProps['stand_size'],
+      item_manager: clickedEvent.event.extendedProps['item_manager'],
     } as EventInterface;
 
     let dialog = document.getElementById('dialog') as HTMLDialogElement;

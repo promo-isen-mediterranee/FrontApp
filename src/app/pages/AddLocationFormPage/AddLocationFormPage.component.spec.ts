@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UpdateEventFormPageComponent } from './UpdateEventFormPage.component';
+import { AddLocationFormPageComponent } from './AddLocationFormPage.component';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
-describe('UpdateEventFormPageComponent', () => {
-  let component: UpdateEventFormPageComponent;
-  let fixture: ComponentFixture<UpdateEventFormPageComponent>;
+describe('AddLocationFormPageComponent', () => {
+  let component: AddLocationFormPageComponent;
+  let fixture: ComponentFixture<AddLocationFormPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UpdateEventFormPageComponent],
+      imports: [AddLocationFormPageComponent],
       providers: [provideAnimations()],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(UpdateEventFormPageComponent);
+    fixture = TestBed.createComponent(AddLocationFormPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
