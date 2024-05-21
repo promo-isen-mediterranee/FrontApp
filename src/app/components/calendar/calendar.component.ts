@@ -6,7 +6,7 @@ import {
   Input,
   ViewChild,
 } from '@angular/core';
-import { ButtonComponent } from '../../components/button/button.component';
+import { ButtonComponent } from '../button/button.component';
 import {
   FullCalendarComponent,
   FullCalendarModule,

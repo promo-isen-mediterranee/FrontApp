@@ -1,17 +1,14 @@
-import { Component, Input } from "@angular/core";
-import { ButtonComponent } from "../button/button.component";
+import { Component, Input } from '@angular/core';
+import { ButtonComponent } from '../button/button.component';
 
 @Component({
   selector: 'app-stock-item',
   standalone: true,
-  imports: [
-    ButtonComponent
-  ],
+  imports: [ButtonComponent],
   templateUrl: './stock-item.component.html',
-  styleUrl: './stock-item.component.css'
+  styleUrl: './stock-item.component.css',
 })
 export class StockItemComponent {
-
   @Input()
   title: string = '';
 

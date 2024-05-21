@@ -15,8 +15,8 @@ import {
   FormsModule,
   Validators,
 } from '@angular/forms';
-import { map, Observable, startWith } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
+import { Observable } from 'rxjs';
+import { AsyncPipe, NgOptimizedImage } from "@angular/common";
 import {
   HttpClient,
   HttpHeaders,
@@ -52,6 +52,7 @@ export interface Category {
     ReactiveFormsModule,
     AsyncPipe,
     HttpClientModule,
+    NgOptimizedImage
   ],
   providers: [MatFormFieldModule, MatInputModule, provideAnimations()],
   templateUrl: './AddInventoryFormPage.component.html',
@@ -136,7 +137,7 @@ export class AddInventoryFormPageComponent {
         responseType: 'text',
       })
       .subscribe(
-        (response) => {
+        () => {
           this.router.navigate(['/success'], {
             queryParams: {
               text:

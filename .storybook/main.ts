@@ -8,7 +8,7 @@ const config: StorybookConfig = {
     '@chromatic-com/storybook',
     '@storybook/addon-interactions',
     '@storybook/addon-a11y',
-    "storybook-addon-angular-router"
+    'storybook-addon-angular-router',
   ],
   framework: {
     name: '@storybook/angular',

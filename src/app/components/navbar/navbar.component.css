@@ -33,7 +33,6 @@ li a:hover {
 .navbar-mobile {
   border-bottom: none;
   border-top: 1px solid var(--blue);
-
 }
 
 .navbar-mobile li {

@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { catchError, tap } from 'rxjs/operators';
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
 import { ButtonComponent } from '../../components/button/button.component';
 import { CommonModule } from '@angular/common';
-import { environment } from '../../../environments/environment';
+import { environment } from "../../../environments/environment";
+import { MatIcon } from "@angular/material/icon";
+import { MatIconButton } from "@angular/material/button";
+import { RouterModule } from '@angular/router';
 
 interface Item {
   id: number;
@@ -31,10 +32,19 @@ interface Item {
 @Component({
   selector: 'app-imslist-page',
   standalone: true,
-  imports: [ButtonComponent, CommonModule, HttpClientModule, RouterModule],
+  imports: [
+    ButtonComponent,
+    CommonModule,
+    HttpClientModule,
+    RouterModule,
+    MatIcon,
+    MatIconButton,
+    BrowserModule,
+  ],
   templateUrl: './IMSListPage.component.html',
   styleUrl: './IMSListPage.component.css',
 })
+
 export class IMSListPageComponent implements OnInit {
   items: Item[] = [];
   private apiUrl = environment.apiStockUrl;
@@ -55,11 +65,11 @@ export class IMSListPageComponent implements OnInit {
       )
       .subscribe();
   }
-}
 
-@NgModule({
-  imports: [BrowserModule, HttpClientModule, CommonModule, RouterModule],
-  providers: [],
-  schemas: [NO_ERRORS_SCHEMA],
-})
-export class AppModule {}
+  toggleActions(event: MouseEvent): void {
+    const fileElement = (event.currentTarget as HTMLElement).closest('.file');
+    if (fileElement) {
+      fileElement.classList.toggle('show-actions');
+    }
+  }
+}
