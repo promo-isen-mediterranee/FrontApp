@@ -1,13 +1,28 @@
-<div [className]="'header'">
-  <div [className]="'header-container'">
+<div class="header">
+  <div class="header-container">
     <h2>Gestion des utilisateurs</h2>
   </div>
-
-  <app-button
-    type="primary"
-    label="Ajouter un utilisateur"
-    [solid]="true"
-    css="mt-8 "
-    onClickLink="/user/add"
-  ></app-button>
+  <div *ngFor="let user of users">
+    <div class="file" (click)="toggleActions($event)">
+      <div class="card">
+        <div class="details">
+          <span class="name">{{user?.user?.username ?? 'No name provided'}}</span>
+          <span class="surname">nom de famille</span>
+        </div>
+        <div class="details">
+          <span class="mail">{{user?.user?.email ?? 'No mail provided'}}</span>
+          <span class="role">{{user?.role?.id ?? 'No role provided'}}</span>
+        </div>
+      </div>
+      <div class="actions">
+        <button mat-icon-button class="edit-button">
+          <mat-icon class="pen">edit</mat-icon>
+        </button>
+        <button mat-icon-button class="delete-button">
+          <mat-icon class="trash">delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <app-button type="primary" label="Ajouter un utilisateur" [solid]="true" css="mt-8" onClickLink="/user/add"></app-button>
 </div>

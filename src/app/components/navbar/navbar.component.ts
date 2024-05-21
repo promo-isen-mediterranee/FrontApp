@@ -2,7 +2,6 @@ import { Component, HostListener, Input } from '@angular/core';
 import { ButtonComponent } from '../button/button.component';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
-import { routes } from '../../app.routes';
 
 @Component({
   selector: 'app-navbar',

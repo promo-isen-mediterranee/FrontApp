@@ -10,7 +10,7 @@ import { MatInput, MatInputModule, MatLabel } from '@angular/material/input';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgOptimizedImage } from "@angular/common";
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -30,6 +30,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
     ReactiveFormsModule,
     AsyncPipe,
     FormsModule,
+    NgOptimizedImage
   ],
   providers: [MatFormFieldModule, MatInputModule, provideAnimations()],
   templateUrl: './UpdateInventoryFormPage.component.html',
@@ -49,7 +50,7 @@ export class UpdateInventoryFormPageComponent {
     }
     console.log(this.selectedItem);
   }
-  
+
   updateItem() {
     const headers = new HttpHeaders().set(
       'Content-Type',
@@ -76,7 +77,7 @@ export class UpdateInventoryFormPageComponent {
         },
       );
   }
-  
+
   ngOnInit() {
 
   }
