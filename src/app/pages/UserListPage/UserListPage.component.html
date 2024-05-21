@@ -6,11 +6,11 @@
     <div class="file" (click)="toggleActions($event)">
       <div class="card">
         <div class="details">
-          <span class="name">{{user?.username ?? 'No name provided'}}</span>
+          <span class="name">{{user?.user?.username ?? 'No name provided'}}</span>
           <span class="surname">nom de famille</span>
         </div>
         <div class="details">
-          <span class="mail">{{user?.email ?? 'No mail provided'}}</span>
+          <span class="mail">{{user?.user?.email ?? 'No mail provided'}}</span>
           <span class="role">{{user?.role?.id ?? 'No role provided'}}</span>
         </div>
       </div>

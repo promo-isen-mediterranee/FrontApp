@@ -9,11 +9,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { tap } from "rxjs/operators";
 import { BrowserModule } from "@angular/platform-browser";
-import { CommonModule } from "@angular/common";
-interface  User {
+import { CommonModule, NgFor } from "@angular/common";
+interface User {
   user:{
-    username:string;
-    email:string;
+    username: string;
+    email: string;
   };
   role:{
     id:number;
@@ -27,7 +27,8 @@ interface  User {
   imports: [
     ButtonComponent,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    NgFor
   ],
   templateUrl: './UserListPage.component.html',
   styleUrl: './UserListPage.component.css'
@@ -41,7 +42,7 @@ export class UserListPageComponent {
   }
 
   users: User[] = [];
-  /*private apiUrl = environment.apiUserUrl;
+ private apiUrl = environment.apiUserUrl;
   constructor(private http: HttpClient) {}
   ngOnInit(){
     this.http.get<User[]>(this.apiUrl + 'getAll').pipe(
@@ -49,7 +50,7 @@ export class UserListPageComponent {
         this.users = data;
       })
     ).subscribe();
-  }*/
+  }
 }
 
 @NgModule({
@@ -59,8 +60,7 @@ export class UserListPageComponent {
     CommonModule,
     RouterModule
   ],
-  providers: [],
-  schemas: [NO_ERRORS_SCHEMA]
+  providers: []
 })
 
 export class AppModule { }
