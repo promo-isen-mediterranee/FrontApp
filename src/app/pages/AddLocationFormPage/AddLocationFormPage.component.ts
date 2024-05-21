@@ -9,7 +9,7 @@ import {
 } from '@angular/material/form-field';
 import { MatInput, MatInputModule, MatLabel } from '@angular/material/input';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-add-location-form-page',
@@ -46,7 +46,7 @@ export class AddLocationFormPageComponent {
       .join(' ');
   }
 
-  createLocation() {
+  createLocation(form: NgForm) {
     const headers = new HttpHeaders().set(
       'Content-Type',
       'application/x-www-form-urlencoded',
@@ -55,29 +55,31 @@ export class AddLocationFormPageComponent {
     LocationData.set('address', this.toTitleCase(this.address));
     LocationData.set('city', this.toTitleCase(this.city));
     LocationData.set('room', this.room);
-    this.http
-      .post(this.apiUrl + 'location/create', LocationData, {
-        headers,
-        responseType: 'text',
-      })
-      .subscribe(
-        (response) => {
-          console.log(response);
-          this.router.navigate(['/success'], {
-            queryParams: {
-              text:
-                'Le lieu ' +
-                this.toTitleCase(this.toTitleCase(this.address)) +
-                ', ' +
-                this.toTitleCase(this.city) +
-                ' a été ajouté avec succès',
-              link: '/location',
-            },
-          });
-        },
-        (error) => {
-          console.error(error.status);
-        },
-      );
+    if (form.valid) {
+      this.http
+        .post(this.apiUrl + 'location/create', LocationData, {
+          headers,
+          responseType: 'text',
+        })
+        .subscribe(
+          (response) => {
+            console.log(response);
+            this.router.navigate(['/success'], {
+              queryParams: {
+                text:
+                  'Le lieu ' +
+                  this.toTitleCase(this.toTitleCase(this.address)) +
+                  ', ' +
+                  this.toTitleCase(this.city) +
+                  ' a été ajouté avec succès',
+                link: '/location',
+              },
+            });
+          },
+          (error) => {
+            console.error(error.status);
+          },
+        );
+    }
   }
 }

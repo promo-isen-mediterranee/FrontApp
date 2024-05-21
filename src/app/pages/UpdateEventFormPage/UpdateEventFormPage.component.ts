@@ -19,7 +19,7 @@ import {
   MatAutocomplete,
   MatAutocompleteTrigger,
 } from '@angular/material/autocomplete';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatError, MatFormFieldModule } from '@angular/material/form-field';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -205,7 +205,7 @@ export class UpdateEventFormPageComponent implements OnInit {
     this.eventName = this.selectedEvent.title;
   }
 
-  updateEvent() {
+  updateEvent(form: NgForm) {
     const headers = new HttpHeaders().set(
       'Content-Type',
       'application/x-www-form-urlencoded',
@@ -226,30 +226,31 @@ export class UpdateEventFormPageComponent implements OnInit {
     eventData.set('stand_size', this.selectedEvent.stand_size);
     eventData.set('item_manager.last_name', this.eventManager.last_name);
     eventData.set('item_manager.first_name', this.eventManager.first_name);
-    this.http
-      .put(this.apiUrl + this.selectedEvent.id, eventData, {
-        headers,
-        responseType: 'text',
-      })
-      .subscribe(
-        (response) => {
-          console.log(response);
-          this.router.navigate(['/success'], {
-            queryParams: {
-              text:
-                'L évènement ' +
-                this.toTitleCase(this.eventName) +
-                ' a été mis à jour avec succès',
-              link: '/event/list',
-            },
-          });
-        },
-        (error) => {
-          console.error(error.status);
-        },
-      );
+    if (form.valid) {
+      this.http
+        .put(this.apiUrl + this.selectedEvent.id, eventData, {
+          headers,
+          responseType: 'text',
+        })
+        .subscribe(
+          (response) => {
+            console.log(response);
+            this.router.navigate(['/success'], {
+              queryParams: {
+                text:
+                  'L évènement ' +
+                  this.toTitleCase(this.eventName) +
+                  ' a été mis à jour avec succès',
+                link: '/event/list',
+              },
+            });
+          },
+          (error) => {
+            console.error(error.status);
+          },
+        );
+    }
   }
-
   deleteEvent() {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent);
 

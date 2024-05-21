@@ -19,7 +19,7 @@ import {
   MatAutocomplete,
   MatAutocompleteTrigger,
 } from '@angular/material/autocomplete';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatError, MatFormFieldModule } from '@angular/material/form-field';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -159,7 +159,7 @@ export class AddEventFormPageComponent {
     this.eventManager = option;
   }
 
-  createEvent() {
+  createEvent(form: NgForm) {
     const headers = new HttpHeaders().set(
       'Content-Type',
       'application/x-www-form-urlencoded',
@@ -174,28 +174,31 @@ export class AddEventFormPageComponent {
     eventData.set('location.id', this.eventAddress.id);
     eventData.set('item_manager.last_name', this.eventManager.last_name);
     eventData.set('item_manager.first_name', this.eventManager.first_name);
-    this.http
-      .post(this.apiUrl + 'create', eventData, {
-        headers,
-        responseType: 'text',
-      })
-      .subscribe(
-        (response) => {
-          console.log(response);
-          this.router.navigate(['/success'], {
-            queryParams: {
-              text:
-                'L évènement ' +
-                this.toTitleCase(this.eventName) +
-                ' a été ajouté avec succès',
-              link: '/event/list',
-            },
-          });
-        },
-        (error) => {
-          console.error(error.status);
-        },
-      );
+    if (form.valid) {
+      this.http
+        .post(this.apiUrl + 'create', eventData, {
+          headers,
+          responseType: 'text',
+        })
+        .subscribe(
+          (response) => {
+            console.log(response);
+            this.router.navigate(['/success'], {
+              queryParams: {
+                text:
+                  'L évènement ' +
+                  this.toTitleCase(this.eventName) +
+                  ' a été ajouté avec succès',
+                link: '/event/list',
+              },
+            });
+          },
+          (error) => {
+            console.log('allo');
+            console.error(error.status);
+          },
+        );
+    }
   }
 
   public closeDatepicker(datepicker: MatDatepicker<Date>): void {

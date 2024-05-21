@@ -9,7 +9,7 @@ import {
   MatLabel,
 } from '@angular/material/form-field';
 import { MatInput, MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -55,7 +55,7 @@ export class UpdateLocationFormPageComponent {
       .join(' ');
   }
 
-  updateLocation() {
+  updateLocation(form: NgForm) {
     const headers = new HttpHeaders().set(
       'Content-Type',
       'application/x-www-form-urlencoded',
@@ -67,29 +67,35 @@ export class UpdateLocationFormPageComponent {
     );
     LocationData.set('city', this.toTitleCase(this.selectedLocation.city));
     LocationData.set('room', this.selectedLocation.room);
-    this.http
-      .put(this.apiUrl + 'location/' + this.selectedLocation.id, LocationData, {
-        headers,
-        responseType: 'text',
-      })
-      .subscribe(
-        (response) => {
-          console.log(response);
-          this.router.navigate(['/success'], {
-            queryParams: {
-              text:
-                'Le lieu ' +
-                this.toTitleCase(this.selectedLocation.address) +
-                ', ' +
-                this.toTitleCase(this.selectedLocation.city) +
-                ' a été mis à jour avec succès',
-              link: '/location',
-            },
-          });
-        },
-        (error) => {
-          console.error(error.status);
-        },
-      );
+    if (form.valid) {
+      this.http
+        .put(
+          this.apiUrl + 'location/' + this.selectedLocation.id,
+          LocationData,
+          {
+            headers,
+            responseType: 'text',
+          },
+        )
+        .subscribe(
+          (response) => {
+            console.log(response);
+            this.router.navigate(['/success'], {
+              queryParams: {
+                text:
+                  'Le lieu ' +
+                  this.toTitleCase(this.selectedLocation.address) +
+                  ', ' +
+                  this.toTitleCase(this.selectedLocation.city) +
+                  ' a été mis à jour avec succès',
+                link: '/location',
+              },
+            });
+          },
+          (error) => {
+            console.error(error.status);
+          },
+        );
+    }
   }
 }

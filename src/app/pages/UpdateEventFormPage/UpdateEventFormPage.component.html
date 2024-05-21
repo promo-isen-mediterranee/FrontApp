@@ -5,7 +5,11 @@
   <div [className]="'header-container'">
     <h2>{{ eventName }} {{ selectedEvent.location }}</h2>
   </div>
-  <form (ngSubmit)="updateEvent()" method="put" #updateEventForm="ngForm">
+  <form
+    (ngSubmit)="updateEvent(updateEventForm)"
+    method="put"
+    #updateEventForm="ngForm"
+  >
     <mat-form-field [className]="'form-group'">
       <mat-label>Nom de l'événement</mat-label>
       <input
@@ -35,6 +39,7 @@
         [for]="pickerStart"
       ></mat-datepicker-toggle>
       <mat-datepicker #pickerStart></mat-datepicker>
+      <mat-error>La date de début ne peut pas être vide.</mat-error>
     </mat-form-field>
 
     <mat-form-field [className]="'form-group'">
@@ -63,6 +68,7 @@
         aria-label="Adresse"
         name="event_address"
         matInput
+        [(ngModel)]="eventAddress"
         [matAutocomplete]="addressauto"
         required
       />
@@ -153,7 +159,6 @@
       [type]="'primary'"
       label="Mettre à jour"
       id="submit"
-      [disabled]="!updateEventForm.form.valid"
     />
   </form>
   <app-button

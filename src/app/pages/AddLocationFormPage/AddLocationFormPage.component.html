@@ -6,7 +6,11 @@
     <h2>Nouveau lieu</h2>
   </div>
 
-  <form (ngSubmit)="createLocation()" method="post" #locationForm="ngForm">
+  <form
+    (ngSubmit)="createLocation(locationForm)"
+    method="post"
+    #locationForm="ngForm"
+  >
     <mat-form-field [className]="'form-group'">
       <mat-label>Adresse</mat-label>
       <input
@@ -42,12 +46,6 @@
       />
     </mat-form-field>
 
-    <app-button
-      [solid]="true"
-      [type]="'primary'"
-      label="Créer"
-      id="submit"
-      [disabled]="!locationForm.form.valid"
-    />
+    <app-button [solid]="true" [type]="'primary'" label="Créer" id="submit" />
   </form>
 </div>

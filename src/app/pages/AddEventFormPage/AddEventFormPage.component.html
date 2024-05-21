@@ -6,7 +6,7 @@
     <h2>Créer un événement</h2>
   </div>
 
-  <form (ngSubmit)="createEvent()" method="post" #eventForm="ngForm">
+  <form (ngSubmit)="createEvent(eventForm)" method="post" #eventForm="ngForm">
     <mat-form-field [className]="'form-group'">
       <mat-label>Nom de l'événement</mat-label>
       <input
@@ -36,6 +36,7 @@
         [for]="pickerStart"
       ></mat-datepicker-toggle>
       <mat-datepicker #pickerStart></mat-datepicker>
+      <mat-error>La date de début ne peut pas être vide.</mat-error>
     </mat-form-field>
 
     <mat-form-field [className]="'form-group'">
@@ -65,6 +66,7 @@
         aria-label="Adresse"
         name="event_address"
         matInput
+        [(ngModel)]="eventAddress"
         [matAutocomplete]="auto"
         required
       />
@@ -130,7 +132,6 @@
       [type]="'primary'"
       label="Créer l'événement"
       id="submit"
-      [disabled]="!eventForm.form.valid"
     />
   </form>
 </div>

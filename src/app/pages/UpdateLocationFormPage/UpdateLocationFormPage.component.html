@@ -6,7 +6,11 @@
     <h2>Mise à jour {{ Location }}</h2>
   </div>
 
-  <form (ngSubmit)="updateLocation()" method="put" #updateLocationForm="ngForm">
+  <form
+    (ngSubmit)="updateLocation(updateLocationForm)"
+    method="put"
+    #updateLocationForm="ngForm"
+  >
     <mat-form-field [className]="'form-group'">
       <mat-label>Addresse</mat-label>
       <input
@@ -40,14 +44,12 @@
         placeholder="Salle"
         [(ngModel)]="selectedLocation.room"
       />
-      <mat-error> La salle ne peut pas être vide.</mat-error>
     </mat-form-field>
     <app-button
       [solid]="true"
       [type]="'primary'"
       label="Mettre à jour"
       id="submit"
-      [disabled]="!updateLocationForm.form.valid"
     />
   </form>
 </div>
