@@ -41,7 +41,7 @@ export class UserListPageComponent {
   }
 
   users: User[] = [];
-  private apiUrl = environment.apiUserUrl;
+  /*private apiUrl = environment.apiUserUrl;
   constructor(private http: HttpClient) {}
   ngOnInit(){
     this.http.get<User[]>(this.apiUrl + 'getAll').pipe(
@@ -49,7 +49,7 @@ export class UserListPageComponent {
         this.users = data;
       })
     ).subscribe();
-  }
+  }*/
 }
 
 @NgModule({
