@@ -49,7 +49,9 @@ export class IMSListPageComponent implements OnInit {
   items: Item[] = [];
   private apiUrl = environment.apiStockUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+  ) {}
 
   ngOnInit() {
     this.http
