@@ -16,7 +16,7 @@ export interface Category {
 @Component({
   selector: 'app-list-category-page',
   standalone: true,
-  imports: [ButtonComponent, CommonModule, MatIcon],
+  imports: [ButtonComponent, CommonModule, MatIcon, HttpClientModule],
   templateUrl: './ListCategoryPage.component.html',
   styleUrl: './ListCategoryPage.component.css',
 })

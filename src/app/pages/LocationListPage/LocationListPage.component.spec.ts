@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddLocationFormPageComponent } from './LocationListPage.component';
+import { LocationListPageComponent } from './LocationListPage.component';
 
-describe('AddLocationFormPageComponent', () => {
-  let component: AddLocationFormPageComponent;
-  let fixture: ComponentFixture<AddLocationFormPageComponent>;
+describe('LocationListPageComponent', () => {
+  let component: LocationListPageComponent;
+  let fixture: ComponentFixture<LocationListPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddLocationFormPageComponent],
+      imports: [LocationListPageComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AddLocationFormPageComponent);
+    fixture = TestBed.createComponent(LocationListPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

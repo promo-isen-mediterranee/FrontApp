@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { ButtonComponent } from '../button/button.component';
-import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-confirmation-dialog-component',
   standalone: true,
-  imports: [ButtonComponent, MatDialogModule],
   templateUrl: './ConfirmationDialog.component.html',
-  styleUrl: './ConfirmationDialog.component.css',
+  styleUrls: ['./ConfirmationDialog.component.css'],
+  imports: [ButtonComponent, MatDialogModule],
+  providers: [{ provide: MatDialogRef, useValue: {} }],
 })
 export class ConfirmationDialogComponent {
   constructor(public dialogRef: MatDialogRef<ConfirmationDialogComponent>) {}

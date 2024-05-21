@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpClientModule,
+} from '@angular/common/http';
 import { ButtonComponent } from '../../components/button/button.component';
 import {
   MatError,
@@ -10,12 +14,16 @@ import {
 import { MatInput, MatInputModule, MatLabel } from '@angular/material/input';
 
 import { FormsModule, NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-add-location-form-page',
   standalone: true,
   imports: [
     ButtonComponent,
+    CommonModule,
     MatFormField,
     MatError,
     MatInput,
@@ -23,7 +31,9 @@ import { Router } from '@angular/router';
     MatLabel,
     MatFormFieldModule,
     FormsModule,
+    HttpClientModule,
   ],
+  providers: [provideAnimations()],
   templateUrl: './AddLocationFormPage.component.html',
   styleUrl: './AddLocationFormPage.component.css',
 })

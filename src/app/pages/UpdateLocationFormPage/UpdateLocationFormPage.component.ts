@@ -1,5 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, ViewChild } from '@angular/core';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpClientModule,
+} from '@angular/common/http';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ButtonComponent } from '../../components/button/button.component';
 import {
@@ -11,20 +15,25 @@ import {
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { FormsModule, NgForm } from '@angular/forms';
 import { environment } from '../../../environments/environment';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-update-location-form-page',
   standalone: true,
   imports: [
     ButtonComponent,
+    CommonModule,
     MatFormField,
     MatError,
     MatInput,
     MatInputModule,
     MatLabel,
     MatFormFieldModule,
+    HttpClientModule,
     FormsModule,
   ],
+  providers: [provideAnimations()],
   templateUrl: './UpdateLocationFormPage.component.html',
   styleUrl: './UpdateLocationFormPage.component.css',
 })

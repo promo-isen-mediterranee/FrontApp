@@ -23,7 +23,11 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatError, MatFormFieldModule } from '@angular/material/form-field';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpClientModule,
+} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AsyncPipe, CommonModule } from '@angular/common';
@@ -65,6 +69,7 @@ export interface Person {
     MatAutocompleteTrigger,
     MatError,
     AsyncPipe,
+    HttpClientModule,
   ],
   providers: [
     MatDatepickerModule,

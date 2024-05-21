@@ -17,7 +17,11 @@ import {
 } from '@angular/forms';
 import { map, Observable, startWith } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpClientModule,
+} from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 
@@ -47,6 +51,7 @@ export interface Category {
     FormsModule,
     ReactiveFormsModule,
     AsyncPipe,
+    HttpClientModule,
   ],
   providers: [MatFormFieldModule, MatInputModule, provideAnimations()],
   templateUrl: './AddInventoryFormPage.component.html',
