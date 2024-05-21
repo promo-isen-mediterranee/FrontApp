@@ -49,6 +49,11 @@ html, body {
   justify-content: space-between;
 }
 
+.item {
+  color: red;
+  font-weight: bold;
+}
+
 .actions {
   display: flex;
   flex-direction: row;

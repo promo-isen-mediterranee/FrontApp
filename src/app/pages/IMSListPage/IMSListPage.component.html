@@ -6,53 +6,37 @@
     <h2>Gestion du stock</h2>
   </div>
 
+  <app-button
+    type="secondary"
+    label="Ajouter un matériel"
+    [solid]="true"
+    onClickLink="/stock/add"
+  ></app-button>
 
-
-  <div *ngFor="let item of items">
-    <div class="file" (click)="toggleActions($event)">
-    <div class="card">
-      <div class="details">
-        <span class="gap"><br></span>
-        <span class="item">{{item?.item_id?.name ?? 'No name provided'}}</span>
-        <span class="gap"><br></span>
+  <ng-container *ngIf="items && items.length > 0">
+    <div *ngFor="let item of items">
+      <div class="file" (click)="toggleActions($event)">
+        <div *ngIf="item" [ngClass]="{'card': item.quantity > 10, 'card-warning': item.quantity <= 10}">
+          <div class="details">
+            <span class="gap"><br></span>
+            <span class="item">{{item?.item_id?.name ?? 'No name provided'}}</span>
+            <span class="gap"><br></span>
+          </div>
+          <div class="details">
+            <span class="room">Salle: {{item?.location_id?.room ?? 'No room provided'}}</span>
+            <span class="gap"><br></span>
+            <span class="quantity-i">Quantité: {{item?.quantity ?? 'No quantity provided'}}</span>
+          </div>
+          <div class="actions">
+            <button mat-icon-button class="edit-button" (click)="editItem(item)">
+              <mat-icon class="pen" fontIcon="edit">edit</mat-icon>
+            </button>
+            <button mat-icon-button class="delete-button" (click)="deleteItem(item)">
+              <mat-icon class="trash" fontIcon="delete">delete</mat-icon>
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="details">
-        <span class="room">Salle: {{item?.location_id?.room ?? 'No room provided'}}</span>
-        <span class="gap"><br></span>
-        <span class="quantity-i">Quantité: {{item?.quantity ?? 'No quantity provided'}}</span>
-      </div>
-      <div class="actions">
-        <button mat-icon-button class="edit-button">
-          <mat-icon class="pen">edit</mat-icon>
-        </button>
-        <button mat-icon-button class="delete-button">
-          <mat-icon class="trash">delete</mat-icon>
-        </button>
-      </div>
     </div>
-    </div>
-  </div>
-  <div class="file" (click)="toggleActions($event)">
-  <div class="card">
-    <div class="details">
-      <span class="gap"><br></span>
-      <span class="item">name</span>
-      <span class="gap"><br></span>
-    </div>
-    <div class="details">
-      <span class="room">Salle</span>
-      <span class="gap"><br></span>
-      <span class="quantity-i">Quantité</span>
-    </div>
-    <div class="actions">
-      <button mat-icon-button class="edit-button">
-        <mat-icon class="pen">edit</mat-icon>
-      </button>
-      <button mat-icon-button class="delete-button">
-        <mat-icon class="trash">delete</mat-icon>
-      </button>
-    </div>
-  </div>
-  </div>
-  <app-button type="secondary" label="Ajouter un matériel" [solid]="true" onClickLink="/stock/add"></app-button>
+  </ng-container>
 </div>

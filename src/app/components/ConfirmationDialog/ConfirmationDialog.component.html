@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Suppression</h2>
+<mat-dialog-content
+  >Voulez vous vraiment supprimer cet élément ?</mat-dialog-content
+>
+<mat-dialog-actions class="dialog-actions">
+  <app-button
+    [solid]="true"
+    [type]="'primary'"
+    label="Oui"
+    (click)="onYesClick()"
+  ></app-button>
+  <app-button
+    [solid]="true"
+    [type]="'secondary'"
+    label="Non"
+    (click)="onNoClick()"
+  ></app-button>
+</mat-dialog-actions>

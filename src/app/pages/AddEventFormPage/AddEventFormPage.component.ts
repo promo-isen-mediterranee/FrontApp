@@ -19,24 +19,40 @@ import {
   MatAutocomplete,
   MatAutocompleteTrigger,
 } from '@angular/material/autocomplete';
-import { FormControl, FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatError, MatFormFieldModule } from '@angular/material/form-field';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpClientModule,
+} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { AsyncPipe, CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 export interface Location {
+  id: number;
   address: string;
   city: string;
+  room?: string;
 }
+
+export interface Person {
+  id: string;
+  last_name: string;
+  first_name: string;
+}
+
 @Component({
   selector: 'app-add-event-form-page',
   standalone: true,
   imports: [
     ButtonComponent,
     SelectComponent,
+    CommonModule,
     MatInput,
     MatDatepickerModule,
     MatNativeDateModule,
@@ -52,6 +68,8 @@ export interface Location {
     ReactiveFormsModule,
     MatAutocompleteTrigger,
     MatError,
+    AsyncPipe,
+    HttpClientModule,
   ],
   providers: [
     MatDatepickerModule,
@@ -63,61 +81,129 @@ export interface Location {
   styleUrl: './AddEventFormPage.component.css',
 })
 export class AddEventFormPageComponent {
-  addressControl = new FormControl();
-
   eventName: string = '';
   eventStartDate: Date | null = null;
   eventEndDate: Date | null = null;
   eventAddress: any;
-  locations: Location = {} as Location;
+  eventManager: Person = { id: '', last_name: 'A', first_name: 'Definir' };
+  eventSize: string = '';
+  eventContact: string = '';
   private apiUrl = environment.apiEventUrl;
   protected options: Location[] = [];
-  constructor(private http: HttpClient) {}
+  protected optionsM: Person[] = [];
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+  ) {}
 
   getLocation(): Observable<any> {
     return this.http.get<any>(this.apiUrl + 'location/getAll');
   }
 
+  getPerson(): Observable<any> {
+    return this.http.get<any>(this.apiUrl + 'person/getAll');
+  }
+
   ngOnInit(): void {
     this.getLocation().subscribe((data) => {
-      this.locations = data;
       for (const location of data) {
         const option: Location = {
+          id: location.id,
           address: location.address,
           city: location.city,
+          room: location.room,
         };
-        this.options.push(option);
+        const exists = this.options.some(
+          (opt) => opt.city === option.city && opt.address === option.address,
+        );
+        if (!exists) {
+          this.options.push(option);
+        }
       }
     });
+    this.getPerson().subscribe((data) => {
+      for (const person of data) {
+        const option: Person = {
+          id: person.id,
+          last_name: person.last_name,
+          first_name: person.first_name,
+        };
+        const exists = this.optionsM.some(
+          (opt) =>
+            opt.last_name === option.last_name &&
+            opt.first_name === option.first_name,
+        );
+        if (!exists) {
+          this.optionsM.push(option);
+        }
+      }
+    });
+  }
+
+  toTitleCase(str: string): string {
+    return str
+      .toLowerCase()
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
   }
 
   displayFn(location: Location): string {
     return location ? `${location.address}, ${location.city}` : '';
   }
 
+  displayMn(person: Person): string {
+    return person ? `${person.last_name} ${person.first_name}` : '';
+  }
+
   onOptionSelected(option: any): void {
     this.eventAddress = option;
   }
 
-  createEvent() {
+  onOptionSelectedM(option: any): void {
+    this.eventManager = option;
+  }
+
+  createEvent(form: NgForm) {
     const headers = new HttpHeaders().set(
       'Content-Type',
       'application/x-www-form-urlencoded',
     );
+
     const eventData = new URLSearchParams();
-    eventData.set('name', this.eventName);
-    eventData.set('date_start', this.eventStartDate?.toISOString() ?? '');
-    eventData.set('date_end', this.eventEndDate?.toISOString() ?? '');
-    eventData.set('location.address', this.eventAddress.address);
-    eventData.set('location.city', this.eventAddress.city);
-    this.http.post(this.apiUrl + 'create', eventData, { headers }).subscribe(
-      (response) => {
-        console.log(response);
-      },
-      (error) => {
-        console.error(error.status);
-      },
-    );
+    eventData.set('name', this.toTitleCase(this.eventName));
+    eventData.set('date_start', this.eventStartDate?.toDateString() ?? '');
+    eventData.set('date_end', this.eventEndDate?.toDateString() ?? '');
+    eventData.set('stand_size', this.eventSize);
+    eventData.set('contact_objective', this.eventContact);
+    eventData.set('location.id', this.eventAddress.id);
+    eventData.set('item_manager.last_name', this.eventManager.last_name);
+    eventData.set('item_manager.first_name', this.eventManager.first_name);
+    if (form.valid) {
+      this.http
+        .post(this.apiUrl + 'create', eventData, {
+          headers,
+          responseType: 'text',
+        })
+        .subscribe(
+          (response) => {
+            console.log(response);
+            this.router.navigate(['/success'], {
+              queryParams: {
+                text:
+                  'L évènement ' +
+                  this.toTitleCase(this.eventName) +
+                  ' a été ajouté avec succès',
+                link: '/event/list',
+              },
+            });
+          },
+          (error) => {
+            console.log('allo');
+            console.error(error.status);
+          },
+        );
+    }
   }
 
   public closeDatepicker(datepicker: MatDatepicker<Date>): void {

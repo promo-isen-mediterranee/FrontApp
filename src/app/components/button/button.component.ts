@@ -27,6 +27,9 @@ export class ButtonComponent {
   @Input()
   onClickLink: string = '';
 
+  @Input()
+  disabled: boolean = false;
+
   public get classes(): string[] {
     const mode =
       this.type == 'primary'

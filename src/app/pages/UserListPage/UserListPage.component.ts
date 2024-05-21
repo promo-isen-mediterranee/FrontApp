@@ -1,6 +1,4 @@
-import { Component, NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
-//import { catchError, tap } from 'rxjs/operators';
-//import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component, NgModule } from "@angular/core";
 import { ButtonComponent } from "../../components/button/button.component";
 import { environment } from "../../../environments/environment";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
