@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddEventFormPageComponent } from './AddEventFormPage.component';
-import { provideAnimations } from "@angular/platform-browser/animations";
-import { provideHttpClient } from "@angular/common/http";
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('AddEventFormPageComponent', () => {
   let component: AddEventFormPageComponent;
@@ -11,12 +11,8 @@ describe('AddEventFormPageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AddEventFormPageComponent],
-      providers: [
-        provideAnimations(),
-        provideHttpClient()
-      ]
-    })
-    .compileComponents();
+      providers: [provideAnimations(), provideHttpClient()],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AddEventFormPageComponent);
     component = fixture.componentInstance;

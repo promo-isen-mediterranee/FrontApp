@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ChecklistItemComponent } from "./ChecklistItem.component";
+import { ChecklistItemComponent } from './ChecklistItem.component';
 
 describe('ChecklistItemComponent', () => {
   let component: ChecklistItemComponent;
@@ -7,9 +7,8 @@ describe('ChecklistItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ChecklistItemComponent]
-    })
-    .compileComponents();
+      imports: [ChecklistItemComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ChecklistItemComponent);
     component = fixture.componentInstance;

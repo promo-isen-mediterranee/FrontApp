@@ -8,9 +8,8 @@ describe('IMSListPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [IMSListPageComponent]
-    })
-    .compileComponents();
+      imports: [IMSListPageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(IMSListPageComponent);
     component = fixture.componentInstance;

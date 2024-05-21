@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CalendarComponent } from './calendar.component';
-import { provideAnimations } from "@angular/platform-browser/animations";
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 describe('CalendarComponent', () => {
   let component: CalendarComponent;
@@ -10,11 +10,8 @@ describe('CalendarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [CalendarComponent],
-      providers: [
-        provideAnimations()
-      ]
-    })
-    .compileComponents();
+      providers: [provideAnimations()],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CalendarComponent);
     component = fixture.componentInstance;

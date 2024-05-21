@@ -5,7 +5,7 @@ import { NgIf } from '@angular/common';
 import { ToggleComponent } from '../../components/toggle/toggle.component';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
-import { environment } from "../../../environments/environment";
+import { environment } from '../../../environments/environment';
 
 interface Event {
   title: string;
@@ -45,7 +45,7 @@ export class EventListPageComponent implements OnInit {
 
   public Tabevents: Event[] = [];
   public events: Event[] = [];
-  private apiUrl = environment.apiEventUrl
+  private apiUrl = environment.apiEventUrl;
 
   ngOnInit() {
     this.http
@@ -78,5 +78,4 @@ export class EventListPageComponent implements OnInit {
       },
     }));
   }
-
 }

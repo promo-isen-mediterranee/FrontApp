@@ -1,7 +1,7 @@
 <full-calendar #calendar [options]="calendarOptions"></full-calendar>
 <dialog id="dialog">
   <div class="dialog-header">
-    <h3>{{selectedEvent.title}}</h3>
+    <h3>{{ selectedEvent.title }}</h3>
     <span (click)="closeDialog()" class="btn-close">
       <mat-icon fontIcon="close"></mat-icon>
     </span>
@@ -9,17 +9,29 @@
   <div class="dialog-container">
     <mat-form-field>
       <mat-label>Début</mat-label>
-      <input matInput [matDatepicker]="picker" placeholder="Début" (dateChange)="closeDatepicker(picker)"
-             [(ngModel)]="selectedEvent.date_start" readonly>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        placeholder="Début"
+        (dateChange)="closeDatepicker(picker)"
+        [(ngModel)]="selectedEvent.date_start"
+        readonly
+      />
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Fin</mat-label>
-      <input matInput [matDatepicker]="picker_end" placeholder="Fin" (dateChange)="closeDatepicker(picker_end)"
-             [(ngModel)]="selectedEvent.date_end" readonly>
+      <input
+        matInput
+        [matDatepicker]="picker_end"
+        placeholder="Fin"
+        (dateChange)="closeDatepicker(picker_end)"
+        [(ngModel)]="selectedEvent.date_end"
+        readonly
+      />
       <mat-datepicker #picker_end></mat-datepicker>
     </mat-form-field>
-    <p>Statut: {{selectedEvent.status}}</p>
-    <p>Lieu: {{selectedEvent.location}}</p>
+    <p>Statut: {{ selectedEvent.status }}</p>
+    <p>Lieu: {{ selectedEvent.location }}</p>
   </div>
 </dialog>
