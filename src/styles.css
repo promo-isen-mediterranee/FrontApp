@@ -163,6 +163,10 @@ td {
   margin-bottom: 32px;
 }
 
+.mb-20px {
+  margin-bottom: 20px;
+}
+
 .mb-25 {
   margin-bottom: 25%;
 }
@@ -181,6 +185,10 @@ td {
 
 .mt-25 {
   margin-top: 25%;
+}
+
+.mr-1 {
+  margin-right: 8px;
 }
 
 @media screen and (max-width: 1024px) {
@@ -234,8 +242,10 @@ td {
   text-align: left;
 }
 
-.right-align {
-  text-align: right;
+.flex-align-right {
+  justify-content: flex-end;
+  margin-left: auto;
+  margin-right: 8%;
 }
 
 .j-between {
@@ -259,10 +269,4 @@ td {
   position: fixed;
   left: 0;
   top: 0;
-}
-
-.sticky-left {
-  position: fixed;
-  left: 0;
-  height: 100% !important;
 }

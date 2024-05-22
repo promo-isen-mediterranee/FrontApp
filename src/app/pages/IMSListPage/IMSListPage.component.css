@@ -37,10 +37,13 @@ html, body {
   margin-top: 10px;
   position: relative; /* Ajouté pour permettre le positionnement absolu des boutons */
   cursor: pointer;
+  z-index: 1;
 }
 
-.card:hover {
-  background-color: rgb(230, 230, 230);
+@media screen and (max-width: 500px) {
+  .card {
+    width: unset;
+  }
 }
 
 .card-warning {
@@ -121,6 +124,3 @@ html, body {
   color: var(--red);
 }
 
-app-button {
-  margin-top: 20px;
-}
