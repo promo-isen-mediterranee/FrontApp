@@ -40,12 +40,6 @@ html, body {
   z-index: 1;
 }
 
-@media screen and (max-width: 500px) {
-  .card {
-    width: unset;
-  }
-}
-
 .card-warning {
   background-color: rgba(255, 0, 0, .3);
   animation: colorFade 3s infinite;
@@ -124,3 +118,24 @@ html, body {
   color: var(--red);
 }
 
+@media screen and (max-width: 500px) {
+  .container {
+    align-items: unset;
+  }
+
+  .card {
+    width: unset;
+  }
+
+  .actions {
+    flex-direction: column;
+    right: 10px;
+    margin-top: 0;
+    height: 100%;
+    bottom: 0;
+  }
+
+  .file.show-actions .actions {
+    transform: translateX(30px);
+  }
+}

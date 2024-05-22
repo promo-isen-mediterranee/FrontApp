@@ -5,16 +5,16 @@
   <div [className]="'header-container'">
     <h2>Formulaire d'inventaire</h2>
   </div>
-  <div class="container">
-    <img
-      ngSrc="assets/img/logos/logo-inventaire.png"
-      alt="logo inventaire"
-      class="mt-2"
-      height="300"
-      width="300"
-      priority
-    />
-  </div>
+</div>
+<div [className]="'container'">
+  <img
+    ngSrc="assets/img/logos/logo-inventaire.png"
+    alt="logo inventaire"
+    [className]="'mt-2 align-center'"
+    height="300"
+    width="300"
+    priority
+  />
 
   <form (ngSubmit)="createItem()" method="post" #itemForm="ngForm">
     <mat-form-field [className]="'form-group'">
