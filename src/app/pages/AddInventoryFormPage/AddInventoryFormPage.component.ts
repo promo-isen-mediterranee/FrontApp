@@ -24,17 +24,8 @@ import {
 } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
-
-export interface Location {
-  id: number;
-  address: string;
-  city: string;
-  room?: string;
-}
-
-export interface Category {
-  label: string;
-}
+import { Location } from "../../interfaces/Location";
+import { Category } from "../../interfaces/Category";
 
 @Component({
   selector: 'app-add-inventory-form-page',
@@ -106,6 +97,7 @@ export class AddInventoryFormPageComponent {
       this.categories = data;
       for (const category of data) {
         const optionC: Category = {
+          id: category.id,
           label: category.label,
         };
         this.optionsC.push(optionC);

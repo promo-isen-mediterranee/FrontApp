@@ -1,3 +1,9 @@
+@keyframes colorFade {
+  0% { background-color: rgba(255, 0, 0, .2); }
+  50% { background-color: rgba(255, 0, 0, .6); }
+  100% { background-color: rgba(255, 0, 0, .2); }
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -17,13 +23,6 @@ html, body {
   width: 100%;
 }
 
-.header-container {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  margin-bottom: 20px;
-}
-
 .card {
   background-color: rgba(230, 230, 230, 0.4);
   border-radius: 5px;
@@ -37,10 +36,16 @@ html, body {
   margin-bottom: 10px;
   margin-top: 10px;
   position: relative; /* Ajouté pour permettre le positionnement absolu des boutons */
+  cursor: pointer;
 }
 
 .card:hover {
   background-color: rgb(230, 230, 230);
+}
+
+.card-warning {
+  background-color: rgba(255, 0, 0, .3);
+  animation: colorFade 3s infinite;
 }
 
 .details {
@@ -51,6 +56,14 @@ html, body {
 
 .item {
   color: red;
+  font-weight: bold;
+}
+
+.card-warning > .details > .item {
+  color: var(--black);
+}
+
+.card-warning > .details > .quantity-i {
   font-weight: bold;
 }
 

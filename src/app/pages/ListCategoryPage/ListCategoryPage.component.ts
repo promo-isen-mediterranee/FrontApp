@@ -1,18 +1,12 @@
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { catchError, tap } from 'rxjs';
 import { ButtonComponent } from '../../components/button/button.component';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
-import { Router, RouterModule } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
+import { Category } from '../../interfaces/Category';
 
-export interface Category {
-  id: number;
-  label: string;
-}
 @Component({
   selector: 'app-list-category-page',
   standalone: true,
@@ -25,8 +19,7 @@ export class ListCategoryPageComponent {
   private apiUrl = environment.apiStockUrl;
 
   constructor(
-    private http: HttpClient,
-    private router: Router,
+    private http: HttpClient
   ) {}
 
   ngOnInit() {

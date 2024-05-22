@@ -32,19 +32,8 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-
-export interface Location {
-  id: number;
-  address: string;
-  city: string;
-  room?: string;
-}
-
-export interface Person {
-  id: string;
-  last_name: string;
-  first_name: string;
-}
+import { Location } from '../../interfaces/Location';
+import { Person } from "../../interfaces/Person";
 
 @Component({
   selector: 'app-add-event-form-page',
@@ -207,7 +196,6 @@ export class AddEventFormPageComponent {
   }
 
   public closeDatepicker(datepicker: MatDatepicker<Date>): void {
-    console.log('closing datepicker');
     datepicker['_destroyOverlay']();
   }
 }

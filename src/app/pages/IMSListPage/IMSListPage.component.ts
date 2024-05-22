@@ -1,8 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { catchError, tap } from 'rxjs/operators';
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ButtonComponent } from '../../components/button/button.component';
 import { CommonModule } from '@angular/common';
@@ -10,25 +8,13 @@ import { environment } from '../../../environments/environment';
 import { Router, RouterModule } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
-
-interface Item {
-  id: number;
-  item_id: {
-    id: number;
-    name: string;
-    category_id: {
-      id: number;
-      label: string;
-    };
-  };
-  location_id: {
-    id: number;
-    address: string;
-    city: string;
-    room: string;
-  };
-  quantity: number;
-}
+import { MatFormField } from "@angular/material/form-field";
+import { MatInput, MatLabel } from "@angular/material/input";
+import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatOption } from "@angular/material/autocomplete";
+import { Category } from "../../interfaces/Category";
+import { MatSelect } from "@angular/material/select";
+import { ItemStock } from "../../interfaces/ItemStock";
 
 @Component({
   selector: 'app-imslist-page',
@@ -39,13 +25,23 @@ interface Item {
     HttpClientModule,
     RouterModule,
     MatIcon,
-    MatIconButton
+    MatIconButton,
+    MatFormField,
+    MatInput,
+    MatLabel,
+    FormsModule,
+    MatOption,
+    MatSelect,
+    ReactiveFormsModule
   ],
   templateUrl: './IMSListPage.component.html',
   styleUrls: ['./IMSListPage.component.css']
 })
 export class IMSListPageComponent implements OnInit {
-  items: Item[] = [];
+  public filterControl = new FormControl();
+  protected items: ItemStock[] = [];
+  protected itemsToDisplay: ItemStock[] = [];
+  protected categoriesAvailable: Category[] = [];
   private apiUrl = environment.apiStockUrl;
 
   constructor(
@@ -53,26 +49,30 @@ export class IMSListPageComponent implements OnInit {
     private router: Router,
   ) {}
 
-  editItem(item: Item) {
+  editItem(item: ItemStock) {
     this.router.navigate(['stock/update'], {
       state: { selectedItem: item },
     });
   }
 
-  deleteItem(item: Item)
-  {    
-    console.log(item);
+  deleteItem(item: ItemStock) {
+    this.http.delete(this.apiUrl + 'item/' + item.id).subscribe(() => {
+      this.items = this.items.filter((i) => i.id !== item.id);
+      this.updateCategoriesAvailable();
+      this.itemsToDisplay = this.items;
+    });
   }
 
   ngOnInit() {
     this.http
-      .get<Item[]>(this.apiUrl + 'item/getAll')
+      .get<ItemStock[]>(this.apiUrl + 'item/getAll')
       .pipe(
         tap((data) => {
           this.items = data;
+          this.updateCategoriesAvailable()
+          this.itemsToDisplay = this.items;
         }),
         catchError((error) => {
-          console.error(error);
           throw error;
         }),
       )
@@ -85,12 +85,28 @@ export class IMSListPageComponent implements OnInit {
       fileElement.classList.toggle('show-actions');
     }
   }
-  
-}
 
-@NgModule({
-  imports: [BrowserModule, HttpClientModule, CommonModule, RouterModule],
-  providers: [],
-  schemas: [NO_ERRORS_SCHEMA],
-})
-export class AppModule {}
+  updateCategoriesAvailable() {
+    const categories: Category[] = [];
+    this.items.forEach((item) => {
+      const cat = item.item_id.category_id;
+      if (!categories.some(existingCat => existingCat.id === cat.id)) {
+        categories.push(cat);
+      }
+    });
+    this.categoriesAvailable = categories;
+    console.log(this.categoriesAvailable);
+  }
+
+  updateItemsToDisplay() {
+    const selectedCategory = this.filterControl.value;
+    console.log(selectedCategory);
+    if (!selectedCategory) {
+      this.itemsToDisplay = this.items;
+    } else {
+      this.itemsToDisplay = this.items.filter((item) => item.item_id.category_id.id === selectedCategory);
+      console.log(this.itemsToDisplay);
+    }
+  }
+
+}
