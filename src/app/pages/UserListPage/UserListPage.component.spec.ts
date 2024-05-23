@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserListPageComponent } from './UserListPage.component';
+import { provideHttpClient } from "@angular/common/http";
 
 describe('UserListPageComponent', () => {
   let component: UserListPageComponent;
@@ -9,6 +10,7 @@ describe('UserListPageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [UserListPageComponent],
+      providers: [provideHttpClient()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(UserListPageComponent);

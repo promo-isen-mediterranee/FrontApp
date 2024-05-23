@@ -8,16 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { tap } from "rxjs/operators";
 import { BrowserModule } from "@angular/platform-browser";
 import { CommonModule, NgFor } from "@angular/common";
-interface User {
-  user:{
-    username: string;
-    email: string;
-  };
-  role:{
-    id:number;
-    label:string;
-  };
-}
+import { User } from "../../interfaces/User";
+
 
 @Component({
   selector: 'app-UserListPage',

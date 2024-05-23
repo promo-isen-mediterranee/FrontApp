@@ -3,6 +3,9 @@ nav {
   border-bottom: solid 1px var(--blue);
   background-color: var(--white);
   z-index: 2;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 ul {
@@ -30,9 +33,14 @@ li a:hover {
   transition: 0.2s;
 }
 
+.ul-mobile {
+  display: none
+}
+
 .navbar-mobile {
   border-bottom: none;
   border-top: 1px solid var(--blue);
+  display: block;
 }
 
 .navbar-mobile li {
@@ -40,6 +48,12 @@ li a:hover {
 }
 
 .navbar-mobile ul {
+  display: none;
+  width: 100%;
+}
+
+.navbar-mobile .ul-mobile {
+  display: flex;
   padding-left: 0;
 }
 

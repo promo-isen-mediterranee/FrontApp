@@ -4,34 +4,9 @@ import { ButtonComponent } from '../../components/button/button.component';
 import { NgIf } from '@angular/common';
 import { ToggleComponent } from '../../components/toggle/toggle.component';
 import { HttpClient } from '@angular/common/http';
-import { catchError, first, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-
-interface Event {
-  title: string;
-  start: string;
-  end: string;
-  extendedProps?: {
-    id?: number;
-    contact_objective?: number;
-    item_manager?: {
-      id: string;
-      last_name: string;
-      first_name: string;
-    };
-    location?: {
-      address: string;
-      city: string;
-      id: number;
-      room?: string;
-    };
-    stand_size?: number;
-    status?: {
-      id: number;
-      label: string;
-    };
-  };
-}
+import { Event } from "../../interfaces/Event";
 
 @Component({
   selector: 'app-event-list-page',

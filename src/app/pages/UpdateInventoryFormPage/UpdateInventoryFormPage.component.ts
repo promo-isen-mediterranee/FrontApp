@@ -14,26 +14,7 @@ import { AsyncPipe, NgOptimizedImage } from "@angular/common";
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-
-interface Item {
-  id: number;
-  item_id: {
-    id: number;
-    name: string;
-    category_id: {
-      id: number;
-      label: string;
-    };
-  };
-  location_id: {
-    id: number;
-    address: string;
-    city: string;
-    room: string;
-  };
-  quantity: number;
-}
+import { ItemStock } from "../../interfaces/ItemStock";
 
 @Component({
   selector: 'app-update-inventory-form-page',
@@ -57,7 +38,7 @@ interface Item {
   styleUrl: './UpdateInventoryFormPage.component.css',
 })
 export class UpdateInventoryFormPageComponent {
-  selectedItem: Item = {
+  selectedItem: ItemStock = {
     id: 0,
     item_id: {
       id: 0,

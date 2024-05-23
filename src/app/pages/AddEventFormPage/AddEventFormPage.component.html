@@ -5,7 +5,9 @@
   <div [className]="'header-container'">
     <h2>Créer un événement</h2>
   </div>
+</div>
 
+<div [className]="'container m-0 mb-mobile'">
   <form (ngSubmit)="createEvent(eventForm)" method="post" #eventForm="ngForm">
     <mat-form-field [className]="'form-group'">
       <mat-label>Nom de l'événement</mat-label>

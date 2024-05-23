@@ -18,6 +18,36 @@
         Événements
       </a>
     </li>
+  </ul>
+  <ul>
+    <li>
+      <a [routerLink]="['/logout']" [routerLinkActive]="'active'">
+        <mat-icon fontIcon="logout" />
+        Déconnexion
+      </a>
+    </li>
+  </ul>
+
+  <!-- Mobile ul below -->
+  <ul [className]="'ul-mobile'">
+    <li>
+      <a [routerLink]="['/home']" [routerLinkActive]="'active'">
+        <mat-icon fontIcon="home" />
+        Accueil
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/stock']" [routerLinkActive]="'active'">
+        <mat-icon fontIcon="inventory" />
+        Stock
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/event/list']" [routerLinkActive]="'active'">
+        <mat-icon fontIcon="calendar_month" />
+        Événements
+      </a>
+    </li>
     <li>
       <a [routerLink]="['/logout']" [routerLinkActive]="'active'">
         <mat-icon fontIcon="logout" />

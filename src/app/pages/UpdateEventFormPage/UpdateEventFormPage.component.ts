@@ -35,24 +35,10 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../components/ConfirmationDialog/ConfirmationDialog.component';
+import { Status } from "../../interfaces/Status";
+import { Person } from "../../interfaces/Person";
+import { Location } from "../../interfaces/Location";
 
-export interface Location {
-  id: number;
-  address: string;
-  city: string;
-  room?: string;
-}
-
-export interface Status {
-  id: number;
-  label: string;
-}
-
-export interface Person {
-  id: string;
-  last_name: string;
-  first_name: string;
-}
 @Component({
   selector: 'app-update-event-form-page',
   standalone: true,

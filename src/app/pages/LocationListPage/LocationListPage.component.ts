@@ -11,13 +11,8 @@ import { MatIcon } from '@angular/material/icon';
 import { ConfirmationDialogComponent } from '../../components/ConfirmationDialog/ConfirmationDialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Location } from '../../interfaces/Location';
 
-export interface Location {
-  id: number;
-  address: string;
-  city: string;
-  room?: string;
-}
 @Component({
   selector: 'app-location-list-page',
   standalone: true,
