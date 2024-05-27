@@ -9,13 +9,12 @@ const config: StorybookConfig = {
     '@storybook/addon-interactions',
     '@storybook/addon-a11y',
     'storybook-addon-angular-router',
+    '@storybook/addon-mdx-gfm'
   ],
   framework: {
     name: '@storybook/angular',
     options: {},
   },
-  docs: {
-    autodocs: 'tag',
-  },
+  docs: {},
 };
 export default config;
