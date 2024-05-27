@@ -13,39 +13,39 @@
     [solid]="true"
     onClickLink="/location/add"
   />
-
+</div>
+<div [className]="'container'">
   <div *ngFor="let location of locations">
     <div class="card">
       <div class="details">
-        <span class="gap"><br /></span>
         <span class="address">{{
-          location?.address ? (location.address | titlecase) : "Non renseignée"
-        }}</span>
-        <span class="gap"><br /></span>
+            location?.address ? (location.address | titlecase) : "Non renseignée"
+          }}</span>
       </div>
-      <div class="details">
-        <span class="city"
-          >Ville:
-          {{
-            location?.city ? (location.city | titlecase) : "Non renseignée"
-          }}</span
-        >
-        <span class="gap"><br /></span>
-        <span class="room"
-          >Salle: {{ location?.room ? location.room : "Non renseignée" }}</span
-        >
-      </div>
-      <div class="icon-container">
-        <mat-icon
-          class="icon"
-          fontIcon="edit"
-          (click)="editLocation(location)"
-        ></mat-icon>
-        <mat-icon
-          class="icon"
-          fontIcon="delete"
-          (click)="deleteLocation(location)"
-        ></mat-icon>
+      <div [className]="'d-flex flex-row'">
+        <div [className]="'details mr-2'">
+          <span class="city">
+            Ville:
+            {{
+              location?.city ? (location.city | titlecase) : "Non renseignée"
+            }}
+          </span>
+          <span class="room" *ngIf="location.room">
+            Salle: {{ location?.room }}
+          </span>
+        </div>
+        <div class="icon-container">
+          <mat-icon
+            class="icon"
+            fontIcon="edit"
+            (click)="editLocation(location)"
+          />
+          <mat-icon
+            class="icon"
+            fontIcon="delete"
+            (click)="deleteLocation(location)"
+          />
+        </div>
       </div>
     </div>
   </div>

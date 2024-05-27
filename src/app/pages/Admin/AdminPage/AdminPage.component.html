@@ -1,0 +1,45 @@
+<div [className]="'header'">
+  <div [className]="'header-container'">
+    <h2>Espace administrateur</h2>
+      <img
+        ngSrc="../../../../assets/img/logos/logo-admin.png"
+        alt="logo adminstrateur"
+        class="mt-2"
+        height="300"
+        width="300"
+        priority
+      />
+  </div>
+</div>
+<div [className]="'container'">
+  <div id="actionButtons">
+    <app-button
+      type="primary"
+      label="Gestion utilisateurs"
+      [solid]="true"
+      [css]="'mt-8'"
+      onClickLink="/user"
+    />
+    <app-button
+      type="primary"
+      label="Gestion lieux"
+      [solid]="true"
+      [css]="'mt-2'"
+      onClickLink="/location"
+    />
+    <app-button
+      type="primary"
+      label="Gestion catégories"
+      [solid]="true"
+      [css]="'mt-2'"
+      onClickLink="/category"
+    />
+    <app-button
+      type="secondary"
+      label="Quitter l'espace administrateur"
+      [solid]="true"
+      [css]="'mt-2'"
+      onClickLink="/home"
+    />
+  </div>
+</div>

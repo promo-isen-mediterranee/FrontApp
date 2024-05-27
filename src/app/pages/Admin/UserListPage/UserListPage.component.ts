@@ -1,6 +1,6 @@
 import { Component, NgModule } from "@angular/core";
-import { ButtonComponent } from "../../components/button/button.component";
-import { environment } from "../../../environments/environment";
+import { ButtonComponent } from "../../../components/button/button.component";
+import { environment } from "../../../../environments/environment";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,7 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { tap } from "rxjs/operators";
 import { BrowserModule } from "@angular/platform-browser";
 import { CommonModule, NgFor } from "@angular/common";
-import { User } from "../../interfaces/User";
+import { UserRole } from "../../../interfaces/UserRole";
 
 
 @Component({
@@ -31,11 +31,11 @@ export class UserListPageComponent {
     }
   }
 
-  users: User[] = [];
+  users: UserRole[] = [];
  private apiUrl = environment.apiUserUrl;
   constructor(private http: HttpClient) {}
   ngOnInit(){
-    this.http.get<User[]>(this.apiUrl + 'getAll').pipe(
+    this.http.get<UserRole[]>(this.apiUrl + 'getAllUsers').pipe(
       tap((data) => {
         this.users = data;
       })

@@ -33,6 +33,10 @@
     </mat-form-field>
     <p>Statut: {{ selectedEvent.status }}</p>
     <p>Lieu: {{ selectedEvent.location }}</p>
+    <a [href]="'#'">
+      Formulaire de départ
+      <mat-icon fontIcon="arrow_right_alt"/>
+    </a>
     <app-button
       [solid]="true"
       [type]="'primary'"

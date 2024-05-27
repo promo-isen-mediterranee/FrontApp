@@ -33,20 +33,6 @@ body {
   width: 100%;
 }
 
-.card {
-  background-color: rgba(230, 230, 230, 0.4);
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  width: 350px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 10px;
-  margin-top: 10px;
-}
-
 .card:hover {
   background-color: rgb(230, 230, 230);
 }
@@ -59,6 +45,10 @@ body {
 .details {
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
+}
+
+.details:has(:nth-child(2)) {
   justify-content: space-between;
 }
 

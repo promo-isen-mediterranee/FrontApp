@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ButtonComponent } from '../../components/button/button.component';
-import { SelectComponent } from '../../components/select/select.component';
+import { ButtonComponent } from '../../../components/button/button.component';
+import { SelectComponent } from '../../../components/select/select.component';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInput, MatLabel } from '@angular/material/input';
 import { MatOption, MatSelect } from '@angular/material/select';

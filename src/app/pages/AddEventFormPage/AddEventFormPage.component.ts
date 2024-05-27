@@ -161,8 +161,8 @@ export class AddEventFormPageComponent {
 
     const eventData = new URLSearchParams();
     eventData.set('name', this.toTitleCase(this.eventName));
-    eventData.set('date_start', this.eventStartDate?.toDateString() ?? '');
-    eventData.set('date_end', this.eventEndDate?.toDateString() ?? '');
+    eventData.set('date_start', this.eventStartDate?.toISOString() ?? '');
+    eventData.set('date_end', this.eventEndDate?.toISOString() ?? '');
     eventData.set('stand_size', this.eventSize);
     eventData.set('contact_objective', this.eventContact);
     eventData.set('location.id', this.eventAddress.id);
@@ -175,20 +175,18 @@ export class AddEventFormPageComponent {
           responseType: 'text',
         })
         .subscribe(
-          (response) => {
-            console.log(response);
+          () => {
             this.router.navigate(['/success'], {
               queryParams: {
                 text:
-                  'L évènement ' +
+                  "L'évènement " +
                   this.toTitleCase(this.eventName) +
-                  ' a été ajouté avec succès',
+                  " a été ajouté avec succès",
                 link: '/event/list',
               },
             });
           },
           (error) => {
-            console.log('allo');
             console.error(error.status);
           },
         );

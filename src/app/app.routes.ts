@@ -8,13 +8,17 @@ import { UpdateInventoryFormPageComponent } from './pages/UpdateInventoryFormPag
 import { AddInventoryFormPageComponent } from './pages/AddInventoryFormPage/AddInventoryFormPage.component';
 import { AddEventFormPageComponent } from './pages/AddEventFormPage/AddEventFormPage.component';
 import { UpdateEventFormPageComponent } from './pages/UpdateEventFormPage/UpdateEventFormPage.component';
-import { AdminPageComponent } from './pages/AdminPage/AdminPage.component';
-import { UserListPageComponent } from './pages/UserListPage/UserListPage.component';
-import { AddUserFormPageComponent } from './pages/AddUserFormPage/AddUserFormPage.component';
+import { AdminPageComponent } from './pages/Admin/AdminPage/AdminPage.component';
+import { UserListPageComponent } from './pages/Admin/UserListPage/UserListPage.component';
+import { AddUserFormPageComponent } from './pages/Admin/AddUserFormPage/AddUserFormPage.component';
 import { LocationListPageComponent } from './pages/LocationListPage/LocationListPage.component';
-import { AddLocationFormPageComponent } from './pages/AddLocationFormPage/AddLocationFormPage.component';
-import { UpdateLocationFormPageComponent } from './pages/UpdateLocationFormPage/UpdateLocationFormPage.component';
+import { AddLocationFormPageComponent } from './pages/Admin/AddLocationFormPage/AddLocationFormPage.component';
+import { UpdateLocationFormPageComponent } from './pages/Admin/UpdateLocationFormPage/UpdateLocationFormPage.component';
 import { ListCategoryPageComponent } from './pages/ListCategoryPage/ListCategoryPage.component';
+import {
+  InventoryChecklistForEventComponent
+} from "./pages/InventoryChecklistForEvent/InventoryChecklistForEvent.component";
+import { AddCategoryFormComponent } from "./pages/Admin/AddCategoryForm/AddCategoryForm.component";
 
 export const routes: Routes = [
   {
@@ -86,4 +90,12 @@ export const routes: Routes = [
     path: 'category',
     component: ListCategoryPageComponent,
   },
+  {
+    path: 'event/checklist',
+    component: InventoryChecklistForEventComponent,
+  },
+  {
+    path: 'category/add',
+    component: AddCategoryFormComponent,
+  }
 ];

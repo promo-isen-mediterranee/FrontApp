@@ -5,12 +5,15 @@
   <div [className]="'header-container'">
     <h2>Gestion des catégories</h2>
   </div>
+</div>
 
+<div [className]="'container'">
   <app-button
     label="Ajouter une catégorie"
     type="primary"
     [css]="'mobile-mb-15'"
     [solid]="true"
+    [onClickLink]="'/category/add'"
   />
   <div *ngFor="let category of categories">
     <div class="card">

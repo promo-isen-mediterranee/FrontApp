@@ -1,13 +1,16 @@
-<div [className]="'container align-center'">
-  <img
-    src="assets/img/logos/logo-ISEN-vertical.png"
-    alt="Logo ISEN Méditerranée"
-    class="mt-3"
-  />
-  <img src="assets/img/icons/ISEN-bulles.png" alt="Bulles ISEN" class="mt-2" />
+<div [className]="'header'">
+  <div [className]="'header-container d-flex flex-column align-center'">
+      <img
+        src="assets/img/logos/logo-ISEN-vertical.png"
+        alt="Logo ISEN Méditerranée"
+        class="mt-3"
+      />
+      <img src="assets/img/icons/ISEN-bulles.png" alt="Bulles ISEN" class="mt-2" />
 
-  <p class="mb-4">Bonjour <b>username</b>👋</p>
-
+    <p class="mb-4">Bonjour <b>username</b>👋</p>
+  </div>
+</div>
+<div [className]="'container'">
   <div id="actionButtons">
     <app-button
       type="primary"

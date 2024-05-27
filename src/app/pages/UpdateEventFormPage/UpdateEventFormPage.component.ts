@@ -219,8 +219,7 @@ export class UpdateEventFormPageComponent implements OnInit {
           responseType: 'text',
         })
         .subscribe(
-          (response) => {
-            console.log(response);
+          () => {
             this.router.navigate(['/success'], {
               queryParams: {
                 text:
@@ -285,7 +284,6 @@ export class UpdateEventFormPageComponent implements OnInit {
   }
 
   public closeDatepicker(datepicker: MatDatepicker<Date>): void {
-    console.log('closing datepicker');
     datepicker['_destroyOverlay']();
   }
 }

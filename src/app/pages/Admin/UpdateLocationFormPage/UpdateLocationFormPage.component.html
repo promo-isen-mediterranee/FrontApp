@@ -8,7 +8,7 @@
 
   <form
     (ngSubmit)="updateLocation(updateLocationForm)"
-    method="put"
+    method="post"
     #updateLocationForm="ngForm"
   >
     <mat-form-field [className]="'form-group'">
@@ -35,16 +35,17 @@
       />
       <mat-error> La ville ne peut pas être vide.</mat-error>
     </mat-form-field>
+
     <mat-form-field [className]="'form-group'">
       <mat-label>Salle</mat-label>
-      <input
-        type="text"
-        matInput
-        name="room"
-        placeholder="Salle"
-        [(ngModel)]="selectedLocation.room"
+      <input matInput
+             type="text"
+             id="room_selected"
+             name="room"
+             [(ngModel)]="selectedLocation.room"
       />
     </mat-form-field>
+
     <app-button
       [solid]="true"
       [type]="'primary'"

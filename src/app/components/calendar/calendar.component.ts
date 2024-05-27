@@ -186,7 +186,6 @@ export class CalendarComponent {
       dialog.style.left = this.x + 'px';
       dialog.style.top = this.y + 'px';
     } else {
-      console.log(this.screenWidth);
       dialog.style.width = this.screenWidth - 32 - 2 + 'px';
       dialog.style.maxWidth = 'none';
       dialog.style.top = 0 + 'px';

@@ -28,16 +28,14 @@ html, body {
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  width: 400px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   gap: 10px;
-  margin-bottom: 10px;
-  margin-top: 10px;
   position: relative; /* Ajouté pour permettre le positionnement absolu des boutons */
   cursor: pointer;
   z-index: 1;
+  margin: 10px 10%;
 }
 
 .card-warning {
@@ -125,6 +123,7 @@ html, body {
 
   .card {
     width: unset;
+    margin: 10px 0;
   }
 
   .actions {

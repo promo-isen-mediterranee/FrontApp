@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { Event } from "../../interfaces/Event";
+import { EventFromAPI } from "../../interfaces/EventFromAPI";
 
 @Component({
   selector: 'app-event-list-page',
@@ -18,17 +19,15 @@ import { Event } from "../../interfaces/Event";
 export class EventListPageComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
-  public Tabevents: Event[] = [];
   public events: Event[] = [];
   private apiUrl = environment.apiEventUrl;
 
   ngOnInit() {
     this.http
-      .get<Event[]>(this.apiUrl + 'getAll')
+      .get<EventFromAPI[]>(this.apiUrl + 'getAll')
       .pipe(
         tap((data) => {
-          this.Tabevents = data;
-          this.events = this.transformToEventSourceInput(this.Tabevents);
+          this.events = this.transformToEventSourceInput(data);
         }),
         catchError((error) => {
           console.error(error);

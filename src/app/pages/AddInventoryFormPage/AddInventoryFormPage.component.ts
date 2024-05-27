@@ -90,7 +90,9 @@ export class AddInventoryFormPageComponent {
           city: location.city,
           room: location.room,
         };
-        this.options.push(option);
+        if(location.room != "") {
+          this.options.push(option);
+        }
       }
     });
     this.getCategories().subscribe((data) => {

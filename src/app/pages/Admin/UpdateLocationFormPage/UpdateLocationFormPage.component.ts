@@ -5,7 +5,6 @@ import {
 } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ButtonComponent } from '../../components/button/button.component';
 import {
   MatError,
   MatFormField,
@@ -14,9 +13,10 @@ import {
 } from '@angular/material/form-field';
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { FormsModule, NgForm } from '@angular/forms';
-import { environment } from '../../../environments/environment';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
+import { ButtonComponent } from "../../../components/button/button.component";
+import { environment } from "../../../../environments/environment";
 
 @Component({
   selector: 'app-update-location-form-page',
@@ -87,8 +87,7 @@ export class UpdateLocationFormPageComponent {
           },
         )
         .subscribe(
-          (response) => {
-            console.log(response);
+          () => {
             this.router.navigate(['/success'], {
               queryParams: {
                 text:

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import {
   HttpClient,
   HttpHeaders,
   HttpClientModule,
 } from '@angular/common/http';
-import { ButtonComponent } from '../../components/button/button.component';
+import { ButtonComponent } from '../../../components/button/button.component';
 import {
   MatError,
   MatFormField,
@@ -14,7 +14,7 @@ import {
 import { MatInput, MatInputModule, MatLabel } from '@angular/material/input';
 
 import { FormsModule, NgForm } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 
@@ -72,8 +72,7 @@ export class AddLocationFormPageComponent {
           responseType: 'text',
         })
         .subscribe(
-          (response) => {
-            console.log(response);
+          () => {
             this.router.navigate(['/success'], {
               queryParams: {
                 text:

@@ -1,0 +1,10 @@
+<div [className]="'header'">
+  <div [className]="'header-container'">
+    <h2>Checklist</h2>
+  </div>
+</div>
+<div [className]="'container'">
+  <app-checklist-item [items]="reservedItems"/>
+  <app-button [type]="'tertiary'" [solid]="true" [label]="'Ajouter un item'"/>
+  <app-button [type]="'primary'" [solid]="true" [label]="'Valider la saisie'"/>
+</div>

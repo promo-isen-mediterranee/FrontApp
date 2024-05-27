@@ -8,7 +8,6 @@ import { ButtonComponent } from '../button/button.component';
   templateUrl: './ConfirmationDialog.component.html',
   styleUrls: ['./ConfirmationDialog.component.css'],
   imports: [ButtonComponent, MatDialogModule],
-  providers: [{ provide: MatDialogRef, useValue: {} }],
 })
 export class ConfirmationDialogComponent {
   constructor(public dialogRef: MatDialogRef<ConfirmationDialogComponent>) {}

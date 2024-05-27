@@ -31,7 +31,7 @@
   <ng-container *ngIf="itemsToDisplay && itemsToDisplay.length > 0">
     <div *ngFor="let item of itemsToDisplay">
       <div class="file" (click)="toggleActions($event)">
-        <div [ngClass]="{'card': item, 'card-warning': item.quantity < 30}">
+        <div [ngClass]="{'card': item, 'card-warning': quantityLimitedItems.includes(item)}">
           <div class="details">
             <span class="gap"><br></span>
             <span class="item">{{item?.item_id?.name ?? 'No name provided'}}</span>
