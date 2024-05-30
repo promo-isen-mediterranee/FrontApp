@@ -16,15 +16,83 @@ export const Default: Story = {
   args: {
     items: [
       {
-        name: 'Roll up Générique',
-        quantity: 1,
-        checked: true,
+        item_location: {
+          item_id: {
+            id: 1,
+            name: "Kakémono FISE",
+            category_id: {
+              id: 1,
+              label: "Communication"
+            }
+          },
+          quantity: 1,
+          id: 0,
+          location_id: {
+            id: 1,
+            room: "Bureau",
+            city: "Toulon",
+            address: "Place Georges"
+          },
+          nb_to_order: 0
+        },
+        status: true,
+        event: {
+          title: "Titre",
+          start: "",
+          end: ""
+        },
+        quantity: 0,
+        quantity_ret: 0,
+        reserved_on: new Date(),
+        reserved_by: {
+          id: 0,
+          first_name: "",
+          last_name: "",
+          username: "",
+          mail: "",
+          is_active: true,
+          is_authenticated: false
+        }
       },
       {
-        name: 'Brochures FISE',
-        quantity: 25,
-        checked: false,
-      },
+        item_location: {
+          item_id: {
+            id: 1,
+            name: "Brochure FISE",
+            category_id: {
+              id: 1,
+              label: "Communication"
+            }
+          },
+          quantity: 25,
+          id: 0,
+          location_id: {
+            id: 1,
+            room: "Bureau",
+            city: "Toulon",
+            address: "Place Georges"
+          },
+          nb_to_order: 0
+        },
+        status: false,
+        event: {
+          title: "Titre",
+          start: "",
+          end: ""
+        },
+        quantity: 0,
+        quantity_ret: 0,
+        reserved_on: new Date,
+        reserved_by: {
+          id: 0,
+          first_name: "",
+          last_name: "",
+          username: "",
+          mail: "",
+          is_active: true,
+          is_authenticated: false
+        }
+      }
     ],
   },
 };

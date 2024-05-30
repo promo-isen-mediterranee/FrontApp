@@ -1,0 +1,8 @@
+<div [className]="'alert'" *ngFor="let alert of alerts">
+  <h3>Ceci est un titre</h3>
+  <p>Une alerte qui est juste un test</p>
+  <div [className]="'d-flex j-between mb-2'">
+    <app-button [type]="'primary'" [solid]="true" label="Lu" [css]="'w-100'"/>
+  </div>
+  <i [className]="'alert-timestamp'">Envoyé il y a 3 minutes</i>
+</div>

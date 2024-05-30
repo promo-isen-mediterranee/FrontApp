@@ -1,46 +1,60 @@
-import { Component, HostListener, Input } from '@angular/core';
+import { Component, HostListener, Injector, Input, OnInit } from "@angular/core";
 import { ButtonComponent } from '../button/button.component';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive } from "@angular/router";
 import { MatIcon } from '@angular/material/icon';
+import { UserService } from "../../services/User.service";
+import { NgIf } from "@angular/common";
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [ButtonComponent, RouterLinkActive, RouterLink, MatIcon],
+  imports: [ButtonComponent, RouterLinkActive, RouterLink, MatIcon, NgIf],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
-export class NavbarComponent {
-  private screenHeight: number = 0;
+export class NavbarComponent implements OnInit {
   private screenWidth: number = 0;
+
+  private visible: boolean = true;
+
+  protected visibleDesktop: boolean = true;
 
   @Input()
   public css: string = '';
 
-  protected router: Router = {} as Router;
+  constructor(private router: Router, private injector: Injector) {
+    this.router.events.subscribe((e) => {
+      if (e instanceof NavigationEnd) {
+        if(['/', '/home', '/login'].includes(e.url)) {
+          this.visible = false;
+        }
+      }
+    });
+  }
 
-  constructor(router: Router) {
+  ngOnInit() {
     this.onResize();
-    this.router = router;
   }
 
   @HostListener('window:resize', ['$event']) onResize() {
-    this.screenHeight = document.documentElement.clientHeight;
     this.screenWidth = document.documentElement.clientWidth;
   }
 
   public get classes(): string {
-    let cssClasses = ['w-100'];
-    if (this.css) {
-      cssClasses.push(this.css);
-    }
-    if (['/', '/home', '/login'].includes(this.router.url)) {
+    let cssClasses = [];
+    if (!this.visible) {
       cssClasses.push('d-none');
-    }
-    if (this.screenWidth <= 1024) {
-      cssClasses.push('sticky-bottom', 'navbar-mobile');
     } else {
-      cssClasses.push('sticky-top');
+      cssClasses.push('w-100')
+      if (this.css) {
+        cssClasses.push(this.css);
+      }
+      if (this.screenWidth <= 1024) {
+        cssClasses.push('sticky-bottom', 'navbar-mobile');
+        this.visibleDesktop = false
+      } else {
+        cssClasses.push('sticky-top');
+      }
     }
     return cssClasses.join(' ');
   }

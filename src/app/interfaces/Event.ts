@@ -1,6 +1,6 @@
-import { Person } from "./Person";
-import { Location } from "./Location";
-import { Status } from "./Status";
+import { Person } from './Person';
+import { Location } from './Location';
+import { EventStatus } from "./EventStatus";
 
 export interface Event {
   title: string;
@@ -9,9 +9,9 @@ export interface Event {
   extendedProps?: {
     id?: number;
     contact_objective?: number;
-    item_manager?: Person
+    item_manager?: Person;
     location?: Location;
     stand_size?: number;
-    status?: Status;
+    status?: EventStatus;
   };
 }

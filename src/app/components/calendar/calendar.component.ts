@@ -2,10 +2,11 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  HostListener,
+  HostListener, Injector,
   Input,
-  ViewChild,
-} from '@angular/core';
+  OnInit,
+  ViewChild
+} from "@angular/core";
 import { ButtonComponent } from '../button/button.component';
 import {
   FullCalendarComponent,
@@ -21,7 +22,7 @@ import listPlugin from '@fullcalendar/list';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import frLocale from '@fullcalendar/core/locales/fr';
 import { MatIcon } from '@angular/material/icon';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgIf } from "@angular/common";
 import { MatFormField } from '@angular/material/form-field';
 import {
   MatDatepicker,
@@ -32,6 +33,7 @@ import { FormsModule } from '@angular/forms';
 import { MatInput, MatLabel } from '@angular/material/input';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { Router } from '@angular/router';
+import { UserService } from "../../services/User.service";
 
 export interface EventInterface {
   id: number;
@@ -56,17 +58,22 @@ export interface EventInterface {
     MatDatepickerInput,
     MatInput,
     MatLabel,
+    NgIf
   ],
   providers: [MatDatepickerModule, provideNativeDateAdapter()],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.css',
 })
-export class CalendarComponent {
+export class CalendarComponent implements OnInit {
   @ViewChild('calendar')
   calendarComponent: FullCalendarComponent = new FullCalendarComponent(
     {} as ElementRef,
     {} as ChangeDetectorRef,
   );
+
+  constructor(private injector: Injector, private router: Router) {}
+
+  protected userService = this.injector.get(UserService);
 
   private calendarView: string = 'dayGridMonth';
 
@@ -113,7 +120,6 @@ export class CalendarComponent {
       end: this.endButton(),
     });
   }
-  constructor(private router: Router) {}
 
   updateEvent() {
     this.router.navigate(['/event/update'], {
@@ -122,6 +128,7 @@ export class CalendarComponent {
   }
 
   ngOnInit() {
+    console.log(this.events)
     this.screenHeight = document.documentElement.clientHeight;
     this.screenWidth = document.documentElement.clientWidth;
     if (this.screenWidth > 660) {
@@ -134,6 +141,7 @@ export class CalendarComponent {
 
   ngAfterViewInit(): void {
     this.calendarOptions.events = this.events;
+    console.log(this.events);
   }
 
   ngOnChanges(): void {
@@ -172,6 +180,7 @@ export class CalendarComponent {
       stand_size: clickedEvent.event.extendedProps['stand_size'],
       item_manager: clickedEvent.event.extendedProps['item_manager'],
     } as EventInterface;
+    console.log(clickedEvent.event.start);
 
     let dialog = document.getElementById('dialog') as HTMLDialogElement;
     if (this.screenWidth > 900) {
@@ -186,7 +195,6 @@ export class CalendarComponent {
       dialog.style.left = this.x + 'px';
       dialog.style.top = this.y + 'px';
     } else {
-      console.log(this.screenWidth);
       dialog.style.width = this.screenWidth - 32 - 2 + 'px';
       dialog.style.maxWidth = 'none';
       dialog.style.top = 0 + 'px';

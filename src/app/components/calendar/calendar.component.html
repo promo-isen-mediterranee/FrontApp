@@ -31,14 +31,25 @@
       />
       <mat-datepicker #picker_end></mat-datepicker>
     </mat-form-field>
-    <p>Statut: {{ selectedEvent.status }}</p>
+    <p *ngIf="userService.hasPermission(3)">Statut: {{ selectedEvent.status }}</p>
     <p>Lieu: {{ selectedEvent.location }}</p>
+    <div [className]="'d-flex flex-column'">
+      <a [href]="'/event/checklist'" [className]="'form-access-link'" *ngIf="userService.hasPermission(12)">
+        Formulaire de départ
+        <mat-icon fontIcon="arrow_forward" />
+      </a>
+      <a [href]="'/event/checklist'" [className]="'form-access-link'" *ngIf="userService.hasPermission(12)">
+        Formulaire de retour
+        <mat-icon fontIcon="arrow_forward" />
+      </a>
+    </div>
     <app-button
       [solid]="true"
       [type]="'primary'"
       label="Mettre à jour"
       id="submit"
       (click)="updateEvent()"
+      *ngIf="userService.hasPermission(2)"
     >
     </app-button>
   </div>

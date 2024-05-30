@@ -1,16 +1,42 @@
-<div>
-  <div>
-    <img src="{{ image }}" alt="{{ title }}" />
+<ng-container *ngIf="itemsToDisplay && itemsToDisplay.length > 0">
+  <div *ngFor="let item of itemsToDisplay">
+    <div class="file" (click)="toggleActions($event)">
+      <div
+        [ngClass]="{
+            card: item,
+            'card-warning': quantityLimitedItems.includes(item)
+          }"
+      >
+        <div class="details">
+            <span class="item">
+              {{
+                item?.item_id?.name ?? "No name provided"
+              }}
+            </span>
+        </div>
+        <div class="details">
+            <span class="room">
+              Salle: {{ item?.location_id?.room ?? "No room provided" }}
+            </span>
+          <span class="quantity-i">
+            Quantité: {{ item?.quantity ?? "No quantity provided" }}
+          </span>
+        </div>
+        <div class="actions">
+          <button
+            mat-icon-button
+            class="edit-button"
+            (click)="editItem(item)">
+            <mat-icon class="pen" fontIcon="edit">Modifier</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            class="delete-button"
+            (click)="deleteItem(item)">
+            <mat-icon class="trash" fontIcon="delete">Supprimer</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
-  <div>
-    <h5>{{ title }}</h5>
-    <p>Salle: {{ room }}</p>
-    <p>Quantité: {{ quantity }}</p>
-  </div>
-</div>
-
-<app-button
-  type="primary"
-  [solid]="true"
-  label="Ajouter un matériel"
-></app-button>
+</ng-container>

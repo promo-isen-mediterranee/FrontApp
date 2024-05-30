@@ -1,0 +1,59 @@
+<div [className]="'header'">
+  <a
+    href="/"
+    [className]="
+      ['w-100', 'left-align', 'color-black', 'mobile-view'].join(' ')
+    "
+  >
+    <mat-icon fontIcon="arrow_back" />
+  </a>
+  <div [className]="'header-container'">
+    <h2>Espace administrateur</h2>
+    <img
+      ngSrc="assets/img/logos/logo-admin.png"
+      alt="Logo administrateur"
+      class="mt-2"
+      height="300"
+      width="300"
+      priority
+    />
+  </div>
+</div>
+<div [className]="'container'">
+  <div id="actionButtons">
+    <app-button
+      type="primary"
+      label="Gestion utilisateurs"
+      [solid]="true"
+      [css]="'mt-8'"
+      onClickLink="/admin/user"
+      *ngIf="userService.hasPermission(13)" />
+    <app-button
+      type="primary"
+      label="Gestion lieux"
+      [solid]="true"
+      [css]="'mt-2'"
+      onClickLink="/admin/location"
+      *ngIf="userService.hasPermission(7)" />
+    <app-button
+      type="primary"
+      label="Gestion rôles"
+      [solid]="true"
+      [css]="'mt-2'"
+      onClickLink="/admin/role"
+      *ngIf="userService.hasPermission(15)"/>
+    <app-button
+      type="primary"
+      label="Gestion catégories"
+      [solid]="true"
+      [css]="'mt-2'"
+      onClickLink="/admin/category"
+      *ngIf="userService.hasPermission(9)" />
+    <app-button
+      type="secondary"
+      label="Quitter l'espace administrateur"
+      [solid]="true"
+      [css]="'mt-2'"
+      onClickLink="/" />
+  </div>
+</div>

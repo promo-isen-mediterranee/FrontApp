@@ -1,23 +1,31 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input } from "@angular/core";
 import { ButtonComponent } from '../button/button.component';
-
+import { MatIcon } from "@angular/material/icon";
+import { MatIconButton } from "@angular/material/button";
+import { NgClass, NgForOf, NgIf } from "@angular/common";
 @Component({
   selector: 'app-stock-item',
   standalone: true,
-  imports: [ButtonComponent],
+  imports: [ButtonComponent, MatIcon, MatIconButton, NgForOf, NgIf, NgClass],
   templateUrl: './stock-item.component.html',
   styleUrl: './stock-item.component.css',
 })
 export class StockItemComponent {
-  @Input()
-  title: string = '';
+  constructor() {
+  }
 
   @Input()
-  room: string = '';
+  itemsToDisplay: any[] = [];
 
   @Input()
-  quantity: number = 0;
+  quantityLimitedItems: any[] = [];
 
   @Input()
-  image: string = '';
+  toggleActions!: ($event: MouseEvent) => void;
+
+  @Input()
+  editItem!: (item: any) => void;
+
+  @Input()
+  deleteItem!: (item: any) => void;
 }

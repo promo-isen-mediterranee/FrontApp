@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { NgClass } from '@angular/common';
+import { Component, Input, SecurityContext } from "@angular/core";
+import { NgClass } from "@angular/common";
+import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
   selector: 'app-button',
@@ -30,6 +31,9 @@ export class ButtonComponent {
   @Input()
   disabled: boolean = false;
 
+  constructor(private sanitizer: DomSanitizer) {
+  }
+
   public get classes(): string[] {
     const mode =
       this.type == 'primary'
@@ -44,8 +48,9 @@ export class ButtonComponent {
   }
 
   public clickFunction() {
-    if (this.onClickLink != '') {
-      document.location.href = this.onClickLink;
+    const link = this.sanitizer.sanitize(SecurityContext.URL, this.onClickLink);
+    if (this.onClickLink != '' && link != null) {
+      document.location.href = link
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { ButtonComponent } from '../../components/button/button.component';
 import { SelectComponent } from '../../components/select/select.component';
 import {
@@ -8,7 +8,6 @@ import {
 } from '@angular/material/form-field';
 import { MatInput, MatInputModule, MatLabel } from '@angular/material/input';
 import { MatOption, MatSelect } from '@angular/material/select';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import {
   FormControl,
   ReactiveFormsModule,
@@ -16,20 +15,19 @@ import {
   Validators,
 } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { AsyncPipe, NgOptimizedImage } from "@angular/common";
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpClientModule,
-} from '@angular/common/http';
+import { AsyncPipe, NgOptimizedImage } from '@angular/common';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
-import { Location } from "../../interfaces/Location";
-import { Category } from "../../interfaces/Category";
+import { Location } from '../../interfaces/Location';
+import { Category } from '../../interfaces/Category';
 
+@Injectable({ providedIn: 'root' })
 @Component({
   selector: 'app-add-inventory-form-page',
   standalone: true,
+  templateUrl: './AddInventoryFormPage.component.html',
+  styleUrl: './AddInventoryFormPage.component.css',
   imports: [
     ButtonComponent,
     SelectComponent,
@@ -42,14 +40,11 @@ import { Category } from "../../interfaces/Category";
     FormsModule,
     ReactiveFormsModule,
     AsyncPipe,
-    HttpClientModule,
-    NgOptimizedImage
+    NgOptimizedImage,
   ],
-  providers: [MatFormFieldModule, MatInputModule, provideAnimations()],
-  templateUrl: './AddInventoryFormPage.component.html',
-  styleUrl: './AddInventoryFormPage.component.css',
+  providers: [MatFormFieldModule, MatInputModule],
 })
-export class AddInventoryFormPageComponent {
+export class AddInventoryFormPageComponent implements OnInit {
   public roomControl = new FormControl('', Validators.required);
   public categoryControl = new FormControl('');
 
@@ -73,11 +68,15 @@ export class AddInventoryFormPageComponent {
   ) {}
 
   getLocation(): Observable<any> {
-    return this.http.get<any>(this.apiUrl + 'location/getAll');
+    return this.http.get<any>(this.apiUrl + 'location/getAll', {
+      withCredentials: true
+    });
   }
 
   getCategories(): Observable<any> {
-    return this.http.get<any>(this.apiUrl + 'category/getAll');
+    return this.http.get<any>(this.apiUrl + 'category/getAll', {
+      withCredentials: true
+    });
   }
 
   ngOnInit() {
@@ -90,8 +89,15 @@ export class AddInventoryFormPageComponent {
           city: location.city,
           room: location.room,
         };
-        this.options.push(option);
+        if (location.room != '') {
+          this.options.push(option);
+        }
       }
+    },  (error) => {
+      if(error.status === 401) {
+        this.router.navigate(['/'])
+      }
+      throw error;
     });
     this.getCategories().subscribe((data) => {
       this.categories = data;
@@ -102,6 +108,8 @@ export class AddInventoryFormPageComponent {
         };
         this.optionsC.push(optionC);
       }
+    },  () => {
+      this.router.navigate(['login'])
     });
   }
 
@@ -123,26 +131,29 @@ export class AddInventoryFormPageComponent {
     itemData.set('location.id', this.address.id);
     itemData.set('category', this.category.label);
     itemData.set('quantity', this.quantity);
-    this.http
-      .post(this.apiUrl + 'item/create', itemData, {
-        headers,
-        responseType: 'text',
-      })
-      .subscribe(
-        () => {
-          this.router.navigate(['/success'], {
-            queryParams: {
-              text:
-                'L item ' +
-                this.toTitleCase(this.itemName) +
-                ' a été ajouté avec succès',
-              link: '/stock',
-            },
-          });
-        },
-        (error) => {
-          console.error(error.status);
-        },
-      );
+    this.http.post(this.apiUrl + 'item/create', itemData, {
+      headers: headers,
+      responseType: 'text',
+      withCredentials: true,
+    })
+    .subscribe(
+      () => {
+        this.router.navigate(['/success'], {
+          queryParams: {
+            text:
+              "L'item " +
+              this.toTitleCase(this.itemName) +
+              ' a été ajouté avec succès',
+            link: '/stock',
+          },
+        });
+      },
+      (error) => {
+        if(error.status === 401) {
+          this.router.navigate(['login'])
+        }
+        throw error;
+      }
+    );
   }
 }

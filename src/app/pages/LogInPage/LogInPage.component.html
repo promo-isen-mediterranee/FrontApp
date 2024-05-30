@@ -1,24 +1,34 @@
 <div [className]="'header-container'">
   <h2>Connexion</h2>
 </div>
-<div class="container">
-  <img src="assets/img/icons/ISEN-bulles.png" alt="Bulles ISEN" />
+<div [className]="'container h-100 align-center'">
+  <img
+    ngSrc="assets/img/icons/ISEN-bulles.svg"
+    alt="ISEN bulles"
+    priority
+    width="188"
+    height="196"
+  />
   <p>Bienvenue sur <b>IMS Promo</b> 👋</p>
   <p><b>Connecte-toi ! 🔑</b></p>
 </div>
 
-<form method="post">
+<form method="post" (ngSubmit)="login()">
   <mat-form-field [className]="'form-group'">
-    <mat-label>Adresse mail</mat-label>
+    <mat-label>Nom d'utilisateur</mat-label>
     <input
-      type="email"
+      type="text"
       matInput
       id="mail_user"
-      name="mail"
+      name="username"
       required
-      placeholder="antoine.dupont@isen.fr"
+      placeholder="antoine.dupont"
+      autocomplete="off"
+      [formControl]="username"
     />
-    <mat-error>Veuillez vérifier votre mail</mat-error>
+    @if(username.hasError('required')) {
+      <mat-error>Le nom d'utilisateur doit être renseigné</mat-error>
+    }
   </mat-form-field>
   <mat-form-field [className]="'form-group'">
     <mat-label>Mot de passe</mat-label>
@@ -29,7 +39,12 @@
       name="password"
       required
       placeholder="Mot de passe"
+      autocomplete="off"
+      [formControl]="password"
     />
+    @if(password.hasError('required')) {
+      <mat-error>Le mot de passe doit être renseigné</mat-error>
+    }
   </mat-form-field>
   <app-button
     [solid]="true"

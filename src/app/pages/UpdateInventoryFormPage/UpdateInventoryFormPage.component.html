@@ -1,6 +1,11 @@
 <div [className]="'header'">
-  <a href="/" [className]="['w-100', 'left-align']">
-    <i class="fa-solid fa-arrow-left"></i>
+  <a
+    href="/"
+    [className]="
+      ['w-100', 'left-align', 'color-black', 'mobile-view'].join(' ')
+    "
+  >
+    <mat-icon fontIcon="arrow_back" />
   </a>
   <div [className]="'header-container'">
     <h2>Modification inventaire</h2>
@@ -18,7 +23,8 @@
   <form method="post">
     <mat-form-field [className]="'form-group'">
       <mat-label>Matériel</mat-label>
-      <input matInput
+      <input
+        matInput
         type="text"
         id="item_selected"
         name="item"
@@ -28,12 +34,18 @@
 
     <mat-form-field [className]="'form-group'">
       <mat-label>Salle</mat-label>
-      <input matInput
-        type="text"
-        id="room_selected"
-        name="room"
-        [(ngModel)]="selectedItem.location_id.room"
-      />
+      <mat-select
+        id="room_select"
+        required
+        [formControl]="roomControl"
+        [(value)]="selectedItem.location_id.room"
+      >
+        @for (option of options; track option) {
+          <mat-option [value]="option">
+            {{ option.room }}
+          </mat-option>
+        }
+      </mat-select>
     </mat-form-field>
 
     <mat-form-field [className]="'form-group'">

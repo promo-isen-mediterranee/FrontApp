@@ -1,13 +1,8 @@
-import { Component, Input, NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { LowerCasePipe, NgForOf } from '@angular/common';
 import { RemoveSpecialCharactersPipe } from '../../pipes/removeSpecialCharacters.pipe';
 import { ButtonComponent } from '../button/button.component';
-
-export interface ChecklistItem {
-  name: string;
-  quantity: number;
-  checked: boolean;
-}
+import { ReservedItem } from '../../interfaces/ReservedItem';
 
 @Component({
   selector: 'app-checklist-item',
@@ -20,19 +15,19 @@ export interface ChecklistItem {
   ],
   templateUrl: './ChecklistItem.component.html',
   styleUrl: './ChecklistItem.component.css',
-  schemas: [NO_ERRORS_SCHEMA],
 })
 export class ChecklistItemComponent {
   @Input()
-  items: ChecklistItem[] = [];
+  items: ReservedItem[] = [];
 
-  public setVisible(item: ChecklistItem) {
-    item.checked = !item.checked;
+  public setVisible(item: ReservedItem) {
+    item.status = !item.status;
     document
       .getElementById(
-        new RemoveSpecialCharactersPipe().transform(item.name).toLowerCase() +
-          '_div',
+        new RemoveSpecialCharactersPipe()
+          .transform(item.item_location.item_id.name)
+          .toLowerCase() + '_div',
       )
-      ?.setAttribute('checked', item.checked.toString());
+      ?.setAttribute('checked', item.status.toString());
   }
 }

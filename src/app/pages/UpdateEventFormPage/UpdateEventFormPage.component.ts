@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { ButtonComponent } from '../../components/button/button.component';
 import { SelectComponent } from '../../components/select/select.component';
 import {
@@ -22,28 +22,26 @@ import {
 import { FormsModule, NgForm } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatError, MatFormFieldModule } from '@angular/material/form-field';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpClientModule,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationDialogComponent } from '../../components/ConfirmationDialog/ConfirmationDialog.component';
-import { Status } from "../../interfaces/Status";
-import { Person } from "../../interfaces/Person";
-import { Location } from "../../interfaces/Location";
+import { ConfirmationDialogComponent } from '../../components/confirmationDialog/confirmationDialog.component';
+import { Person } from '../../interfaces/Person';
+import { Location } from '../../interfaces/Location';
+import { MatIcon } from '@angular/material/icon';
+import { EventStatus } from "../../interfaces/EventStatus";
 
+@Injectable({ providedIn: 'root' })
 @Component({
   selector: 'app-update-event-form-page',
   standalone: true,
+  templateUrl: './UpdateEventFormPage.component.html',
+  styleUrl: './UpdateEventFormPage.component.css',
   imports: [
-    HttpClientModule,
     ButtonComponent,
     SelectComponent,
     CommonModule,
@@ -63,27 +61,21 @@ import { Location } from "../../interfaces/Location";
     MatAutocompleteTrigger,
     MatError,
     AsyncPipe,
+    MatIcon,
   ],
-  providers: [
-    MatDatepickerModule,
-    MatInputModule,
-    MatFormFieldModule,
-    provideAnimations(),
-  ],
-  templateUrl: './UpdateEventFormPage.component.html',
-  styleUrl: './UpdateEventFormPage.component.css',
+  providers: [MatDatepickerModule, MatInputModule, MatFormFieldModule],
 })
 export class UpdateEventFormPageComponent implements OnInit {
   selectedEvent: any = {};
 
   private apiUrl = environment.apiEventUrl;
   protected optionsL: Location[] = [];
-  protected optionsS: Status[] = [];
+  protected optionsS: EventStatus[] = [];
   protected optionsM: Person[] = [];
 
   eventName: string = '';
   eventAddress: any;
-  eventStatus: Status = { id: 0, label: '' };
+  eventStatus: EventStatus = { id: 0, label: '' };
   eventManager: Person = { id: '', last_name: 'A', first_name: 'Definir' };
 
   constructor(
@@ -103,7 +95,7 @@ export class UpdateEventFormPageComponent implements OnInit {
     return location ? `${location.address}, ${location.city}` : '';
   }
 
-  displayS(status: Status): string {
+  displayS(status: EventStatus): string {
     return status ? status.label : '';
   }
 
@@ -112,15 +104,21 @@ export class UpdateEventFormPageComponent implements OnInit {
   }
 
   getPerson(): Observable<any> {
-    return this.http.get<any>(this.apiUrl + 'person/getAll');
+    return this.http.get<any>(this.apiUrl + 'person/getAll', {
+      withCredentials: true,
+    });
   }
 
   getLocation(): Observable<any> {
-    return this.http.get<any>(this.apiUrl + 'location/getAll');
+    return this.http.get<any>(this.apiUrl + 'location/getAll', {
+      withCredentials: true,
+    });
   }
 
   getStatus(): Observable<any> {
-    return this.http.get<any>(this.apiUrl + 'status/getAll');
+    return this.http.get<any>(this.apiUrl + 'status/getAll', {
+      withCredentials: true,
+    });
   }
 
   onAddressSelected(option: any): void {
@@ -162,7 +160,7 @@ export class UpdateEventFormPageComponent implements OnInit {
     });
     this.getStatus().subscribe((data) => {
       for (const stat of data) {
-        const option: Status = {
+        const option: EventStatus = {
           id: stat.id,
           label: stat.label,
         };
@@ -217,10 +215,10 @@ export class UpdateEventFormPageComponent implements OnInit {
         .put(this.apiUrl + this.selectedEvent.id, eventData, {
           headers,
           responseType: 'text',
+          withCredentials: true,
         })
         .subscribe(
-          (response) => {
-            console.log(response);
+          () => {
             this.router.navigate(['/success'], {
               queryParams: {
                 text:
@@ -232,6 +230,9 @@ export class UpdateEventFormPageComponent implements OnInit {
             });
           },
           (error) => {
+            if(error.status === 401) {
+              this.router.navigate(['/'])
+            }
             console.error(error.status);
           },
         );
@@ -246,6 +247,7 @@ export class UpdateEventFormPageComponent implements OnInit {
           .delete(this.apiUrl + this.selectedEvent.id, {
             responseType: 'text',
             observe: 'response',
+            withCredentials: true,
           })
           .subscribe(
             (response) => {
@@ -253,7 +255,7 @@ export class UpdateEventFormPageComponent implements OnInit {
                 this.router.navigate(['/success'], {
                   queryParams: {
                     text:
-                      'L évènement ' +
+                      "L'évènement " +
                       this.toTitleCase(this.eventName) +
                       ' a été supprimé avec succès',
                     link: '/event/list',
@@ -270,7 +272,9 @@ export class UpdateEventFormPageComponent implements OnInit {
               }
             },
             (error) => {
-              console.error(error.status);
+              if(error.status === 401) {
+                this.router.navigate(['/'])
+              }
               this.snackBar.open(
                 'Une erreur est survenue: ' + error.message,
                 'Fermer',
@@ -285,7 +289,6 @@ export class UpdateEventFormPageComponent implements OnInit {
   }
 
   public closeDatepicker(datepicker: MatDatepicker<Date>): void {
-    console.log('closing datepicker');
     datepicker['_destroyOverlay']();
   }
 }

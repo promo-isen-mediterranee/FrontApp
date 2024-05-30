@@ -1,10 +1,9 @@
 export interface User {
-  user:{
-    username: string;
-    email: string;
-  };
-  role:{
-    id:number;
-    label:string;
-  };
+  id: number;
+  first_name: string;
+  last_name: string;
+  username: string;
+  mail: string;
+  is_active: boolean;
+  is_authenticated: boolean;
 }

@@ -1,0 +1,38 @@
+<div [className]="'header'">
+  <a
+    href="/"
+    [className]="
+      ['w-100', 'left-align', 'color-black', 'mobile-view'].join(' ')
+    "
+  >
+    <mat-icon fontIcon="arrow_back" />
+  </a>
+  <div [className]="'header-container'">
+    <h2>Ajout d'une catégorie</h2>
+  </div>
+</div>
+<div class="container">
+  <form method="post" (ngSubmit)="submitForm()">
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Label</mat-label>
+      <input
+        matInput
+        placeholder="Kakémono"
+        name="categoryNameInput"
+        required
+        [formControl]="categoryFormControl"
+      />
+      @if (categoryFormControl.hasError("required")) {
+        <mat-error>Le nom de la catégorie est obligatoire</mat-error>
+      }
+    </mat-form-field>
+  </form>
+  <div id="actionButtons">
+    <app-button
+      [solid]="true"
+      [type]="'primary'"
+      label="Ajouter la catégorie"
+      id="submit"
+    />
+  </div>
+</div>

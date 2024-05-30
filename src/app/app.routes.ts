@@ -1,38 +1,66 @@
-import { Routes } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  CanActivateFn,
+  RouterStateSnapshot,
+  Routes,
+} from '@angular/router';
+import { inject } from '@angular/core';
 import { HomePageComponent } from './pages/HomePage/HomePage.component';
 import { IMSListPageComponent } from './pages/IMSListPage/IMSListPage.component';
 import { LogInPageComponent } from './pages/LogInPage/LogInPage.component';
-import { SuccessPageComponent } from './pages/SucessPage/SuccessPage.component';
 import { EventListPageComponent } from './pages/EventListPage/EventListPage.component';
 import { UpdateInventoryFormPageComponent } from './pages/UpdateInventoryFormPage/UpdateInventoryFormPage.component';
 import { AddInventoryFormPageComponent } from './pages/AddInventoryFormPage/AddInventoryFormPage.component';
 import { AddEventFormPageComponent } from './pages/AddEventFormPage/AddEventFormPage.component';
 import { UpdateEventFormPageComponent } from './pages/UpdateEventFormPage/UpdateEventFormPage.component';
-import { AdminPageComponent } from './pages/AdminPage/AdminPage.component';
-import { UserListPageComponent } from './pages/UserListPage/UserListPage.component';
-import { AddUserFormPageComponent } from './pages/AddUserFormPage/AddUserFormPage.component';
-import { LocationListPageComponent } from './pages/LocationListPage/LocationListPage.component';
-import { AddLocationFormPageComponent } from './pages/AddLocationFormPage/AddLocationFormPage.component';
-import { UpdateLocationFormPageComponent } from './pages/UpdateLocationFormPage/UpdateLocationFormPage.component';
-import { ListCategoryPageComponent } from './pages/ListCategoryPage/ListCategoryPage.component';
+import { AdminPageComponent } from './pages/Admin/AdminPage/AdminPage.component';
+import { UserListPageComponent } from './pages/Admin/UserListPage/UserListPage.component';
+import { AddUserFormPageComponent } from './pages/Admin/AddUserFormPage/AddUserFormPage.component';
+import { LocationListPageComponent } from './pages/Admin/LocationListPage/LocationListPage.component';
+import { AddLocationFormPageComponent } from './pages/Admin/AddLocationFormPage/AddLocationFormPage.component';
+import { UpdateLocationFormPageComponent } from './pages/Admin/UpdateLocationFormPage/UpdateLocationFormPage.component';
+import { ListCategoryPageComponent } from './pages/Admin/ListCategoryPage/ListCategoryPage.component';
+import { InventoryChecklistForEventComponent } from './pages/InventoryChecklistForEvent/InventoryChecklistForEvent.component';
+import { AddCategoryFormComponent } from './pages/Admin/AddCategoryForm/AddCategoryForm.component';
+import { LogOutPageComponent } from "./pages/LogOutPage/LogOutPage.component";
+import { UserLoggedInActivateService } from './services/guards/UserLoggedInActivate.service';
+import { UserAdminActivateService } from './services/guards/UserAdminActivate.service';
+import { UserNotLoggedInActivateService } from './services/guards/UserNotLoggedInActivate.service';
+import { SuccessPageComponent } from "./pages/SucessPage/SuccessPage.component";
+import { AlertListPageComponent } from "./pages/AlertListPage/AlertListPage.component";
+import { ListRolePageComponent } from "./pages/Admin/ListRolePage/ListRolePage.component";
+
+export const canActivateUserLoggedIn: CanActivateFn = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+) => inject(UserLoggedInActivateService).canActivate();
+
+export const canActivateUserNotLoggedIn: CanActivateFn = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+) => inject(UserNotLoggedInActivateService).canActivate();
+
+export const canActivateUserAdmin: CanActivateFn = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+) => inject(UserAdminActivateService).canActivate();
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
-    pathMatch: 'full',
-  },
-  {
-    path: 'home',
     component: HomePageComponent,
-  },
-  {
-    path: 'stock',
-    component: IMSListPageComponent,
   },
   {
     path: 'login',
     component: LogInPageComponent,
+  },
+  {
+    path: 'logout',
+    component: LogOutPageComponent,
+  },
+  {
+    path: 'stock',
+    component: IMSListPageComponent,
   },
   {
     path: 'success',
@@ -59,31 +87,47 @@ export const routes: Routes = [
     component: UpdateEventFormPageComponent,
   },
   {
+    path: 'alerts',
+    component: AlertListPageComponent
+  },
+  {
     path: 'admin',
     component: AdminPageComponent,
   },
   {
-    path: 'user',
+    path: 'admin/user',
     component: UserListPageComponent,
   },
   {
-    path: 'user/add',
+    path: 'admin/user/add',
     component: AddUserFormPageComponent,
   },
   {
-    path: 'location',
+    path: 'admin/location',
     component: LocationListPageComponent,
   },
   {
-    path: 'location/add',
+    path: 'admin/location/add',
     component: AddLocationFormPageComponent,
   },
   {
-    path: 'location/update',
+    path: 'admin/location/update',
     component: UpdateLocationFormPageComponent,
   },
   {
-    path: 'category',
+    path: 'admin/category',
     component: ListCategoryPageComponent,
   },
+  {
+    path: 'event/checklist',
+    component: InventoryChecklistForEventComponent,
+  },
+  {
+    path: 'admin/category/add',
+    component: AddCategoryFormComponent,
+  },
+  {
+    path: 'admin/role',
+    component: ListRolePageComponent
+  }
 ];

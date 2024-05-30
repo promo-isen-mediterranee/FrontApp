@@ -1,0 +1,42 @@
+<mat-drawer-container [ngStyle]="{ 'width.em': sidenavWidth }" (mouseenter)="increase()" (mouseleave)="decrease()">
+  <mat-drawer #drawer mode="side">
+    <mat-tree>
+      <mat-nested-tree-node>
+        Catégorie
+        <mat-nested-tree-node>
+          Créer
+        </mat-nested-tree-node>
+        <mat-nested-tree-node>
+          Lister
+        </mat-nested-tree-node>
+      </mat-nested-tree-node>
+      <mat-nested-tree-node>
+        Événement
+        <mat-nested-tree-node>
+          Créer
+        </mat-nested-tree-node>
+        <mat-nested-tree-node>
+          Lister
+        </mat-nested-tree-node>
+      </mat-nested-tree-node>
+      <mat-nested-tree-node>
+        Matériel
+        <mat-nested-tree-node>
+          Créer
+        </mat-nested-tree-node>
+        <mat-nested-tree-node>
+          Lister
+        </mat-nested-tree-node>
+      </mat-nested-tree-node>
+      <mat-nested-tree-node>
+        Utilisateur
+        <mat-nested-tree-node>
+          Créer
+        </mat-nested-tree-node>
+        <mat-nested-tree-node>
+          Lister
+        </mat-nested-tree-node>
+      </mat-nested-tree-node>
+    </mat-tree>
+  </mat-drawer>
+</mat-drawer-container>
