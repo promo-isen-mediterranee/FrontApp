@@ -1,6 +1,6 @@
-import { Status } from "./Status";
-import { Person } from "./Person";
-import { Location } from "./Location";
+import { Person } from './Person';
+import { Location } from './Location';
+import { EventStatus } from "./EventStatus";
 
 export interface EventFromAPI {
   id: number;
@@ -9,7 +9,7 @@ export interface EventFromAPI {
   contact_objective: number;
   date_start: Date;
   date_end: Date;
-  status: Status;
+  status: EventStatus;
   item_manager: Person;
   location: Location;
 }

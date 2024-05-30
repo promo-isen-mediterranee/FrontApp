@@ -1,7 +1,7 @@
 <nav [className]="classes">
-  <ul>
+  <ul *ngIf="visibleDesktop">
     <li>
-      <a [routerLink]="['/home']" [routerLinkActive]="'active'">
+      <a [routerLink]="['/']" [routerLinkActive]="'active'">
         <mat-icon fontIcon="home" />
         Accueil
       </a>
@@ -19,7 +19,13 @@
       </a>
     </li>
   </ul>
-  <ul [className]="'mr-1em'">
+  <ul [className]="'mr-1em'" *ngIf="visibleDesktop">
+    <li>
+      <a [routerLink]="['/alerts']" [routerLinkActive]="'active'">
+        <mat-icon fontIcon="notifications_active" />
+        Notifications
+      </a>
+    </li>
     <li>
       <a [routerLink]="['/logout']" [routerLinkActive]="'active'">
         <mat-icon fontIcon="logout" />
@@ -29,9 +35,9 @@
   </ul>
 
   <!-- Mobile ul below -->
-  <ul [className]="'ul-mobile'">
+  <ul [className]="'ul-mobile'" *ngIf="!visibleDesktop">
     <li>
-      <a [routerLink]="['/home']" [routerLinkActive]="'active'">
+      <a [routerLink]="['/']" [routerLinkActive]="'active'">
         <mat-icon fontIcon="home" />
         Accueil
       </a>

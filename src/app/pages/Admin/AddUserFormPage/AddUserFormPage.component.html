@@ -1,26 +1,62 @@
 <div [className]="'header'">
-  <a href="/" [className]="['w-100', 'left-align']">
-    <i class="fa-solid fa-arrow-left"></i>
+  <a
+    href="/"
+    [className]="
+      ['w-100', 'left-align', 'color-black', 'mobile-view'].join(' ')
+    "
+  >
+    <mat-icon fontIcon="arrow_back" />
   </a>
   <div [className]="'header-container'">
     <h2>Ajout d'utilisateur</h2>
   </div>
 </div>
 <div class="container">
-  <form method="post">
+  <form method="post" (ngSubmit)="submitForm()">
     <mat-form-field [className]="'form-group'">
       <mat-label>Prénom</mat-label>
-      <input matInput placeholder="Antoine" name="nameInput" required />
+      <input
+        matInput
+        placeholder="Antoine"
+        name="nameInput"
+        required
+        [formControl]="userNameControl"
+      />
+      @if (userNameControl.hasError("required")) {
+        <mat-error>Le prénom est obligatoire</mat-error>
+      }
     </mat-form-field>
     <mat-form-field [className]="'form-group'">
       <mat-label>Nom</mat-label>
-      <input matInput placeholder="Dupont" name="surnameInput" required />
+      <input
+        matInput
+        placeholder="Dupont"
+        name="surnameInput"
+        required
+        [formControl]="userSurnameControl"
+      />
+      @if (userSurnameControl.hasError("required")) {
+        <mat-error>Le nom est obligatoire</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Nom d'utilisateur</mat-label>
+      <input
+        matInput
+        placeholder="antoine.dupont"
+        name="usernameInput"
+        required
+        [formControl]="userUsernameControl"
+      />
+      @if (userUsernameControl.hasError("required")) {
+        <mat-error>Le nom d'utilisateur est obligatoire</mat-error>
+      }
     </mat-form-field>
     <mat-form-field [className]="'form-group'">
       <mat-label>Rôle</mat-label>
       <mat-select [(value)]="roleSelector" required multiple>
         @for (role of roles; track role) {
-          <mat-option value="{{ role.value }}">{{ role.label }}</mat-option>
+          <mat-option value="{{ role.id }}">{{ role.label }}</mat-option>
         }
       </mat-select>
     </mat-form-field>
@@ -32,7 +68,14 @@
         placeholder="antoine.dupont@isen.fr"
         name="emailInput"
         required
+        [formControl]="userEmailControl"
       />
+      @if (userSurnameControl.hasError("required")) {
+        <mat-error>L'adresse mail est obligatoire</mat-error>
+      }
+      @if (userSurnameControl.hasError("email")) {
+        <mat-error>Veuillez renseigner une adresse mail valide</mat-error>
+      }
     </mat-form-field>
   </form>
   <div id="actionButtons">

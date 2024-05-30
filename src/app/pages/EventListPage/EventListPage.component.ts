@@ -1,36 +1,43 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from "@angular/core";
 import { CalendarComponent } from '../../components/calendar/calendar.component';
 import { ButtonComponent } from '../../components/button/button.component';
 import { NgIf } from '@angular/common';
 import { ToggleComponent } from '../../components/toggle/toggle.component';
 import { HttpClient } from '@angular/common/http';
-import { catchError, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { Event } from "../../interfaces/Event";
-import { EventFromAPI } from "../../interfaces/EventFromAPI";
+import { Event } from '../../interfaces/Event';
+import { MatIcon } from '@angular/material/icon';
+import { UserService } from "../../services/User.service";
+import { Router } from "@angular/router";
+import { catchError, tap } from "rxjs";
 
 @Component({
   selector: 'app-event-list-page',
   standalone: true,
-  imports: [CalendarComponent, ButtonComponent, NgIf, ToggleComponent],
+  imports: [CalendarComponent, ButtonComponent, NgIf, ToggleComponent, MatIcon],
   templateUrl: './EventListPage.component.html',
   styleUrl: './EventListPage.component.css',
 })
 export class EventListPageComponent implements OnInit {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private injector: Injector, private router: Router) {}
 
+  public Tabevents: Event[] = [];
   public events: Event[] = [];
   private apiUrl = environment.apiEventUrl;
+  protected userService = this.injector.get(UserService);
 
   ngOnInit() {
     this.http
-      .get<EventFromAPI[]>(this.apiUrl + 'getAll')
+      .get<Event[]>(this.apiUrl + 'getAll', {withCredentials: true})
       .pipe(
         tap((data) => {
-          this.events = this.transformToEventSourceInput(data);
+          this.Tabevents = data;
+          this.events = this.transformToEventSourceInput(this.Tabevents);
         }),
         catchError((error) => {
-          console.error(error);
+          if(error.status === 401) {
+            this.router.navigate(['/']);
+          }
           throw error;
         }),
       )

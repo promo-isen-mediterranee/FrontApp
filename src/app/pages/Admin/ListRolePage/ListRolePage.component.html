@@ -1,0 +1,29 @@
+<div [className]="'header'">
+  <a
+    href="/"
+    [className]="
+      ['w-100', 'left-align', 'color-black', 'mobile-view'].join(' ')
+    "
+  >
+    <mat-icon fontIcon="arrow_back" />
+  </a>
+  <div [className]="'header-container'">
+    <h2>Gestion des rôles</h2>
+  </div>
+</div>
+
+<div [className]="'container'">
+  <div *ngFor="let role of roles">
+    <div class="card">
+      <div class="details">
+        <span class="address">{{
+            role?.label ? (role.label | titlecase) : "Non renseigné"
+          }}</span>
+      </div>
+      <div class="icon-container">
+        <mat-icon class="icon" fontIcon="edit" *ngIf="userService.hasPermission(17)"></mat-icon>
+        <mat-icon class="icon" fontIcon="delete" *ngIf="userService.hasPermission(17)"></mat-icon>
+      </div>
+    </div>
+  </div>
+</div>

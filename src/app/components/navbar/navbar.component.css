@@ -34,7 +34,7 @@ li a:hover {
 }
 
 .ul-mobile {
-  display: none
+  display: none;
 }
 
 .navbar-mobile {
@@ -67,4 +67,3 @@ li a:hover {
 .active {
   opacity: 100%;
 }
-

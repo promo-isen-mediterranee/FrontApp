@@ -1,17 +1,24 @@
 <div [className]="'header'">
-  <a href="/" [className]="['w-100', 'left-align']">
-    <i class="fa-solid fa-arrow-left"></i>
+  <a href="/"
+    [className]="
+      ['w-100', 'left-align', 'color-black', 'mobile-view'].join(' ')">
+    <mat-icon fontIcon="arrow_back" />
   </a>
-  <div [className]="['header-container', 'w-100', 'mb-2']. join(' ')">
+  <div [className]="['header-container', 'w-100', 'mb-2'].join(' ')">
     <h2>Gestion du stock</h2>
   </div>
 
-  <div [className]="['d-flex', 'flex-align-right', 'flex-row'].join(' ')" id="optionsActions">
+  <div [className]="['d-flex', 'flex-align-right', 'flex-row'].join(' ')"
+    id="optionsActions">
     <mat-form-field [className]="'mr-1'">
       <mat-label>Catégorie</mat-label>
-      <mat-select [formControl]="filterControl" (selectionChange)="updateItemsToDisplay()">
+      <mat-select
+        [formControl]="filterControl"
+        (selectionChange)="updateItemsToDisplay()">
         <mat-option [value]="0">--</mat-option>
-        <mat-option *ngFor="let category of categoriesAvailable" [value]="category.id">
+        <mat-option
+          *ngFor="let category of categoriesAvailable"
+          [value]="category.id">
           {{ category.label }}
         </mat-option>
       </mat-select>
@@ -23,35 +30,12 @@
       onClickLink="/stock/add"
       [css]="'btn-plus h-100'"
       [className]="'mb-20px'"
-    ></app-button>
+      *ngIf="canWrite"
+    />
   </div>
 </div>
 
 <div [className]="['container']">
-  <ng-container *ngIf="itemsToDisplay && itemsToDisplay.length > 0">
-    <div *ngFor="let item of itemsToDisplay">
-      <div class="file" (click)="toggleActions($event)">
-        <div [ngClass]="{'card': item, 'card-warning': quantityLimitedItems.includes(item)}">
-          <div class="details">
-            <span class="gap"><br></span>
-            <span class="item">{{item?.item_id?.name ?? 'No name provided'}}</span>
-            <span class="gap"><br></span>
-          </div>
-          <div class="details">
-            <span class="room">Salle: {{item?.location_id?.room ?? 'No room provided'}}</span>
-            <span class="gap"><br></span>
-            <span class="quantity-i">Quantité: {{item?.quantity ?? 'No quantity provided'}}</span>
-          </div>
-          <div class="actions">
-            <button mat-icon-button class="edit-button" (click)="editItem(item)">
-              <mat-icon class="pen" fontIcon="edit">edit</mat-icon>
-            </button>
-            <button mat-icon-button class="delete-button" (click)="deleteItem(item)">
-              <mat-icon class="trash" fontIcon="delete">delete</mat-icon>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </ng-container>
+  <app-stock-item [itemsToDisplay]="itemsToDisplay" [quantityLimitedItems]="quantityLimitedItems"
+                  [editItem]="editItem" [deleteItem]="deleteItem" [toggleActions]="toggleActions"/>
 </div>

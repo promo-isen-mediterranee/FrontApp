@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { ButtonComponent } from '../../components/button/button.component';
 import { SelectComponent } from '../../components/select/select.component';
 import {
@@ -22,22 +22,20 @@ import {
 import { FormsModule, NgForm } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatError, MatFormFieldModule } from '@angular/material/form-field';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpClientModule,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Location } from '../../interfaces/Location';
-import { Person } from "../../interfaces/Person";
+import { Person } from '../../interfaces/Person';
 
+@Injectable({ providedIn: 'root' })
 @Component({
   selector: 'app-add-event-form-page',
   standalone: true,
+  templateUrl: './AddEventFormPage.component.html',
+  styleUrl: './AddEventFormPage.component.css',
   imports: [
     ButtonComponent,
     SelectComponent,
@@ -58,18 +56,10 @@ import { Person } from "../../interfaces/Person";
     MatAutocompleteTrigger,
     MatError,
     AsyncPipe,
-    HttpClientModule,
   ],
-  providers: [
-    MatDatepickerModule,
-    MatInputModule,
-    MatFormFieldModule,
-    provideAnimations(),
-  ],
-  templateUrl: './AddEventFormPage.component.html',
-  styleUrl: './AddEventFormPage.component.css',
+  providers: [MatDatepickerModule, MatInputModule, MatFormFieldModule],
 })
-export class AddEventFormPageComponent {
+export class AddEventFormPageComponent implements OnInit {
   eventName: string = '';
   eventStartDate: Date | null = null;
   eventEndDate: Date | null = null;
@@ -86,11 +76,15 @@ export class AddEventFormPageComponent {
   ) {}
 
   getLocation(): Observable<any> {
-    return this.http.get<any>(this.apiUrl + 'location/getAll');
+    return this.http.get<any>(this.apiUrl + 'location/getAll', {
+      withCredentials: true,
+    });
   }
 
   getPerson(): Observable<any> {
-    return this.http.get<any>(this.apiUrl + 'person/getAll');
+    return this.http.get<any>(this.apiUrl + 'person/getAll', {
+      withCredentials: true,
+    });
   }
 
   ngOnInit(): void {
@@ -109,6 +103,10 @@ export class AddEventFormPageComponent {
           this.options.push(option);
         }
       }
+    }, (error) => {
+      if(error.status === 401) {
+        this.router.navigate(['login'])
+      }
     });
     this.getPerson().subscribe((data) => {
       for (const person of data) {
@@ -125,6 +123,10 @@ export class AddEventFormPageComponent {
         if (!exists) {
           this.optionsM.push(option);
         }
+      }
+    }, (error) => {
+      if(error.status === 401) {
+        this.router.navigate(['login'])
       }
     });
   }
@@ -161,8 +163,8 @@ export class AddEventFormPageComponent {
 
     const eventData = new URLSearchParams();
     eventData.set('name', this.toTitleCase(this.eventName));
-    eventData.set('date_start', this.eventStartDate?.toISOString() ?? '');
-    eventData.set('date_end', this.eventEndDate?.toISOString() ?? '');
+    eventData.set('date_start', this.eventStartDate?.toDateString() ?? '');
+    eventData.set('date_end', this.eventEndDate?.toDateString() ?? '');
     eventData.set('stand_size', this.eventSize);
     eventData.set('contact_objective', this.eventContact);
     eventData.set('location.id', this.eventAddress.id);
@@ -171,8 +173,9 @@ export class AddEventFormPageComponent {
     if (form.valid) {
       this.http
         .post(this.apiUrl + 'create', eventData, {
-          headers,
+          headers: headers,
           responseType: 'text',
+          withCredentials: true,
         })
         .subscribe(
           () => {
@@ -181,12 +184,15 @@ export class AddEventFormPageComponent {
                 text:
                   "L'évènement " +
                   this.toTitleCase(this.eventName) +
-                  " a été ajouté avec succès",
+                  ' a été ajouté avec succès',
                 link: '/event/list',
               },
             });
           },
           (error) => {
+            if(error.status === 401) {
+              this.router.navigate(['login'])
+            }
             console.error(error.status);
           },
         );

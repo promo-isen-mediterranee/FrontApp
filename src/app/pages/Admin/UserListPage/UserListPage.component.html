@@ -1,28 +1,61 @@
 <div class="header">
+  <a
+    href="/"
+    [className]="
+      ['w-100', 'left-align', 'color-black', 'mobile-view'].join(' ')
+    ">
+    <mat-icon fontIcon="arrow_back" />
+  </a>
+
   <div class="header-container">
     <h2>Gestion des utilisateurs</h2>
   </div>
-  <div *ngFor="let user of users">
+
+  <div [className]="'d-flex flex-align-right flex-row'" id="optionsActions">
+    <mat-form-field [className]="'mr-1'">
+      <mat-label>Rechercher</mat-label>
+      <input matInput type="search" placeholder="Antoine Dupont" [matAutocomplete]="auto"
+             [formControl]="searchFieldControl"/>
+      <mat-autocomplete #auto="matAutocomplete">
+        @for (option of filteredOptions | async; track option) {
+          <mat-option [value]="option">{{option.user.first_name + " " + option.user.last_name}}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+    <app-button
+      type="secondary"
+      label="+"
+      [solid]="true"
+      onClickLink="/user/add"
+      [css]="'btn-plus h-100'"
+      [className]="'mb-20px'"
+      *ngIf="userService.hasPermission(14)"
+    ></app-button>
+  </div>
+</div>
+<div [className]="'container'">
+  <ng-container *ngFor="let user of users">
     <div class="file" (click)="toggleActions($event)">
       <div class="card">
         <div class="details">
-          <span class="name">{{user?.user?.username ?? 'No name provided'}}</span>
-          <span class="surname">nom de famille</span>
+          <span class="name">{{
+              user?.user?.first_name ?? "Prénom non renseigné"
+            }}</span>
+          <span class="surname">{{ user?.user?.last_name ?? "Nom non renseigné" }}</span>
         </div>
         <div class="details">
-          <span class="mail">{{user?.user?.mail ?? 'No mail provided'}}</span>
-          <span class="role">{{user?.role?.id ?? 'No role provided'}}</span>
+          <span class="mail">{{ user?.user?.mail ?? "Aucune adresse mail de renseignée" }}</span>
+          <span class="role">{{ userRoles[users.indexOf(user)] ?? "Pas de rôle" }}</span>
         </div>
       </div>
       <div class="actions">
         <button mat-icon-button class="edit-button">
-          <mat-icon class="pen">edit</mat-icon>
+          <mat-icon class="pen" (click)="editUser(user)" *ngIf="userService.hasPermission(14)">Modifier</mat-icon>
         </button>
         <button mat-icon-button class="delete-button">
-          <mat-icon class="trash">delete</mat-icon>
+          <mat-icon class="trash" (click)="deleteUser(user)" *ngIf="userService.hasPermission(14)">Supprimer</mat-icon>
         </button>
       </div>
     </div>
-  </div>
-  <app-button type="primary" label="Ajouter un utilisateur" [solid]="true" css="mt-8" onClickLink="/user/add"></app-button>
+  </ng-container>
 </div>

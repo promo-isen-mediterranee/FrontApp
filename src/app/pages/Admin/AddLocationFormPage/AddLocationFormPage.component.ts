@@ -1,10 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpClientModule,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ButtonComponent } from '../../../components/button/button.component';
 import {
   MatError,
@@ -15,12 +11,15 @@ import { MatInput, MatInputModule, MatLabel } from '@angular/material/input';
 
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
 
+@Injectable({ providedIn: 'root' })
 @Component({
   selector: 'app-add-location-form-page',
   standalone: true,
+  templateUrl: './AddLocationFormPage.component.html',
+  styleUrl: './AddLocationFormPage.component.css',
   imports: [
     ButtonComponent,
     CommonModule,
@@ -31,11 +30,8 @@ import { CommonModule } from '@angular/common';
     MatLabel,
     MatFormFieldModule,
     FormsModule,
-    HttpClientModule,
+    MatIcon,
   ],
-  providers: [provideAnimations()],
-  templateUrl: './AddLocationFormPage.component.html',
-  styleUrl: './AddLocationFormPage.component.css',
 })
 export class AddLocationFormPageComponent {
   private apiUrl = environment.apiStockUrl;
@@ -68,8 +64,9 @@ export class AddLocationFormPageComponent {
     if (form.valid) {
       this.http
         .post(this.apiUrl + 'location/create', LocationData, {
-          headers,
+          headers: headers,
           responseType: 'text',
+          withCredentials: true,
         })
         .subscribe(
           () => {
@@ -86,7 +83,10 @@ export class AddLocationFormPageComponent {
             });
           },
           (error) => {
-            console.error(error.status);
+            if(error.status === 401) {
+              this.router.navigate(['/']);
+            }
+            throw error;
           },
         );
     }

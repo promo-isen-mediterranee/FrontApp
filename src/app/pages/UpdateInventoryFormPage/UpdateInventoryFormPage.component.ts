@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import { ButtonComponent } from '../../components/button/button.component';
 import { SelectComponent } from '../../components/select/select.component';
 import {
@@ -9,14 +9,21 @@ import {
 import { MatInput, MatInputModule, MatLabel } from '@angular/material/input';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { FormControl, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
-import { AsyncPipe, NgOptimizedImage } from "@angular/common";
+import {
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ItemStock } from "../../interfaces/ItemStock";
-import { Observable } from "rxjs";
-import { Location } from "../../interfaces/Location";
+import { ItemLocation } from '../../interfaces/ItemLocation';
+import { Observable } from 'rxjs';
+import { Location } from '../../interfaces/Location';
+import { MatIcon } from '@angular/material/icon';
+import { UserService } from '../../services/User.service';
 
 @Component({
   selector: 'app-update-inventory-form-page',
@@ -28,12 +35,14 @@ import { Location } from "../../interfaces/Location";
     MatInput,
     MatLabel,
     MatError,
+    MatIcon,
     MatSelect,
     MatOption,
     ReactiveFormsModule,
     AsyncPipe,
     FormsModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    MatIcon,
   ],
   providers: [MatFormFieldModule, MatInputModule, provideAnimations()],
   templateUrl: './UpdateInventoryFormPage.component.html',
@@ -41,7 +50,7 @@ import { Location } from "../../interfaces/Location";
 })
 export class UpdateInventoryFormPageComponent implements OnInit {
   public roomControl = new FormControl('', Validators.required);
-  selectedItem: ItemStock = {} as ItemStock;
+  selectedItem: ItemLocation = {} as ItemLocation;
 
   private apiUrl = environment.apiStockUrl;
   protected options: Location[] = [];
@@ -58,7 +67,9 @@ export class UpdateInventoryFormPageComponent implements OnInit {
   }
 
   getLocation(): Observable<any> {
-    return this.http.get<any>(this.apiUrl + 'location/getAll');
+    return this.http.get<any>(this.apiUrl + 'location/getAll', {
+      withCredentials: true,
+    });
   }
 
   ngOnInit() {
@@ -70,36 +81,61 @@ export class UpdateInventoryFormPageComponent implements OnInit {
           city: location.city,
           room: location.room,
         };
-        if(location.room != "") {
+        if (location.room != '') {
           this.options.push(option);
         }
       }
+    }, (error) => {
+      if(error.status === 401) {
+        this.router.navigate(['/'])
+      }
+      throw error;
     });
   }
 
   updateItem() {
+    if (
+      !this.selectedItem ||
+      !this.selectedItem.item_id ||
+      !this.selectedItem.location_id
+    ) {
+      console.error('Selected item is not properly defined');
+      return;
+    }
+
     const headers = new HttpHeaders().set(
       'Content-Type',
       'application/x-www-form-urlencoded',
     );
     const ItemData = new URLSearchParams();
-    ItemData.set('name', this.selectedItem?.item_id?.name ?? '');
-    ItemData.set('quantity', String(this.selectedItem?.quantity ?? 0));
-    ItemData.set('category', this.selectedItem?.item_id.category_id.label ?? '');
-    ItemData.set('location.id', String(this.selectedItem?.location_id.id ?? ''));
+    ItemData.set('name', this.selectedItem.item_id.name ?? '');
+    ItemData.set('quantity', String(this.selectedItem.quantity ?? 0));
+    ItemData.set('category', this.selectedItem.item_id.category_id.label ?? '');
+    ItemData.set('location.id', String(this.selectedItem.location_id.id ?? ''));
     this.http
-      .put( this.apiUrl + 'item/' + this.selectedItem.item_id.id + '/' + this.selectedItem.location_id.id , ItemData, {
-        headers,
-        responseType: 'text',
-      })
+      .put(
+        this.apiUrl +
+          'item/' +
+          this.selectedItem.item_id.id +
+          '/' +
+          this.selectedItem.location_id.id,
+        ItemData,
+        {
+          headers,
+          responseType: 'text',
+          withCredentials: true,
+        },
+      )
       .subscribe(
         () => {
           this.router.navigateByUrl('stock');
         },
         (error) => {
-          console.error(error.status);
+          if(error.status === 401) {
+            this.router.navigate(['/'])
+          }
+          throw error;
         },
       );
   }
-
 }

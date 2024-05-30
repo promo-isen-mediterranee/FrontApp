@@ -1,9 +1,5 @@
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpClientModule,
-} from '@angular/common/http';
-import { Component } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   MatError,
@@ -13,14 +9,17 @@ import {
 } from '@angular/material/form-field';
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { FormsModule, NgForm } from '@angular/forms';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
-import { ButtonComponent } from "../../../components/button/button.component";
-import { environment } from "../../../../environments/environment";
+import { ButtonComponent } from '../../../components/button/button.component';
+import { environment } from '../../../../environments/environment';
+import { MatIcon } from '@angular/material/icon';
 
+@Injectable({ providedIn: 'root' })
 @Component({
   selector: 'app-update-location-form-page',
   standalone: true,
+  templateUrl: './UpdateLocationFormPage.component.html',
+  styleUrl: './UpdateLocationFormPage.component.css',
   imports: [
     ButtonComponent,
     CommonModule,
@@ -30,14 +29,11 @@ import { environment } from "../../../../environments/environment";
     MatInputModule,
     MatLabel,
     MatFormFieldModule,
-    HttpClientModule,
     FormsModule,
+    MatIcon,
   ],
-  providers: [provideAnimations()],
-  templateUrl: './UpdateLocationFormPage.component.html',
-  styleUrl: './UpdateLocationFormPage.component.css',
 })
-export class UpdateLocationFormPageComponent {
+export class UpdateLocationFormPageComponent implements OnInit {
   selectedLocation: any = {};
   private apiUrl = environment.apiStockUrl;
   Location: string = '';
@@ -84,6 +80,7 @@ export class UpdateLocationFormPageComponent {
           {
             headers,
             responseType: 'text',
+            withCredentials: true,
           },
         )
         .subscribe(
@@ -101,7 +98,9 @@ export class UpdateLocationFormPageComponent {
             });
           },
           (error) => {
-            console.error(error.status);
+            if(error.status === 401) {
+              this.router.navigate(['/'])
+            }
           },
         );
     }

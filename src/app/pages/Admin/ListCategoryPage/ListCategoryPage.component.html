@@ -1,0 +1,37 @@
+<div [className]="'header'">
+  <a
+    href="/"
+    [className]="
+      ['w-100', 'left-align', 'color-black', 'mobile-view'].join(' ')
+    "
+  >
+    <mat-icon fontIcon="arrow_back" />
+  </a>
+  <div [className]="'header-container'">
+    <h2>Gestion des catégories</h2>
+  </div>
+</div>
+
+<div [className]="'container'">
+  <app-button
+    label="Ajouter une catégorie"
+    type="primary"
+    [css]="'mobile-mb-15'"
+    [solid]="true"
+    [onClickLink]="'/category/add'"
+    *ngIf="userService.hasPermission(10)"
+  />
+  <div *ngFor="let category of categories">
+    <div class="card">
+      <div class="details">
+        <span class="address">{{
+          category?.label ? (category.label | titlecase) : "Non renseigné"
+        }}</span>
+      </div>
+      <div class="icon-container">
+        <mat-icon class="icon" fontIcon="edit" *ngIf="userService.hasPermission(10)"></mat-icon>
+        <mat-icon class="icon" fontIcon="delete" *ngIf="userService.hasPermission(10)"></mat-icon>
+      </div>
+    </div>
+  </div>
+</div>

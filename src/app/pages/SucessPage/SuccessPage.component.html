@@ -1,5 +1,21 @@
+<div [className]="'header'">
+  <a
+    href="/"
+    [className]="
+      ['w-100', 'left-align', 'color-black', 'mobile-view'].join(' ')
+    "
+  >
+    <mat-icon fontIcon="arrow_back" />
+  </a>
+</div>
 <div [className]="'container h-100 align-center'">
-  <img ngSrc="assets/img/icons/ISEN-bulles.png" alt="ISEN bulles" priority width="188" height="196"/>
+  <img
+    ngSrc="assets/img/icons/ISEN-bulles.svg"
+    alt="ISEN bulles"
+    priority
+    width="188"
+    height="196"
+  />
 
   <b [className]="'text-center mb-25'">{{ text }}</b>
   <div [className]="'w-100'">

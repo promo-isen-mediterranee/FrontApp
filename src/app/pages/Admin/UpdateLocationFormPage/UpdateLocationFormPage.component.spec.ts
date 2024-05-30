@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UpdateLocationFormPageComponent } from './UpdateLocationFormPage.component';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('UpdateLocationFormPageComponent', () => {
   let component: UpdateLocationFormPageComponent;
@@ -10,7 +11,7 @@ describe('UpdateLocationFormPageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [UpdateLocationFormPageComponent],
-      providers: [provideAnimations()],
+      providers: [provideAnimations(), provideHttpClient()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(UpdateLocationFormPageComponent);

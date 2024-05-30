@@ -1,6 +1,11 @@
 <div [className]="'header'">
-  <a href="/" [className]="['w-100', 'left-align']">
-    <i class="fa-solid fa-arrow-left"></i>
+  <a
+    href="/"
+    [className]="
+      ['w-100', 'left-align', 'color-black', 'mobile-view'].join(' ')
+    "
+  >
+    <mat-icon fontIcon="arrow_back" />
   </a>
   <div [className]="'header-container'">
     <h2>Nouveau lieu</h2>

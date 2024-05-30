@@ -10,13 +10,13 @@ export interface SpecialCharactersMap {
 })
 export class RemoveSpecialCharactersPipe implements PipeTransform {
   private specialCharacters: SpecialCharactersMap = {
-    'à': 'a',
-    'ç': 'c',
-    'ê': 'e',
-    'é': 'e',
-    'è': 'e',
-    'ï': 'i',
-    'ô': 'o',
+    à: 'a',
+    ç: 'c',
+    ê: 'e',
+    é: 'e',
+    è: 'e',
+    ï: 'i',
+    ô: 'o',
     ' ': '-',
   };
 

@@ -1,0 +1,80 @@
+<div [className]="'header'">
+  <a
+    href="/"
+    [className]="
+      ['w-100', 'left-align', 'color-black', 'mobile-view'].join(' ')
+    "
+  >
+    <mat-icon fontIcon="arrow_back" />
+  </a>
+  <div [className]="'header-container'">
+    <h2>Mis à jour de l'utilisateur {{userToUpdate.user.first_name}} {{userToUpdate.user.last_name|uppercase }}</h2>
+  </div>
+</div>
+<div class="container">
+  <form (ngSubmit)="submitForm(updateUserForm)"
+        #updateUserForm="ngForm">
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Prénom</mat-label>
+      <input
+        matInput
+        placeholder="Antoine"
+        name="nameInput"
+        required
+        ([ngModel])="userToUpdate.user.first_name"
+      />
+      <mat-error>Le prénom ne doit pas être vide</mat-error>
+    </mat-form-field>
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Nom</mat-label>
+      <input
+        matInput
+        placeholder="Dupont"
+        name="surnameInput"
+        ([ngModel])="userToUpdate.user.last_name"
+        required
+      />
+      <mat-error>Le nom ne doit pas être vide</mat-error>
+    </mat-form-field>
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Nom d'utilisateur</mat-label>
+      <input
+        matInput
+        placeholder="antoine.dupont"
+        name="usernameInput"
+        ([ngModel])="userToUpdate.user.username"
+        required
+      />
+      <mat-error>Le nom d'utilisateur ne doit pas être vide</mat-error>
+    </mat-form-field>
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Rôle</mat-label>
+      <mat-select [(value)]="roleSelector" required multiple>
+        @for (role of roles; track role) {
+          <mat-option value="{{ role.id }}">{{ role.label }}</mat-option>
+        }
+      </mat-select>
+      <mat-error>Le rôle ne peut être vide</mat-error>
+    </mat-form-field>
+    <mat-form-field [className]="'form-group'">
+      <mat-label>Email</mat-label>
+      <input
+        type="email"
+        matInput
+        placeholder="antoine.dupont@isen.fr"
+        name="emailInput"
+        ([ngModel])="userToUpdate.user.mail"
+        required
+      />
+      <mat-error>L'adresse mail ne peut être vide</mat-error>
+    </mat-form-field>
+  </form>
+  <div id="actionButtons">
+    <app-button
+      [solid]="true"
+      [type]="'primary'"
+      label="Modifier l'utilisateur"
+      id="submit"
+    />
+  </div>
+</div>

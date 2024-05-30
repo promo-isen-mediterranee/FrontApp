@@ -38,6 +38,8 @@ const preview: Preview = {
     layout: 'centered',
     viewport: { viewports: customViewports },
   },
+
+  tags: ['autodocs']
 };
 
 export default preview;

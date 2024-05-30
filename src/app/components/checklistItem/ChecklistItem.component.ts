@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { LowerCasePipe, NgForOf } from '@angular/common';
 import { RemoveSpecialCharactersPipe } from '../../pipes/removeSpecialCharacters.pipe';
 import { ButtonComponent } from '../button/button.component';
-import { ReservedItem } from "../../interfaces/ReservedItem";
+import { ReservedItem } from '../../interfaces/ReservedItem';
 
 @Component({
   selector: 'app-checklist-item',
@@ -24,8 +24,9 @@ export class ChecklistItemComponent {
     item.status = !item.status;
     document
       .getElementById(
-        new RemoveSpecialCharactersPipe().transform(item.item_location.item_id.name).toLowerCase() +
-          '_div',
+        new RemoveSpecialCharactersPipe()
+          .transform(item.item_location.item_id.name)
+          .toLowerCase() + '_div',
       )
       ?.setAttribute('checked', item.status.toString());
   }
